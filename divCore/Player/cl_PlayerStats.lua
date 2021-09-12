@@ -16,20 +16,11 @@ PlayerInfo = {
 
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
-    print('data received')
-    print(tostring(PlayerInfo.uid))
+    TriggerEvent('core.notify', "simple", {text = "Client Synced.\nWelcome ["..PlayerInfo.uid.."]"..PlayerInfo.name.."!", colID = 123})
 end)
 
 AddEventHandler("playerSpawned", function(spawnInfo)
     Citizen.CreateThread(function()
-        --[[RequestModel('mp_m_freemode_01')
-        while not HasModelLoaded('mp_m_freemode_01') do
-            RequestModel('mp_m_freemode_01')
-            Wait(0)
-        end
-        SetPlayerModel(PlayerId(), 'mp_m_freemode_01')
-        SetModelAsNoLongerNeeded('mp_m_freemode_01')
-        SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 21, 0, 0, 1.0, 1.0, 0.0, false)]]
         setPlayerCharacter(PlayerInfo.ped)
     end)
 end)

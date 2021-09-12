@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'CritteR / CritteRo'
-description 'Core resource for FiveDivision'
+description 'Core resource for FiveDivision. https://forum.cfx.re/u/critter/summary'
 
 --version 'vanilla_01'
 
@@ -12,12 +12,14 @@ description 'Core resource for FiveDivision'
     'critScaleforms',
     'critLobby',
     'oxmysql',
+    'XNLRankBar',
 }]]
 
 client_scripts {
     'Player/cl_PlayerStats.lua',
     'Player/cl_PlayerCharacter.lua',
     'World/cl_ambiance.lua',
+    'UI/cl_uiEvents.lua',
 }
 
 server_scripts {
