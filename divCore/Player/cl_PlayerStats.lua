@@ -16,6 +16,7 @@ PlayerInfo = {
 
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
+    updateStatsUI(true, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))
     TriggerEvent('core.notify', "simple", {text = "Client Synced.\nWelcome ["..PlayerInfo.uid.."]"..PlayerInfo.name.."!", colID = 123})
 end)
 

@@ -29,3 +29,4 @@ server_scripts {
 }
 
 shared_script "Locales/sh_locales.lua"
+shared_script "Player/sh_PlayerCharacter_allCosmetics.lua"

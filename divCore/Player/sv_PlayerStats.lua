@@ -1,3 +1,5 @@
+RegisterNetEvent('core.PlayerIsChangingClothes')
+
 PlayerInfo = {
     [0] = {
         uid = 0,
@@ -25,5 +27,43 @@ RegisterCommand("setcomp", function(source, args)
             txid = tonumber(args[3])
         }
         TriggerClientEvent('char.ForceCharacterComponent', src, _comp)
+    end
+end)
+
+
+function updateClothesInDatabase(src, uid)
+    if GetPlayerPing(src) ~= 0 then
+        if PlayerInfo[src] ~= nil and PlayerInfo[src].clothes ~= nil and PlayerInfo[src].ped then
+            exports.oxmysql:execute("INSERT INTO users (clothes, ped) VALUES(?, ?) WHERE `uid` = ?",{json.encode(PlayerInfo[src].clothes), json.encode(PlayerInfo[src].ped), uid}, function(affectedRows)
+                if affectedRows >= 1 then
+                    print('Clothes and ped saved for ['..src..']'..GetPlayerName(src)..'')
+                end
+            end)
+        end
+    end
+end
+
+function updateStatsInDatabase(src, uid)
+    if GetPlayerPing(src) ~= 0 then
+        if PlayerInfo[src] ~= nil and PlayerInfo[src].stats ~= nil then
+            exports.oxmysql:execute("INSERT INTO users (stats) VALUES(?) WHERE `uid` = ?",{json.encode(PlayerInfo[src].stats), uid}, function(affectedRows)
+                if affectedRows >= 1 then
+                    print('Stats saved for ['..src..']'..GetPlayerName(src)..'')
+                end
+            end)
+        end
+    end
+end
+
+AddEventHandler('core.PlayerIsChangingClothes', function(data)
+    local src = source
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].clothes ~= nil then
+        print('looking through clothes inventory')
+        for i,k in pairs(PlayerInfo[src].clothes) do
+            if k == data.id then
+                print('found it!')
+                break
+            end
+        end
     end
 end)

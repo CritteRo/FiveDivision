@@ -75,6 +75,7 @@ function setPlayerSpecificComponent(compid, directory, texture)
     if compid ~= nil and directory ~= nil and texture ~= nil then
         if compid <= 11 then
             SetPedComponentVariation(PlayerPedId(), compid, directory, texture, 1)
+            TriggerServerEvent('core.PlayerIsChangingClothes', {id = "comp"..compid, dr = directory, tx = texture})
         else
             SetPedPropIndex(PlayerPedId(), compid -12, directory, texture, 1)
         end
@@ -91,3 +92,4 @@ AddEventHandler("char.ForceCharacterComponent", function(_comp)
         alert("nil found in Component Force")
     end
 end)
+
