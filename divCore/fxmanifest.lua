@@ -16,6 +16,7 @@ description 'Core resource for FiveDivision'
 
 client_scripts {
     'Player/cl_PlayerStats.lua',
+    'Player/cl_PlayerCharacter.lua',
     'World/cl_ambiance.lua',
 }
 

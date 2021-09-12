@@ -17,32 +17,20 @@ PlayerInfo = {
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
     print('data received')
-    print(tostring(PlayerInfo.license))
-end)
-
-RegisterNetEvent('char.ForceCharacterComponent')
-AddEventHandler("char.ForceCharacterComponent", function(_comp)
-    if _comp.id ~= nil and _comp.drid ~= nil and _comp.txid ~= nil then
-        if _comp.id <= 11 then
-            SetPedComponentVariation(PlayerPedId(), _comp.id, _comp.drid, _comp.txid, 1)
-        else
-            SetPedPropIndex(PlayerPedId(), _comp.id - 12, _comp.drid, _comp.txid, 1)
-        end
-    else
-        alert("nil found in Component Force")
-    end
+    print(tostring(PlayerInfo.uid))
 end)
 
 AddEventHandler("playerSpawned", function(spawnInfo)
     Citizen.CreateThread(function()
-        RequestModel('mp_m_freemode_01')
+        --[[RequestModel('mp_m_freemode_01')
         while not HasModelLoaded('mp_m_freemode_01') do
             RequestModel('mp_m_freemode_01')
             Wait(0)
         end
         SetPlayerModel(PlayerId(), 'mp_m_freemode_01')
         SetModelAsNoLongerNeeded('mp_m_freemode_01')
-        SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 21, 0, 0, 1.0, 1.0, 0.0, false)
+        SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 21, 0, 0, 1.0, 1.0, 0.0, false)]]
+        setPlayerCharacter(PlayerInfo.ped)
     end)
 end)
 

@@ -68,10 +68,25 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
                 ---------
             else --daca nu exista cont cu numele asta
                 local send = 0
-                deferrals.done()
                 exports.oxmysql:fetch("INSERT INTO users (name, stats, weapons, clothes, ped, license) VALUES(?, ?, ?, ?, ?, ?)",
                             {name, json.encode(defaultStats), json.encode(defaultWeapons), json.encode(defaultClothes), json.encode(defaultChar), license},
                             function (result)
+                                tempData[tonumber(player)] = {
+                                    uid = result[1].uid,
+                                    name = result[1].name,
+                                    bantime = result[1].bantime,
+                                    mutetime = result[1].mutetime,
+                                    stats = json.decode(result[1].stats),
+                                    weapons = json.decode(result[1].weapons),
+                                    clothes = json.decode(result[1].clothes),
+                                    ped = json.decode(result[1].ped),
+                                    lang = result[1].lang,
+                                    admin = result[1].admin,
+                                    license = result[1].license,
+                                    activity = 0,
+                                    group = 0,
+                                }
+                                deferrals.done()
                             end)
             end
         end)
@@ -92,6 +107,7 @@ defaultStats = {
     ['cash'] = 1000,
     ['bank'] = 0,
     ['coins'] = 0,
+    ['firstLogin'] = 1,
 }
 
 defaultChar = {

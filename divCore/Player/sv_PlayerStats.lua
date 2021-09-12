@@ -27,6 +27,3 @@ RegisterCommand("setcomp", function(source, args)
         TriggerClientEvent('char.ForceCharacterComponent', src, _comp)
     end
 end)
-
-RegisterCommand('player_sv', function(source, args)
-end)
