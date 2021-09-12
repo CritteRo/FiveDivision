@@ -1,4 +1,5 @@
 RegisterNetEvent('core.PlayerIsChangingClothes')
+RegisterNetEvent('baseevents:onPlayerDied')
 
 PlayerInfo = {
     [0] = {
@@ -66,4 +67,13 @@ AddEventHandler('core.PlayerIsChangingClothes', function(data)
             end
         end
     end
+end)
+
+AddEventHandler("baseevents:onPlayerDied", function(killedBy, pos)
+    local victim = source
+        local message = ""
+        local wTime = 5
+        print(string.format("%s died.", GetPlayerName(victim)))
+        TriggerClientEvent("core.banner", victim, "WASTED", message, wTime)
+        TriggerClientEvent("core.respawn", victim)
 end)
