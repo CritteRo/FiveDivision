@@ -71,22 +71,37 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
                 exports.oxmysql:fetch("INSERT INTO users (name, stats, weapons, clothes, ped, license) VALUES(?, ?, ?, ?, ?, ?)",
                             {name, json.encode(defaultStats), json.encode(defaultWeapons), json.encode(defaultClothes), json.encode(defaultChar), license},
                             function (result)
-                                tempData[tonumber(player)] = {
-                                    uid = result[1].uid,
-                                    name = result[1].name,
-                                    bantime = result[1].bantime,
-                                    mutetime = result[1].mutetime,
-                                    stats = json.decode(result[1].stats),
-                                    weapons = json.decode(result[1].weapons),
-                                    clothes = json.decode(result[1].clothes),
-                                    ped = json.decode(result[1].ped),
-                                    lang = result[1].lang,
-                                    admin = result[1].admin,
-                                    license = result[1].license,
-                                    activity = 0,
-                                    group = 0,
-                                }
-                                deferrals.done()
+                                exports.oxmysql:fetch("SELECT * FROM `users` WHERE `name` = ?",{name},function (result)
+                                    if result[1].license == license then
+                                        if result[1].bantime == 0 then
+                                            print(string.format("Signed in with %s", tostring(license)))
+                                            tempData[tonumber(player)] = {
+                                                uid = result[1].uid,
+                                                name = result[1].name,
+                                                bantime = result[1].bantime,
+                                                mutetime = result[1].mutetime,
+                                                stats = json.decode(result[1].stats),
+                                                weapons = json.decode(result[1].weapons),
+                                                clothes = json.decode(result[1].clothes),
+                                                ped = json.decode(result[1].ped),
+                                                lang = result[1].lang,
+                                                admin = result[1].admin,
+                                                license = result[1].license,
+                                                activity = 0,
+                                                group = 0,
+                                            }
+                                            deferrals.done()
+                                        else
+                                            if result[1].bantime == -1 then
+                                                deferrals.done(deferralsText['all_checkBan_permanent'])
+                                            elseif result[1].bantime > 0 then
+                                                deferrals.done(string.format(deferralsText['all_checkBan_temp'], tonumber(result[1].bantime)))
+                                            end
+                                        end
+                                    else
+                                        deferrals.done(deferralsText['all_invalidLicense'])
+                                    end
+                                end)
                             end)
             end
         end)
