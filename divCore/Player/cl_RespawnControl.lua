@@ -11,7 +11,7 @@ PlayerCheckpoint = {model = "mp_m_freemode_01", x = -93.934928894043, y = -851.3
 RegisterNetEvent("core.respawn")
 AddEventHandler("core.respawn", function(firstSpawn)
     Citizen.CreateThread(function()
-        if firstSpawn ~= nil then
+        if not firstSpawn then
             SetTimecycleModifier("dying")
             PlaySoundFrontend(-1, "Bed", "WastedSounds", false)
             Citizen.Wait(3000)
@@ -19,10 +19,15 @@ AddEventHandler("core.respawn", function(firstSpawn)
             while not IsScreenFadedOut() do
                 Citizen.Wait(100)
             end
+        else
+            DoScreenFadeOut(1)
+            while not IsScreenFadedOut() do
+                Citizen.Wait(0)
+            end
         end
         exports.spawnmanager:forceRespawn()
         exports.spawnmanager:spawnPlayer(PlayerCheckpoint)
-        --ClearTimecycleModifier()
+        ClearTimecycleModifier()
         DoScreenFadeIn(1000)
     end)
 end)
