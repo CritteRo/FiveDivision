@@ -67,11 +67,11 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
         deferrals.done(deferralsText['all_invalidLicense'])
     else
         deferrals.update(deferralsText['all_findAccount'])
-        exports.oxmysql:fetch("SELECT COUNT(uid) AS idcount FROM users WHERE `name` = :UserName", {UserName = "test"}, function(result) --numara conturile cu numele asta
+        exports.oxmysql:fetch("SELECT COUNT(uid) AS idcount FROM users WHERE `name` = ?", {name}, function(result) --numara conturile cu numele asta
             if result[1]['idcount'] == 1 then --daca exista steamid => exista un cont cu numele ala
                 local send = 1
                 ---------
-                exports.oxmysql:fetch("SELECT * FROM `users` WHERE `name` = :UserName",{UserName = "test"},function (result)
+                exports.oxmysql:fetch("SELECT * FROM `users` WHERE `name` = ?",{name},function (result)
                     if result[1].license == license then
                         if result[1].bantime == 0 then
                             print(string.format("Logged in with %s", tostring(license)))
@@ -91,8 +91,9 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
                 ---------
             else --daca nu exista cont cu numele asta
                 local send = 0
-                exports.oxmysql:fetch("INSERT INTO users (name, stats, weapons, clothes, char, license) VALUES(:UserName, :stats, :weapons, :clothes, :char, :UserLicense)",
-                            {UserName = name, UserLicense = licence, stats = json.encode(defaultStats), weapons = json.encode(defaultWeapons), clothes = json.encode(defaultClothes), char = json.encode(defaultChar)},
+                deferrals.done()
+                exports.oxmysql:fetch("INSERT INTO users (name, stats, weapons, clothes, ped, license) VALUES(?, ?, ?, ?, ?, ?)",
+                            {name, json.encode(defaultStats), json.encode(defaultWeapons), json.encode(defaultClothes), json.encode(defaultChar), license},
                             function (result)
                             end)
             end
