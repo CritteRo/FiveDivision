@@ -7,10 +7,12 @@ PlayerInfo = {
         stats = {},
         weapons = {},
         clothes = {},
-        char = {},
+        ped = {},
         lang = 'en',
         admin = 0,
         license = "license:99999999999999999",
+        activity = 0,
+        group = 0,
     }
 }
 

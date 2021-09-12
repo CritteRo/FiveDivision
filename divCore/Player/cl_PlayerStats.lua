@@ -1,18 +1,24 @@
+RegisterNetEvent('core.GetInitialStats')
+
 PlayerInfo = {
-    [0] = {
-        uid = 0,
-        name = "console",
-        bantime = 0,
-        mutetime = 0,
-        stats = {},
-        weapons = {},
-        clothes = {},
-        char = {},
-        lang = 'en',
-        admin = 0,
-        license = "license:99999999999999999",
-    }
+    uid = 0,
+    name = "console",
+    bantime = 0,
+    mutetime = 0,
+    stats = {},
+    weapons = {},
+    clothes = {},
+    ped = {},
+    lang = 'en',
+    admin = 0,
+    license = "license:99999999999999999",
 }
+
+AddEventHandler('core.GetInitialStats', function(_info)
+    PlayerInfo = _info
+    print('data received')
+    print(tostring(PlayerInfo.license))
+end)
 
 RegisterNetEvent('char.ForceCharacterComponent')
 AddEventHandler("char.ForceCharacterComponent", function(_comp)
@@ -36,6 +42,7 @@ AddEventHandler("playerSpawned", function(spawnInfo)
         end
         SetPlayerModel(PlayerId(), 'mp_m_freemode_01')
         SetModelAsNoLongerNeeded('mp_m_freemode_01')
+        SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 21, 0, 0, 1.0, 1.0, 0.0, false)
     end)
 end)
 
