@@ -191,3 +191,20 @@ function notifyex(_img, _title, _subtitle, _icontype, _message, _colID)
         EndTextCommandThefeedPostTicker(true, true)
     end)
 end
+
+function ShowBanner(_text1, _text2)
+    local scaleform = RequestScaleformMovie("mp_big_message_freemode")
+    while not HasScaleformMovieLoaded(scaleform) do
+        Citizen.Wait(1)
+    end
+
+    BeginScaleformMovieMethod(scaleform, "SHOW_SHARD_CENTERED_MP_MESSAGE")
+    EndScaleformMovieMethod()
+
+    BeginScaleformMovieMethod(scaleform, "SHARD_SET_TEXT")
+    PushScaleformMovieMethodParameterString(_text1)
+    PushScaleformMovieMethodParameterString(_text2)
+    PushScaleformMovieMethodParameterInt(0)
+    EndScaleformMovieMethod()
+    return scaleform
+end
