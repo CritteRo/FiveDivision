@@ -1,0 +1,12 @@
+AddEventHandler('weather.SetSnowWeather', function()
+    Citizen.Wait(5000)
+    ClearOverrideWeather()
+    ClearWeatherTypePersist()
+    SetWeatherTypePersist("XMAS")
+    SetWeatherTypeNow("XMAS")
+    SetWeatherTypeNowPersist("XMAS")
+    SetForceVehicleTrails(true)
+    SetForcePedFootstepsTracks(true)
+end)
+
+TriggerEvent('weather.SetSnowWeather')
