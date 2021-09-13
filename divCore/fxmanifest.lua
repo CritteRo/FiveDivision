@@ -26,12 +26,15 @@ client_scripts {
     'World/cl_interiors.lua',
     'UI/cl_uiEvents.lua',
     'UI/cl_playerlist.lua',
+    'UI/Phone/cl_phone_menu.lua',
+    'UI/Phone/cl_phone_handle.lua',
 }
 
 server_scripts {
     'Connection/sv_login_register.lua',
     'Player/sv_PlayerStats.lua',
     'UI/sv_playerlist.lua',
+    'UI/Phone/sv_phone_handle.lua',
     'World/sv_ambiance.lua',
 }
 
