@@ -1,5 +1,6 @@
 RegisterNetEvent('core.PlayerIsChangingClothes')
 RegisterNetEvent('core.UpdatePlayerClothesVariations')
+RegisterNetEvent('core.SetPlayerCosmeticItem')
 RegisterNetEvent('baseevents:onPlayerDied')
 
 PlayerInfo = {
@@ -61,6 +62,23 @@ AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, co
     PlayerInfo[src].ped['comp4'][2] = comp4
     updateClothesInDatabase(src, PlayerInfo[src].uid)
     TriggerClientEvent('core.UpdatePlayerPed', src, PlayerInfo[src].ped)
+end)
+
+AddEventHandler('core.SetPlayerCosmeticItem', function(_id)
+    local src = source
+    if tonumber(_id) ~= nil then
+        for i,k in pairs(PlayerInfo[src].clothes) do
+            if k == tonumber(_id) then
+                for i,k in pairs(cosmeticClothes[PlayerInfo[src].ped['model']][k]) do
+                    PlayerInfo[src].ped[k[1]] = {k[2], 0}
+                end
+                updateClothesInDatabase(src, PlayerInfo[src].uid)
+                TriggerClientEvent('core.UpdatePlayerPed', src, PlayerInfo[src].ped)
+                TriggerClientEvent('core.notify', src, "simple", {text = "Item ~y~"..cosmeticClothes[PlayerInfo[src].ped['model']][k][1][3].."~s~ equipped successfully."})
+                break
+            end
+        end
+    end
 end)
 
 

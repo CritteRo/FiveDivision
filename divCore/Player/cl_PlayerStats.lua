@@ -1,4 +1,5 @@
 RegisterNetEvent('core.GetInitialStats')
+RegisterNetEvent('core.UpdatePlayerPed')
 
 PlayerInfo = {
     uid = 0,

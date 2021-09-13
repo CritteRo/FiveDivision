@@ -1,11 +1,12 @@
-coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
+coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, --[[titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}]]}
 comp11Index = 1
 comp8Index = 1
 comp4Index = 1
 comp6Index = 1
 
-WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Cosmetics Menu")
-AddEventHandler('core.ui.ShowClothesMenu', function()
+WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Variations Menu")
+WarMenu.CreateMenu('core.ClothesMenu2', 'Cosmetics', "Wardrobe Menu")
+AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     if WarMenu.IsAnyMenuOpened() then
         notify("Can't open another menu!")
         return
@@ -83,6 +84,34 @@ AddEventHandler('core.ui.ShowClothesMenu', function()
     end
 end)
 
+AddEventHandler('core.ui.ShowWardrobeMenu', function()
+    if WarMenu.IsAnyMenuOpened() then
+        notify("Can't open another menu!")
+        return
+    end
+    WarMenu.OpenMenu('core.ClothesMenu2')
+
+    while true do
+        if WarMenu.Begin('core.ClothesMenu2') then
+            for i,k in pairs(PlayerInfo.clothes) do
+                WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
+                if WarMenu.IsItemSelected() then
+                    TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                end
+            end
+            WarMenu.End()
+        else
+            return
+        end
+        Citizen.Wait(0)
+    end
+end)
+
+
 RegisterCommand('variations', function()
-    TriggerEvent('core.ui.ShowClothesMenu')
+    TriggerEvent('core.ui.ShowClothesVariationsMenu')
+end)
+
+RegisterCommand('wardrobe', function()
+    TriggerEvent('core.ui.ShowWardrobeMenu')
 end)

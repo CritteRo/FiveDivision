@@ -148,7 +148,7 @@ defaultChar = {
     ['prop7'] = {-1,0},
 }
 
-defaultClothes = {} --this will be empty at first, but it will contain all player cosmetics ids. ex: {4,5,76,2,567}
+defaultClothes = {1,2,3,4} --Contains default cosmetics ids.
 
 defaultWeapons = {
     ['pistol'] = {
