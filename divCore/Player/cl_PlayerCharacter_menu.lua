@@ -1,11 +1,10 @@
-coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, --[[titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}]]}
+coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
 comp11Index = 1
 comp8Index = 1
 comp4Index = 1
 comp6Index = 1
 
-WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Variations Menu")
-WarMenu.CreateMenu('core.ClothesMenu2', 'Cosmetics', "Wardrobe Menu")
+WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Variations Menu", coreMenuStyle)
 AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     if WarMenu.IsAnyMenuOpened() then
         notify("Can't open another menu!")
@@ -46,7 +45,7 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
         if WarMenu.Begin('core.ClothesMenu') then
             --WarMenu.SetMenuTitle('core.ClothesMenu', tostring(stats.Name))
             --WarMenu.SetMenuSubTitle('core.ClothesMenu', string.format(locStats[stats.lang].subtitle, GetPlayerServerId(PlayerId()), tostring(stats.Name)))
-            WarMenu.SetMenuStyle('core.ClothesMenu', coreMenuStyle)
+            --WarMenu.SetMenuStyle('core.ClothesMenu', coreMenuStyle)
             
             local _, _comp11Index = WarMenu.ComboBox('Shirt', comp11Variations, comp11Index)
             if _comp11Index ~= comp11Index then
@@ -84,6 +83,11 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     end
 end)
 
+WarMenu.CreateMenu('core.ClothesMenu2', 'Cosmetics', "Wardrobe Menu", coreMenuStyle)
+WarMenu.CreateSubMenu('core.ClothesMenu2_tops', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
+WarMenu.CreateSubMenu('core.ClothesMenu2_pants', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
+WarMenu.CreateSubMenu('core.ClothesMenu2_shoes', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
+WarMenu.CreateSubMenu('core.ClothesMenu2_hair', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
 AddEventHandler('core.ui.ShowWardrobeMenu', function()
     if WarMenu.IsAnyMenuOpened() then
         notify("Can't open another menu!")
@@ -93,10 +97,48 @@ AddEventHandler('core.ui.ShowWardrobeMenu', function()
 
     while true do
         if WarMenu.Begin('core.ClothesMenu2') then
+            WarMenu.MenuButton("Hair Styles", 'core.ClothesMenu2_hair')
+            WarMenu.MenuButton("Tops", 'core.ClothesMenu2_tops')
+            WarMenu.MenuButton("Pants", 'core.ClothesMenu2_pants')
+            WarMenu.MenuButton("Shoes", 'core.ClothesMenu2_shoes')
+            WarMenu.End()
+        elseif WarMenu.Begin('core.ClothesMenu2_tops') then ---tops
             for i,k in pairs(PlayerInfo.clothes) do
-                WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
-                if WarMenu.IsItemSelected() then
-                    TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                if cosmeticClothes[PlayerInfo.ped['model']][k][1][1] == "comp3" then
+                    WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
+                    if WarMenu.IsItemSelected() then
+                        TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                    end
+                end
+            end
+            WarMenu.End()
+        elseif WarMenu.Begin('core.ClothesMenu2_shoes') then --shoes
+            for i,k in pairs(PlayerInfo.clothes) do
+                if cosmeticClothes[PlayerInfo.ped['model']][k][1][1] == "comp6" then
+                    WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
+                    if WarMenu.IsItemSelected() then
+                        TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                    end
+                end
+            end
+            WarMenu.End()
+        elseif WarMenu.Begin('core.ClothesMenu2_pants') then --pants
+            for i,k in pairs(PlayerInfo.clothes) do
+                if cosmeticClothes[PlayerInfo.ped['model']][k][1][1] == "comp4" then
+                    WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
+                    if WarMenu.IsItemSelected() then
+                        TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                    end
+                end
+            end
+            WarMenu.End()
+        elseif WarMenu.Begin('core.ClothesMenu2_hair') then --hair
+            for i,k in pairs(PlayerInfo.clothes) do
+                if cosmeticClothes[PlayerInfo.ped['model']][k][1][1] == "comp2" then
+                    WarMenu.Button(tostring(cosmeticClothes[PlayerInfo.ped['model']][k][1][3]))
+                    if WarMenu.IsItemSelected() then
+                        TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                    end
                 end
             end
             WarMenu.End()
