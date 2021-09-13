@@ -1,7 +1,15 @@
 interiors = {
-    [1] = {name = "FIB Safezone", x1 = 136.127, y1 = -761.478, z1 = 45.752, x2 = 136.034, y2 = -761.646, z2 = 242.152},
+    [1] = {name = "FIB Safezone", x1 = 136.127, y1 = -761.478, z1 = 45.752, x2 = 136.034, y2 = -761.646, z2 = 242.152, blip = 40, blipColor = 0},
     --[2] = {name = "Downtown Contruction Site", x1 = -180.98, y1 = -1016.64, z1 = 29.28, x2 = -154.901, y2 = -943.57, z2 = 269.14},
 }
+
+interiorBlips = {}
+
+Citizen.CreateThread(function()
+    for i,k in pairs(interiors) do
+        interiorBlips[i] = createBlip(k.name, k.blip, k.x1, k.y1, k.z1, k.blipColor)
+    end
+end)
 
 Citizen.CreateThread(function()
     while true do
@@ -43,3 +51,17 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
     end
 end)
+
+function createBlip(name, blip, x, y, z, color)
+    local _blip = AddBlipForCoord(x, y, z)
+    SetBlipSprite(_blip, blip)
+    SetBlipDisplay(_blip, 4)
+    SetBlipScale(_blip, 0.9)
+    SetBlipColour(_blip, color)
+    SetBlipAsShortRange(_blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(name)
+    EndTextCommandSetBlipName(_blip)
+
+    return _blip
+end
