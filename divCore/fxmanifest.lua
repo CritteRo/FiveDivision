@@ -16,8 +16,10 @@ description 'Core resource for FiveDivision. https://forum.cfx.re/u/critter/summ
 }]]
 
 client_scripts {
+    '@warmenu/warmenu.lua',
     'Player/cl_PlayerStats.lua',
     'Player/cl_PlayerCharacter.lua',
+    'Player/cl_PlayerCharacter_menu.lua',
     'Player/cl_RespawnControl.lua',
     'World/cl_ambiance.lua',
     'World/cl_interiors.lua',

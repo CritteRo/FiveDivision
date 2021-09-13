@@ -1,4 +1,5 @@
 RegisterNetEvent('core.PlayerIsChangingClothes')
+RegisterNetEvent('core.UpdatePlayerClothesVariations')
 RegisterNetEvent('baseevents:onPlayerDied')
 
 PlayerInfo = {
@@ -50,6 +51,16 @@ RegisterCommand('giveclothes', function(source, args)
         TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
         updateClothesInDatabase(src, PlayerInfo[src].uid)
     end
+end)
+
+AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp6, comp4)
+    local src = source
+    PlayerInfo[src].ped['comp11'][2] = comp11
+    PlayerInfo[src].ped['comp8'][2] = comp8
+    PlayerInfo[src].ped['comp6'][2] = comp6
+    PlayerInfo[src].ped['comp4'][2] = comp4
+    updateClothesInDatabase(src, PlayerInfo[src].uid)
+    TriggerClientEvent('core.UpdatePlayerPed', src, PlayerInfo[src].ped)
 end)
 
 

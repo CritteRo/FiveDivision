@@ -21,6 +21,11 @@ AddEventHandler('core.GetInitialStats', function(_info)
     TriggerEvent('core.respawn', true)
 end)
 
+AddEventHandler('core.UpdatePlayerPed', function(data)
+    PlayerInfo.ped = data
+    setPlayerClothes(PlayerInfo.ped)
+end)
+
 AddEventHandler("playerSpawned", function(spawnInfo)
     Citizen.CreateThread(function()
         setPlayerCharacter(PlayerInfo.ped)
