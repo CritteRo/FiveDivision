@@ -147,6 +147,12 @@ function caption(text, ms)
     EndTextCommandPrint(ms, 1)
 end
 
+function alert(text)
+    SetTextComponentFormat("STRING")
+    AddTextComponentString(text)
+    DisplayHelpTextFromStringLabel(0,0,1,-1)
+end
+
 function notifyex_ped(_title,_subtitle, _icontype, _message, _colID)
     Citizen.CreateThread(function()
         -- Get the ped headshot image.

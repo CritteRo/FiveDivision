@@ -8,3 +8,10 @@ deferralsText = {
     ['all_checkBan_permanent'] = "You are permanently banned on this server.",
     ['all_checkBan_temp'] = "Account is temporarely banned: %i days left.",
 }
+
+inputAlerts = {
+    ['en'] = {
+        enterSafehouse = "~INPUT_ENTER~ Enter Safehouse.",
+        exitSafehouse = "~INPUT_ENTER~ Exit Safehouse.",
+    },
+}
