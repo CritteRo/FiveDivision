@@ -1,5 +1,5 @@
 -- We only save the texture directories for clothes. The are so many combinations only in the base game, that making individual items for every texture will be a nightmare.
--- The player will be able to change the texture, for a price. 
+-- The player will be able to change the texture, for a price, maybe. 
 
 
 cosmeticClothes = {
@@ -31,7 +31,31 @@ cosmeticClothes = {
         },
         [8] = {
             {'comp2', 0, "Bald / No hairstyle"},
-        }
+        },
+        [9] = {
+            {'comp2', 2, "Raised hair Hairstyle"},
+        },
+        [10] = {
+            {'comp2', 3, "'Fresh Cut' Hairstyle"},
+        },
+        [11] = {
+            {'comp2', 4, "'Middle Management' Hairstyle"},
+        },
+        [12] = {
+            {'comp2', 5, "'Upper Management' Hairstyle"},
+        },
+        [13] = {
+            {'comp2', 6, "'Punk 1' Hairstyle"},
+        },
+        [14] = {
+            {'comp2', 7, "'Suburb 1' Hairstyle"},
+        },
+        [15] = {
+            {'comp2', 8, "Rasta Hairstyle"},
+        },
+        [16] = {
+            {'comp2', 9, "'Vespucci Hobo' Hairstyle"},
+        },
     },
     ['mp_f_freemode_01'] = { ---FEMALE CLOTHES-----------------------------------------------------------------------
         [1] = {
