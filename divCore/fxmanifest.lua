@@ -11,6 +11,7 @@ description 'Core resource for FiveDivision. https://forum.cfx.re/u/critter/summ
     'scalePhone',
     'critScaleforms',
     'critLobby',
+    'critPlayerlist',
     'oxmysql',
     'XNLRankBar',
 }]]
@@ -24,11 +25,13 @@ client_scripts {
     'World/cl_ambiance.lua',
     'World/cl_interiors.lua',
     'UI/cl_uiEvents.lua',
+    'UI/cl_playerlist.lua',
 }
 
 server_scripts {
     'Connection/sv_login_register.lua',
     'Player/sv_PlayerStats.lua',
+    'UI/sv_playerlist.lua',
     'World/sv_ambiance.lua',
 }
 

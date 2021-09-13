@@ -114,6 +114,8 @@ AddEventHandler('playerJoining', function(oldID)
     local src = source
     PlayerInfo[src] = tempData[tonumber(oldID)]
     TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+    TriggerEvent('core.GatherPlayersForScoreboard')
+    tempData[tonumber(oldID)] = nil
 end)
 
 defaultStats = {

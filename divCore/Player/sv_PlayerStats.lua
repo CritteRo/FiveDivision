@@ -127,3 +127,17 @@ AddEventHandler("baseevents:onPlayerDied", function(killedBy, pos)
         TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
         TriggerClientEvent("core.respawn", victim)
 end)
+
+AddEventHandler('playerDropped', function(reason)
+    local src = source
+    local name = GetPlayerName(src)
+    local _time = {
+        h = tonumber(os.date("%H")),
+        m = tonumber(os.date("%M")),
+    }
+    print("[".._time.h..":".._time.m.."]"..name.." dropped ("..reason..").")
+    Citizen.CreateThread(function()
+        Citizen.Wait(1000)
+        TriggerEvent('core.GatherPlayersForScoreboard')
+    end)
+end)
