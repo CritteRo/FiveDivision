@@ -67,7 +67,6 @@ end)
 
 AddEventHandler('playerJoining', function(oldID) --if you have your own way of getting the players, like ESX or whatever, this might not be needed. Instead setup your ESX data, and then create the inCall[playerSource] array.
     local src = source
-    print(src)
     inCall[src] = { --making sure we have the goddamn array set.
         name = GetPlayerName(src),
         status = 0,

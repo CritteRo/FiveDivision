@@ -16,7 +16,7 @@ cosmeticClothes = {
             {"comp6", 25, "Default Shoes"},
         },
         [4] = {
-            {"comp2", 1, "Default Hairstyle"},
+            {"comp2", 2, "Default Hairstyle"},
         },
         [5] = {
             {"comp3", 1, "Sports Jacket"},
@@ -33,7 +33,7 @@ cosmeticClothes = {
             {'comp2', 0, "Bald / No hairstyle"},
         },
         [9] = {
-            {'comp2', 2, "Raised hair Hairstyle"},
+            {'comp2', 1, "Buzz Cut Hairstyle"},
         },
         [10] = {
             {'comp2', 3, "'Fresh Cut' Hairstyle"},

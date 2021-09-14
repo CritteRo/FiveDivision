@@ -22,6 +22,7 @@ client_scripts {
     'Player/cl_PlayerCharacter.lua',
     'Player/cl_PlayerCharacter_menu.lua',
     'Player/cl_RespawnControl.lua',
+    'Player/cl_PlayerArmory.lua',
     'World/cl_ambiance.lua',
     'World/cl_interiors.lua',
     'UI/cl_uiEvents.lua',
@@ -33,6 +34,7 @@ client_scripts {
 server_scripts {
     'Connection/sv_login_register.lua',
     'Player/sv_PlayerStats.lua',
+    'Player/sv_PlayerArmory.lua',
     'UI/sv_playerlist.lua',
     'UI/Phone/sv_phone_handle.lua',
     'World/sv_ambiance.lua',

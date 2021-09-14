@@ -133,7 +133,7 @@ defaultChar = {
     ['hair'] = {1, 255, 1, 255, 0}, --head hair, facial hair, eyebrows, chest hair, hair color.
     ['overlay'] = {255, 255, 255, 0, 255, 0, 255, 255, 255, 0, 255}, --blemishes, ageing, makeup, makeupColor, blush, blushColor, complexion, sun damage, lipstick, lipstickColor, moles
     ['comp1'] = {0,0},
-    ['comp2'] = {1,0},
+    ['comp2'] = {2,0},
     ['comp3'] = {1,0},
     ['comp4'] = {9,7},
     ['comp5'] = {0,0},
@@ -154,32 +154,32 @@ defaultClothes = {1,2,3,4} --Contains default cosmetics ids.
 
 defaultWeapons = {
     ['pistol'] = {
-        ['gun'] = {'pistol', false},
-        ['COMPONENT_PISTOL_CLIP_01'] = {'COMPONENT_PISTOL_CLIP_01', true, 'Default Clip'},
-        ['COMPONENT_PISTOL_CLIP_02'] = {'COMPONENT_PISTOL_CLIP_02', false, "Extended Clip"},
-        ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "Flashlight"},
-        ['COMPONENT_AT_PI_SUPP_02'] = {'COMPONENT_AT_PI_SUPP_02', false, "Suppressor"},
+        ['gun'] = {'pistol', true, "Pistol"},
+        ['COMPONENT_PISTOL_CLIP_01'] = {'COMPONENT_PISTOL_CLIP_01', true, 'Default Clip', true},
+        ['COMPONENT_PISTOL_CLIP_02'] = {'COMPONENT_PISTOL_CLIP_02', false, "Extended Clip", false},
+        ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "Flashlight", false},
+        ['COMPONENT_AT_PI_SUPP_02'] = {'COMPONENT_AT_PI_SUPP_02', false, "Suppressor", false},
     },
-    ['combat_pistol'] = {
-        ['gun'] = {'combat_pistol', false},
-        ['COMPONENT_COMBATPISTOL_CLIP_01'] = {'COMPONENT_COMBATPISTOL_CLIP_01', true, "Default Clip"},
-        ['COMPONENT_COMBATPISTOL_CLIP_02'] = {'COMPONENT_COMBATPISTOL_CLIP_02', false, "Extended Clip"},
-        ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "Flashlight"},
-        ['COMPONENT_AT_PI_SUPP'] = {'COMPONENT_AT_PI_SUPP', false, "Supperssor"},
+    ['combatpistol'] = {
+        ['gun'] = {'combatpistol', true, "Combat Pistol"},
+        ['COMPONENT_COMBATPISTOL_CLIP_01'] = {'COMPONENT_COMBATPISTOL_CLIP_01', true, "Default Clip", true},
+        ['COMPONENT_COMBATPISTOL_CLIP_02'] = {'COMPONENT_COMBATPISTOL_CLIP_02', false, "Extended Clip", true},
+        ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "Flashlight", false},
+        ['COMPONENT_AT_PI_SUPP'] = {'COMPONENT_AT_PI_SUPP', false, "Supperssor", false},
     },
-    ['pump_shotgun'] = {
-        ['gun'] = {'pump_shotgun', false},
-        ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "Flashlight"},
-        ['COMPONENT_AT_SR_SUPP'] = {'COMPONENT_AT_SR_SUPP', false, "Supperssor"},
+    ['pumpshotgun'] = {
+        ['gun'] = {'pumpshotgun', true, "Pump Shotgun"},
+        ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "Flashlight", false},
+        ['COMPONENT_AT_SR_SUPP'] = {'COMPONENT_AT_SR_SUPP', false, "Supperssor", false},
     },
-    ['carbine_rifle'] = {
-        ['gun'] = {'carbine_rifle', false},
-        ['COMPONENT_CARBINERIFLE_CLIP_01'] = {'COMPONENT_CARBINERIFLE_CLIP_01', true, "Default Magazine"},
-        ['COMPONENT_CARBINERIFLE_CLIP_02'] = {'COMPONENT_CARBINERIFLE_CLIP_02', false, "Extended Magazine"},
-        ['COMPONENT_CARBINERIFLE_CLIP_03'] = {'COMPONENT_CARBINERIFLE_CLIP_03', false, "Box Magazine"},
-        ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "Flashlight"},
-        ['COMPONENT_AT_SCOPE_MEDIUM'] = {'COMPONENT_AT_SCOPE_MEDIUM', false, "Scope"},
-        ['COMPONENT_AT_AR_SUPP'] = {'COMPONENT_AT_AR_SUPP', false, "Suppressor"},
-        ['COMPONENT_AT_AR_AFGRIP'] = {'COMPONENT_AT_AR_AFGRIP', false, "Grip"},
+    ['carbinerifle'] = {
+        ['gun'] = {'carbinerifle', true, "Carbine Rifle"},
+        ['COMPONENT_CARBINERIFLE_CLIP_01'] = {'COMPONENT_CARBINERIFLE_CLIP_01', true, "Default Magazine", true},
+        ['COMPONENT_CARBINERIFLE_CLIP_02'] = {'COMPONENT_CARBINERIFLE_CLIP_02', false, "Extended Magazine", false},
+        ['COMPONENT_CARBINERIFLE_CLIP_03'] = {'COMPONENT_CARBINERIFLE_CLIP_03', false, "Box Magazine", false},
+        ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "Flashlight", false},
+        ['COMPONENT_AT_SCOPE_MEDIUM'] = {'COMPONENT_AT_SCOPE_MEDIUM', false, "Scope", false},
+        ['COMPONENT_AT_AR_SUPP'] = {'COMPONENT_AT_AR_SUPP', false, "Suppressor", false},
+        ['COMPONENT_AT_AR_AFGRIP'] = {'COMPONENT_AT_AR_AFGRIP', false, "Grip", false},
     },
 }
