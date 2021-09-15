@@ -1,6 +1,7 @@
 weaponMenu = ""
 
-WarMenu.CreateMenu('core.WeaponsMenu', 'Weapon Mods', "Weapon Mods Menu", coreMenuStyle)
+WarMenu.CreateMenu('core.WeaponsMenu', 'Weapon Mods', "Weapon Mods Menu")
+WarMenu.CreateSubMenu('core.WeaponsMenu_variations', 'core.WeaponsMenu', "Weapon Mods Toggle Menu")
 AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
     if WarMenu.IsAnyMenuOpened() then
         notify("Can't open another menu!")
@@ -14,12 +15,23 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
                     WarMenu.Button(k['gun'][3])
                     if WarMenu.IsItemSelected() then
                         weaponMenu = k['gun'][1]
-                        WarMenu.OpenMenu('core.WeaponsMenu1')
+                        WarMenu.OpenMenu('core.WeaponsMenu_variations')
                     end
                 end
             end
             WarMenu.End()
-        elseif WarMenu.Begin('core.WeaponsMenu1')
+        elseif WarMenu.Begin('core.WeaponsMenu_variations') then
+            if PlayerInfo.weapons[weaponMenu] ~= nil then
+                for i,k in pairs(PlayerInfo.weapons[weaponMenu]) do
+                    if k[1] ~= weaponMenu and k[2] == true then
+                        WarMenu.CheckBox(k[3], k[4])
+                        if WarMenu.IsItemSelected() then
+                            notify(k[3])
+                        end
+                    end
+                end
+            end
+            WarMenu.End()
         else
             return
         end
