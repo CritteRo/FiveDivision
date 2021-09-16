@@ -46,7 +46,7 @@ RegisterCommand('giveclothes', function(source, args)
         if alreadyHaveIt == false then
             PlayerInfo[src].clothes[#PlayerInfo[src].clothes + 1] = tonumber(args[1])
         end
-        for i,k in pairs(cosmeticClothes[PlayerInfo[src].ped['model']][tonumber(args[1])]) do
+        for i,k in pairs(cosmeticClothes[tonumber(args[1])][PlayerInfo[src].ped['model']]) do
             PlayerInfo[src].ped[k[1]] = {k[2], 0}
         end
         TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
@@ -69,12 +69,12 @@ AddEventHandler('core.SetPlayerCosmeticItem', function(_id)
     if tonumber(_id) ~= nil then
         for i,k in pairs(PlayerInfo[src].clothes) do
             if k == tonumber(_id) then
-                for i,k in pairs(cosmeticClothes[PlayerInfo[src].ped['model']][k]) do
+                for i,k in pairs(cosmeticClothes[k][PlayerInfo[src].ped['model']]) do
                     PlayerInfo[src].ped[k[1]] = {k[2], 0}
                 end
                 updateClothesInDatabase(src, PlayerInfo[src].uid)
                 TriggerClientEvent('core.UpdatePlayerPed', src, PlayerInfo[src].ped)
-                TriggerClientEvent('core.notify', src, "simple", {text = "Item ~y~"..cosmeticClothes[PlayerInfo[src].ped['model']][k][1][3].."~s~ equipped successfully."})
+                TriggerClientEvent('core.notify', src, "simple", {text = "Item ~y~"..cosmeticClothes[k][PlayerInfo[src].ped['model']][1][3].."~s~ equipped successfully."})
                 break
             end
         end
