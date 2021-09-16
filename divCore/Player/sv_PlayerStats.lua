@@ -49,7 +49,8 @@ RegisterCommand('giveclothes', function(source, args)
         for i,k in pairs(cosmeticClothes[tonumber(args[1])][PlayerInfo[src].ped['model']]) do
             PlayerInfo[src].ped[k[1]] = {k[2], 0}
         end
-        TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+        TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
+        TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
         updateClothesInDatabase(src, PlayerInfo[src].uid)
     end
 end)

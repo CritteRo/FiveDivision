@@ -6,7 +6,7 @@ RegisterNetEvent('phone.sv.SendCallUpdate')
 
 
 bots = { --want bots on the server? For groups? Or maybe a "Help Desk"? This is where you add them.
-    --[0] = {name = "Bot Name", pic = 'CHAR_MP_FM_CONTACT', isBot = true, botEvent = "botEvent", svID = -1},
+    [0] = {name = "Dispatch", pic = 'CHAR_LESTER', isBot = true, botEvent = "botEvent", svID = -1},
 }
 
 inCall = { -- Every online player MUST HAVE a array here (for calls). I will make sure this happens, don't worry.
@@ -30,7 +30,7 @@ AddEventHandler('phone.sv.GatherContacts', function() --gathering a contact list
         row = row + 1
     end
     for _,player in ipairs(GetPlayers()) do --building online players, from ALL ONLINE PLAYERS. If you can get a contact array, this is where you would want it.
-        contacts[row] = {name = GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player}
+        contacts[row] = {name = "[~b~"..player.."~s~]"..GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player}
         row = row + 1
     end
     TriggerClientEvent('phone.UpdateContacts', -1, contacts) --updating contact list for ALL players.
