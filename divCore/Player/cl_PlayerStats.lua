@@ -1,4 +1,5 @@
 RegisterNetEvent('core.GetInitialStats')
+RegisterNetEvent('core.UpdateClientResources')
 RegisterNetEvent('core.UpdatePlayerPed')
 
 PlayerInfo = {
@@ -20,6 +21,12 @@ AddEventHandler('core.GetInitialStats', function(_info)
     updateStatsUI(true, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))
     TriggerEvent('core.notify', "simple", {text = "Client Synced.\nWelcome ["..PlayerInfo.uid.."]"..PlayerInfo.name.."!", colID = 123})
     TriggerEvent('core.respawn', true)
+end)
+
+AddEventHandler('core.UpdateClientResources', function(_info)
+    PlayerInfo = _info
+    updateStatsUI(false, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))
+    TriggerEvent('core.notify', "simple", {text = "Client Synced.", colID = 123})
 end)
 
 AddEventHandler('core.UpdatePlayerPed', function(data)
