@@ -107,6 +107,23 @@ function updateStatsInDatabase(src, uid)
     end
 end
 
+function updateWeaponsInDatabase(src, uid)
+    if GetPlayerPing(src) ~= 0 then
+        if PlayerInfo[src] ~= nil and PlayerInfo[src].weapons ~= nil then
+            exports.oxmysql:execute("UPDATE `users` SET `weapons` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].weapons), uid}, function(affectedRows)
+                if affectedRows >= 1 then
+                    print('Weapons saved for ['..src..']'..GetPlayerName(src)..'')
+                end
+            end)
+        end
+    end
+end
+
+AddEventHandler('core.ChangePlayerInfo', function(_infoType, _src, _imp, )
+
+end)
+
+
 AddEventHandler('core.PlayerIsChangingClothes', function(data)
     local src = source
     if PlayerInfo[src] ~= nil and PlayerInfo[src].clothes ~= nil then
