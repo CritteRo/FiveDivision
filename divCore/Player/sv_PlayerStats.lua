@@ -55,6 +55,11 @@ RegisterCommand('giveclothes', function(source, args)
     end
 end)
 
+RegisterCommand('addclothing', function(source, args)
+    local src = source
+    TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), true, true)
+end)
+
 AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp6, comp4)
     local src = source
     PlayerInfo[src].ped['comp11'][2] = comp11
@@ -119,10 +124,53 @@ function updateWeaponsInDatabase(src, uid)
     end
 end
 
-AddEventHandler('core.ChangePlayerInfo', function(_infoType, _src, _imp, )
-
+AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _stat, _value, _prioritySave)
+    local srce = tonumber(source)
+    local player = tonumber(_src)
+    if --[[srce < 1]]true then
+        if GetPlayerPing(player) ~= 0 and PlayerInfo[player] ~= nil then
+            if _infoType == "clothes" then --stat will be the item ID. _value will be true or false. True = add clothing item. False = remove clothing item.
+                local foundId = nil
+                local lastId = 0
+                for i,k in pairs(PlayerInfo[player].clothes) do --looking through player's wardrobe
+                    if k == tonumber(_stat) then
+                        foundId = i
+                    end
+                    if PlayerInfo[player].clothes[i+1] ~= nil then
+                    else
+                        lastId = i
+                    end
+                end
+                if foundId ~= nil then --if we found _stat
+                    if _value == false then --should we remove it?
+                        PlayerInfo[player].clothes[foundId] = nil
+                        TriggerClientEvent('core.notify', player, "unlock", {title = "Item Removed", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 8})
+                        TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                        TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                        updateClothesInDatabase(player, PlayerInfo[player].uid)
+                    end
+                else -- if we didn't find it
+                    if _value == true then --should we add it?
+                        if cosmeticClothes[tonumber(_stat)] ~= nil then
+                            PlayerInfo[player].clothes[lastId+1] = tonumber(_stat)
+                            TriggerClientEvent('core.notify', player, "unlock", {title = "Item Added", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 123})
+                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                            updateClothesInDatabase(player, PlayerInfo[player].uid)
+                        else
+                            --error here, thx
+                        end
+                    end
+                end
+            elseif _infoType == "stats" then
+            elseif _infoType == "weapons" then
+            elseif _infoType == "other" then
+            else
+                print('[ ERROR IN core.ChangePlayerInfo :: Incorrect _infoType requested by "'.._initiator..'"]')
+            end
+        end
+    end
 end)
-
 
 AddEventHandler('core.PlayerIsChangingClothes', function(data)
     local src = source

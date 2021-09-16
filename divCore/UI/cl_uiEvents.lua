@@ -34,6 +34,8 @@ AddEventHandler("core.notify", function(_type, _notification)
         notifyex(_notification.img, _notification.title, _notification.subtitle, tonumber(_notification.icontype), _notification.text, _notification.colID)
     elseif _type == "award" then
         AwardNotification(_notification.rp, _notification.text)
+    elseif _type == "unlock" then
+        notifyUnlock(_notification.title, _notification.text, _notification.icontype, _notification.colID)
     end
 end)
 
@@ -114,7 +116,7 @@ function UpdateXNLRankBar(firstUpdate, xp)
     end
 end
 
-function AwardNotification(rp, string)
+function notifyAward(rp, string)
     Citizen.CreateThread(function()
         local handle = RegisterPedheadshot(PlayerPedId())
         while not IsPedheadshotReady(handle) or not IsPedheadshotValid(handle) do
@@ -130,6 +132,16 @@ function AwardNotification(rp, string)
         -- Cleanup after yourself!
         UnregisterPedheadshot(handle)
     end)
+end
+
+function notifyUnlock(title, string, id, colID)
+    if colID ~= nil then
+        ThefeedSetNextPostBackgroundColor(colID)
+    end
+    BeginTextCommandThefeedPost("STRING")
+    AddTextComponentSubstringPlayerName(string)
+    AddTextEntry('UNLOCK_TITLE_MSG', title)
+    EndTextCommandThefeedPostUnlock("UNLOCK_TITLE_MSG", id, 0)
 end
 
 function notify(string, colID)

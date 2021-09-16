@@ -23,10 +23,16 @@ AddEventHandler('core.GetInitialStats', function(_info)
     TriggerEvent('core.respawn', true)
 end)
 
-AddEventHandler('core.UpdateClientResources', function(_info)
+AddEventHandler('core.UpdateClientResources', function(_info, _showNotification)
     PlayerInfo = _info
     updateStatsUI(false, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))
-    TriggerEvent('core.notify', "simple", {text = "Client Synced.", colID = 123})
+    if _showNotification ~= nil then
+        if _showNotification == true then
+            TriggerEvent('core.notify', "simple", {text = "Client Synced.", colID = 123})
+        end
+    else
+        TriggerEvent('core.notify', "simple", {text = "Client Synced.", colID = 123})
+    end
 end)
 
 AddEventHandler('core.UpdatePlayerPed', function(data)
