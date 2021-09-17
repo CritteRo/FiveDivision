@@ -22,11 +22,15 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
             WarMenu.End()
         elseif WarMenu.Begin('core.WeaponsMenu_variations') then
             if PlayerInfo.weapons[weaponMenu] ~= nil then
+                WarMenu.Button('Get Ammo')
+                if WarMenu.IsItemSelected() then
+                    TriggerServerEvent('core.GiveAmmoToPlayer', weaponMenu)
+                end
                 for i,k in pairs(PlayerInfo.weapons[weaponMenu]) do
                     if k[1] ~= weaponMenu and k[2] == true then
                         WarMenu.CheckBox(k[3], k[4])
                         if WarMenu.IsItemSelected() then
-                            notify(k[3])
+                            TriggerServerEvent('core.TogglePlayerWeaponMod', weaponMenu, k[1])
                         end
                     end
                 end
@@ -41,4 +45,8 @@ end)
 
 RegisterCommand('weapons', function()
     TriggerEvent('core.ui.ShowWeaponsVariationsMenu')
+end)
+
+RegisterCommand('unlock', function(source, args)
+    notifyUnlock("Title", "text", tonumber(args[1]), 2)
 end)

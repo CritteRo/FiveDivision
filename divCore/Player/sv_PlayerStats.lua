@@ -60,6 +60,21 @@ RegisterCommand('addclothing', function(source, args)
     TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), true, true)
 end)
 
+RegisterCommand('addweapon', function(source, args)
+    local src = source
+    TriggerEvent('core.ChangePlayerInfo', 'weapons', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), true, true)
+end)
+
+RegisterCommand('addwmod', function(source, args)
+    local src = source
+    TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), true, true)
+end)
+
+RegisterCommand('addstat', function(source, args)
+    local src = source
+    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), tonumber(args[2]), true)
+end)
+
 AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp6, comp4)
     local src = source
     PlayerInfo[src].ped['comp11'][2] = comp11
@@ -158,12 +173,76 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             updateClothesInDatabase(player, PlayerInfo[player].uid)
                         else
-                            --error here, thx
+                            print('[ ERROR IN core.ChangePlayerInfo :: Incorrect clothes _stat requested by "'.._initiator..'"]')
                         end
                     end
                 end
             elseif _infoType == "stats" then
+                if PlayerInfo[player].stats[_stat] ~= nil then
+                    PlayerInfo[player].stats[_stat] = _value
+                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
+                    TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                    updateStatsInDatabase(player, PlayerInfo[player].uid)
+                else
+                    print('[ ERROR IN core.ChangePlayerInfo :: Incorrect stats _stat requested by "'.._initiator..'"]')
+                end
             elseif _infoType == "weapons" then
+                if PlayerInfo[player].weapons[_stat] ~= nil then
+                    if _value == true then
+                        if PlayerInfo[player].weapons[_stat]['gun'][2] == false then
+                            PlayerInfo[player].weapons[_stat]['gun'][2] = _value
+                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                            TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Added", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 123})
+                            updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                        end
+                    elseif _value == false then
+                        if PlayerInfo[player].weapons[_stat]['gun'][2] == true then
+                            PlayerInfo[player].weapons[_stat]['gun'][2] = _value
+                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                            TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Removed", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 8})
+                            updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                        end
+                    else
+                        print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weapons _value requested by "'.._initiator..'"]')
+                    end
+                else
+                    print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weapons _stat requested by "'.._initiator..'"]')
+                end
+            elseif _infoType == "weaponmods" then
+                local foundId = nil
+                for i,k in pairs(PlayerInfo[player].weapons) do
+                    if k[_stat] ~= nil then
+                        foundId = i
+                        break
+                    end
+                end
+                if foundId ~= nil then
+                    if PlayerInfo[player].weapons[foundId][_stat] ~= nil then
+                        if _value == true then
+                            if PlayerInfo[player].weapons[foundId][_stat][2] == false then
+                                PlayerInfo[player].weapons[foundId][_stat][2] = _value
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                                TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Added", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
+                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            end
+                        elseif _value == false then
+                            if PlayerInfo[player].weapons[foundId][_stat][2] == true then
+                                PlayerInfo[player].weapons[foundId][_stat][2] = _value
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                                TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Removed", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
+                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            end
+                        else
+                            print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weaponmods _value requested by "'.._initiator..'"]')
+                        end
+                    end
+                else
+                    print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weaponmods _stat requested by "'.._initiator..'"]')
+                end
             elseif _infoType == "other" then
             else
                 print('[ ERROR IN core.ChangePlayerInfo :: Incorrect _infoType requested by "'.._initiator..'"]')
