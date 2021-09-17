@@ -46,7 +46,3 @@ end)
 RegisterCommand('weapons', function()
     TriggerEvent('core.ui.ShowWeaponsVariationsMenu')
 end)
-
-RegisterCommand('unlock', function(source, args)
-    notifyUnlock("Title", "text", tonumber(args[1]), 2)
-end)
