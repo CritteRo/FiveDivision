@@ -1,7 +1,7 @@
 weaponMenu = ""
-
-WarMenu.CreateMenu('core.WeaponsMenu', 'Weapon Mods', "Weapon Mods Menu")
-WarMenu.CreateSubMenu('core.WeaponsMenu_variations', 'core.WeaponsMenu', "Weapon Mods Toggle Menu")
+coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
+WarMenu.CreateMenu('core.WeaponsMenu', 'Weapon Mods', "Weapon Mods Menu", coreMenuStyle)
+WarMenu.CreateSubMenu('core.WeaponsMenu_variations', 'core.WeaponsMenu', "Weapon Mods Toggle Menu", coreMenuStyle)
 AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
     if WarMenu.IsAnyMenuOpened() then
         notify("Can't open another menu!")

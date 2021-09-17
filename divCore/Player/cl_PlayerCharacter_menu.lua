@@ -1,9 +1,10 @@
-coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
+
 comp11Index = 1
 comp8Index = 1
 comp4Index = 1
 comp6Index = 1
 
+coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
 WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Variations Menu", coreMenuStyle)
 AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     if WarMenu.IsAnyMenuOpened() then

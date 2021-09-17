@@ -2,6 +2,7 @@ RegisterNetEvent('core.GetInitialStats')
 RegisterNetEvent('core.UpdateClientResources')
 RegisterNetEvent('core.UpdatePlayerPed')
 
+coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
 PlayerInfo = {
     uid = 0,
     name = "console",
