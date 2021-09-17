@@ -57,22 +57,22 @@ end)
 
 RegisterCommand('addclothing', function(source, args)
     local src = source
-    TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), true, true)
+    TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), 0, true, true)
 end)
 
 RegisterCommand('addweapon', function(source, args)
     local src = source
-    TriggerEvent('core.ChangePlayerInfo', 'weapons', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), true, true)
+    TriggerEvent('core.ChangePlayerInfo', 'weapons', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), 0, true, true)
 end)
 
 RegisterCommand('addwmod', function(source, args)
     local src = source
-    TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), true, true)
+    TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), tostring(args[2]), true, true)
 end)
 
 RegisterCommand('addstat', function(source, args)
     local src = source
-    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), tonumber(args[2]), true)
+    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), 0, tonumber(args[2]), true)
 end)
 
 AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp6, comp4)
@@ -139,7 +139,8 @@ function updateWeaponsInDatabase(src, uid)
     end
 end
 
-AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _stat, _value, _prioritySave)
+AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _stat, _stat2, _value, _prioritySave)
+    --_stat2 is only used for weapon mods...for now..
     local srce = tonumber(source)
     local player = tonumber(_src)
     if --[[srce < 1]]true then
@@ -212,11 +213,8 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                 end
             elseif _infoType == "weaponmods" then
                 local foundId = nil
-                for i,k in pairs(PlayerInfo[player].weapons) do
-                    if k[_stat] ~= nil then
-                        foundId = i
-                        break
-                    end
+                if PlayerInfo[player].weapons[_stat2] ~= nil then
+                    foundId = _stat2
                 end
                 if foundId ~= nil then
                     if PlayerInfo[player].weapons[foundId][_stat] ~= nil then
