@@ -28,6 +28,10 @@ A joint FIB-IAA task force, known as "The Division" is started, with the intent 
 * Community goals would be large scale challenges.
 * Every player can participate in mission completions, killing specific faction members, etc.
 
+### Outposts:
+* Outposts are landmarks around LS, used by Division forces, or other enemy factions. Enemy AI can attack Division outposts at any time (maybe only if there is at least 1 player online).
+* Players can capture those outposts, unlocking Fast Travel and spownpoints around the map.
+
 ### Arena:
 * PvP 1vs1 arena. Players can queue for arena matchmaking, or challenge or players directly.
 
@@ -35,8 +39,11 @@ A joint FIB-IAA task force, known as "The Division" is started, with the intent 
 * Certain areas of LS are not accessible to the Division network. Friendly-fire is activated here. 
 
 ### Player stats:
-* Money. Money is still being used inside LS. It's mostly used to buy armor, ammo and some cosmetics.
-* 
+* Cash Money(, honey). Money is still being used inside LS. It's mostly used to buy armor, ammo and some cosmetics.
+* Bank Money. More *rare* type of currency, but still obtainable in-game.
+* Coins. Not sure yet...maybe used as server revenue generator? Given at events, or something?
+* XP. experience points are earned by doing...almost anything. This can also gatekeep weapons, clothes or missions.
+* Level. Tied to XP.
 
-TBD
+TBE
 
