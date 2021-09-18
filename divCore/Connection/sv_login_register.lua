@@ -89,6 +89,7 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
                                                 license = result[1].license,
                                                 activity = 0,
                                                 group = 0,
+                                                waitingForLevel = false,
                                             }
                                             deferrals.done()
                                         else
@@ -177,7 +178,6 @@ defaultWeapons = {
         ['COMPONENT_SMG_MK2_CLIP_02'] = {'COMPONENT_SMG_MK2_CLIP_02', false, "SMG Extended Clip", false},
         ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "SMG Flashlight", false},
         ['COMPONENT_AT_SIGHTS_SMG'] = {'COMPONENT_AT_SIGHTS_SMG', false, "SMG Holo Sight", false},
-        ['COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2'] = {'COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2', false, "SMG Small Scope", false},
         ['COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2'] = {'COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2', false, "SMG Small Scope", false},
         ['COMPONENT_AT_SCOPE_SMALL_SMG_MK2'] = {'COMPONENT_AT_SCOPE_SMALL_SMG_MK2', false, "SMG Medium Scope", false},
         ['COMPONENT_AT_PI_SUPP'] = {'COMPONENT_AT_PI_SUPP', false, "SMG Suppressor", false},

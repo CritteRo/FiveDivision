@@ -25,8 +25,16 @@ AddEventHandler('core.GetInitialStats', function(_info)
 end)
 
 AddEventHandler('core.UpdateClientResources', function(_info, _showNotification)
+    local sendLevelUpdate = false
+    if PlayerInfo.stats['xp'] ~= _info.stats['xp'] then
+        sendLevelUpdate = true
+    end
     PlayerInfo = _info
     updateStatsUI(false, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))
+    if sendLevelUpdate == true then
+        TriggerServerEvent('core.SendLevelUpdate', exports.XNLRankBar:Exp_XNL_GetCurrentPlayerLevel())
+        PlayerInfo.stats['level'] = exports.XNLRankBar:Exp_XNL_GetCurrentPlayerLevel()
+    end
     if _showNotification ~= nil then
         if _showNotification == true then
             TriggerEvent('core.notify', "simple", {text = "Client Synced.", colID = 123})

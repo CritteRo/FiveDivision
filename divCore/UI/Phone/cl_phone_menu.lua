@@ -22,7 +22,10 @@ TriggerEvent('scalePhone.BuildHomepageApp', 'app_messages', "messagesList", "Mes
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_emails', "emailList", "Emails", 4, 0, "", "scalePhone.GoToHomepage", {}) -- 3
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_numpad', "numpad", "Numpad", 27, 0, "", "scalePhone.GoToHomepage", {}) -- 4
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_gps', "gps", "GPS", 58, 0, "", "scalePhone.GoToHomepage", {}) -- 5
+
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_more', "settings", "More Apps", 6, 0, "", "scalePhone.GoToHomepage", {}) -- 6
+TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Player Stats", icon = 23, event = "scalePhone.OpenApp", eventParams = 'app_stats'}, false, -1)
+
 TriggerEvent('scalePhone.BuildSnapmatic', 'app_snapmatic') -- 7
 TriggerEvent('scalePhone.BuildThemeSettings', 'app_settings') -- 8
 TriggerEvent('scalePhone.BuildAppButton', 'app_settings', {text = "Phone Size", icon = 0, event = "scalePhone.OpenApp", eventParams = "settings_size"}, false, -1)
@@ -62,3 +65,41 @@ AddEventHandler('phone.UseNumpadNumber', function() --triggered whenever you hit
     ]]
 end)
 ----------------------------------------------------------------------------------------------------------------
+
+--[[  ::  MORE APPS  ::  ]]--
+
+-----Stats Menu. This will get rebuilt by core.GetInitialStats and core.UpdateClientResources anyway..but we need a default one.
+TriggerEvent('scalePhone.BuildApp', 'app_stats', 'missionStatsView', "Player Stats", 0,0,"", "scalePhone.GoBackApp", {backApp = 'app_more'})
+TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Level ", subtitle = ""}, false, -1)
+
+AddEventHandler('core.UpdateClientResources', function(_info)
+    TriggerEvent('scalePhone.ResetAppButtons', 'app_stats')
+
+    --[[HEADER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Level ".._info.stats['level'], subtitle = _info.name}, false, -1)
+     
+    --[[buttons]]--
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "UID  //  ".._info.uid, subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "ARank  //  ".._info.admin, subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Cash  //  ".._info.stats['cash'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Bank  //  ".._info.stats['bank'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Coins  //  ".._info.stats['coins'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "XP  //  ".._info.stats['xp'], subtitle = ""}, false, -1)
+
+    --[[FOOTER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Player Stats", subtitle = ""}, false, -1)
+end)
+
+AddEventHandler('core.GetInitialStats', function(_info)
+    TriggerEvent('scalePhone.ResetAppButtons', 'app_stats')
+
+    --[[HEADER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Level ".._info.stats['level'], subtitle = _info.name}, false, -1)
+     
+    --[[buttons]]--
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "UID  //  ".._info.uid, subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "ARank  //  ".._info.admin, subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Cash  //  ".._info.stats['cash'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Bank  //  ".._info.stats['bank'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Coins  //  ".._info.stats['coins'], subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "XP  //  ".._info.stats['xp'], subtitle = ""}, false, -1)
+
+    --[[FOOTER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Player Stats", subtitle = ""}, false, -1)
+end)

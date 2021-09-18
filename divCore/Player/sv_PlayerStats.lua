@@ -1,6 +1,7 @@
 RegisterNetEvent('core.PlayerIsChangingClothes')
 RegisterNetEvent('core.UpdatePlayerClothesVariations')
 RegisterNetEvent('core.SetPlayerCosmeticItem')
+RegisterNetEvent('core.SendLevelUpdate')
 RegisterNetEvent('baseevents:onPlayerDied')
 
 PlayerInfo = {
@@ -18,6 +19,7 @@ PlayerInfo = {
         license = "license:99999999999999999",
         activity = 0,
         group = 0,
+        waitingForLevel = false,
     }
 }
 
@@ -83,6 +85,17 @@ AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, co
     PlayerInfo[src].ped['comp4'][2] = comp4
     updateClothesInDatabase(src, PlayerInfo[src].uid)
     TriggerClientEvent('core.UpdatePlayerPed', src, PlayerInfo[src].ped)
+end)
+
+AddEventHandler('core.SendLevelUpdate', function(level)
+    local src = source
+    if PlayerInfo[src].waitingForLevel == true then
+        PlayerInfo[src].waitingForLevel = false
+        PlayerInfo[src].stats['level'] = tonumber(level)
+        updateStatsInDatabase(src, PlayerInfo[src].uid)
+        TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
+        TriggerClientEvent('core.UpdateServerResources', src, PlayerInfo[src])
+    end
 end)
 
 AddEventHandler('core.SetPlayerCosmeticItem', function(_id)
@@ -180,6 +193,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                 end
             elseif _infoType == "stats" then
                 if PlayerInfo[player].stats[_stat] ~= nil then
+                    if _stat == "xp" then
+                        PlayerInfo[player].waitingForLevel = true
+                    end
                     PlayerInfo[player].stats[_stat] = _value
                     TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
                     TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
