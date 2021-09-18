@@ -3,6 +3,8 @@ comp11Index = 1
 comp8Index = 1
 comp4Index = 1
 comp6Index = 1
+primaryHairIndex = 1
+secondaryHairIndex = 1
 
 coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
 WarMenu.CreateMenu('core.ClothesMenu', 'Cosmetics', "Variations Menu", coreMenuStyle)
@@ -13,31 +15,48 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     end
     WarMenu.OpenMenu('core.ClothesMenu')
 
+    primaryHairIndex = PlayerInfo.ped['hair'][5]
+    secondaryHairIndex = PlayerInfo.ped['hair'][5]
+
     comp11Variations = {}
     comp8Variations = {}
     comp4Variations = {}
     comp6Variations = {}
+    hairColors = getAllColors()
+
 
     for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 11, PlayerInfo.ped['comp11'][1]), 1 do
         if IsPedComponentVariationValid(PlayerPedId(), 11, PlayerInfo.ped['comp11'][1], i) then
+            if i == PlayerInfo.ped['comp11'][2] then
+                comp11Index = #comp11Variations + 1
+            end
             comp11Variations[#comp11Variations + 1] = i
         end
     end
 
     for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 8, PlayerInfo.ped['comp8'][1]), 1 do
         if IsPedComponentVariationValid(PlayerPedId(), 8, PlayerInfo.ped['comp8'][1], i) then
+            if i == PlayerInfo.ped['comp8'][2] then
+                comp8Index = #comp8Variations + 1
+            end
             comp8Variations[#comp8Variations + 1] = i
         end
     end
 
     for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 6, PlayerInfo.ped['comp6'][1]), 1 do
         if IsPedComponentVariationValid(PlayerPedId(), 6, PlayerInfo.ped['comp6'][1], i) then
+            if i == PlayerInfo.ped['comp6'][2] then
+                comp6Index = #comp6Variations + 1
+            end
             comp6Variations[#comp6Variations + 1] = i
         end
     end
 
     for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 4, PlayerInfo.ped['comp4'][1]), 1 do
         if IsPedComponentVariationValid(PlayerPedId(), 4, PlayerInfo.ped['comp4'][1], i) then
+            if i == PlayerInfo.ped['comp4'][2] then
+                comp4Index = #comp4Variations + 1
+            end
             comp4Variations[#comp4Variations + 1] = i
         end
     end
@@ -48,6 +67,17 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
             --WarMenu.SetMenuSubTitle('core.ClothesMenu', string.format(locStats[stats.lang].subtitle, GetPlayerServerId(PlayerId()), tostring(stats.Name)))
             --WarMenu.SetMenuStyle('core.ClothesMenu', coreMenuStyle)
             
+            local _, _primHairIndex = WarMenu.ComboBox('Primary Hair Color', hairColors, primaryHairIndex)
+            if _primHairIndex ~= primaryHairIndex then
+                primaryHairIndex = _primHairIndex
+                setPlayerHairColor(primaryHairIndex-1, secondaryHairIndex-1)
+            end
+            local _, _secHairIndex = WarMenu.ComboBox('Secondary Hair Color', hairColors, secondaryHairIndex)
+            if _secHairIndex ~= secondaryHairIndex then
+                secondaryHairIndex = _secHairIndex
+                setPlayerHairColor(primaryHairIndex-1, secondaryHairIndex-1)
+            end
+
             local _, _comp11Index = WarMenu.ComboBox('Shirt', comp11Variations, comp11Index)
             if _comp11Index ~= comp11Index then
                 comp11Index = _comp11Index
@@ -73,7 +103,7 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
             end
 
             if WarMenu.IsMenuAboutToBeClosed() then
-                TriggerServerEvent('core.UpdatePlayerClothesVariations', comp11Variations[comp11Index], comp8Variations[comp8Index], comp6Variations[comp6Index], comp4Variations[comp4Index])
+                TriggerServerEvent('core.UpdatePlayerClothesVariations', comp11Variations[comp11Index], comp8Variations[comp8Index], comp6Variations[comp6Index], comp4Variations[comp4Index], primaryHairIndex-1, secondaryHairIndex-1)
             end
 
             WarMenu.End()
@@ -158,3 +188,11 @@ end)
 RegisterCommand('wardrobe', function()
     TriggerEvent('core.ui.ShowWardrobeMenu')
 end)
+
+function getAllColors()
+    local table = {}
+    for i=0, 63, 1 do
+        table[i+1] = i
+    end
+    return table
+end

@@ -26,13 +26,13 @@ function setPlayerClothes(character)
     SetPedHeadOverlay(ped, 8, character['overlay'][9], 1.0) --lipstick
     SetPedHeadOverlay(ped, 9, character['overlay'][11], 1.0) --freckles
     SetPedHeadOverlay(ped, 10, character['hair'][4], 1.0) --chestHair
-    SetPedHeadOverlayColor(ped, 1, 1, character['hair'][5], character['hair'][5])
-    SetPedHeadOverlayColor(ped, 2, 1, character['hair'][5], character['hair'][5])
+    SetPedHeadOverlayColor(ped, 1, 1, character['hair'][5], character['hair'][6])
+    SetPedHeadOverlayColor(ped, 2, 1, character['hair'][5], character['hair'][6])
     SetPedHeadOverlayColor(ped, 4, 1, character['overlayColor'][1], character['overlayColor'][2])
     SetPedHeadOverlayColor(ped, 5, 1, character['overlayColor'][3], character['overlayColor'][4])
     SetPedHeadOverlayColor(ped, 8, 1, character['overlayColor'][5], character['overlayColor'][6])
-    SetPedHeadOverlayColor(ped, 10, 1, character['hair'][5], character['hair'][5])
-    SetPedHairColor(ped, character['hair'][5], character['hair'][5])
+    SetPedHeadOverlayColor(ped, 10, 1, character['hair'][5], character['hair'][6])
+    SetPedHairColor(ped, character['hair'][5], character['hair'][6])
     SetPedComponentVariation(ped, 1, character['comp1'][1], character['comp1'][2], 1)
     SetPedComponentVariation(ped, 2, character['comp2'][1], character['comp2'][2], 1)
     SetPedComponentVariation(ped, 3, character['comp3'][1], character['comp3'][2], 1)
@@ -82,6 +82,14 @@ function setPlayerSpecificComponent(compid, directory, texture)
     else
         alert("nil found in Component Force")
     end
+end
+
+function setPlayerHairColor(primaryColor, secondaryColor)
+    local ped = PlayerPedId()
+    SetPedHairColor(ped, primaryColor, secondaryColor)
+    SetPedHeadOverlayColor(ped, 1, 1, primaryColor, secondaryColor)
+    SetPedHeadOverlayColor(ped, 2, 1, primaryColor, secondaryColor)
+    SetPedHeadOverlayColor(ped, 10, 1, primaryColor, secondaryColor)
 end
 
 RegisterNetEvent('char.ForceCharacterComponent')
