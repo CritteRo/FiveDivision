@@ -126,13 +126,15 @@ defaultStats = {
     ['bank'] = 0,
     ['coins'] = 0,
     ['firstLogin'] = 1,
+    ['charToken'] = 1,
 }
 
 defaultChar = {
     ['model'] = 'mp_m_freemode_01',
     ['blend'] = {21,0,1.0,1.0}, --motherID, fatherID, shapeMix, skinMix,
-    ['hair'] = {1, 255, 1, 255, 0}, --head hair, facial hair, eyebrows, chest hair, hair color.
+    ['hair'] = {1, 255, 1, 255, 0, 0}, --head hair, facial hair, eyebrows, chest hair, hair primary color, hair secondary color.
     ['overlay'] = {255, 255, 255, 0, 255, 0, 255, 255, 255, 0, 255}, --blemishes, ageing, makeup, makeupColor, blush, blushColor, complexion, sun damage, lipstick, lipstickColor, moles
+    ['overlayColor'] = {0,0,0,0,0,0}, --makeupPrimary, makeupSecondary, blushPrimary, blushSecondary, lipstickPrimary, lipstickSecondary
     ['comp1'] = {0,0},
     ['comp2'] = {2,0},
     ['comp3'] = {1,0},
@@ -143,7 +145,7 @@ defaultChar = {
     ['comp8'] = {32,0},
     ['comp9'] = {0,0}, --54,0
     ['comp10'] = {0,0}, --8,0
-    ['comp11'] = {167,3},
+    ['comp11'] = {115,0},
     ['prop0'] = {-1,0}, -- -1 = no prop
     ['prop1'] = {-1,0},
     ['prop2'] = {-1,0},

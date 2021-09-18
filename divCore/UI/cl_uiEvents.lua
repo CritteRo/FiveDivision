@@ -197,6 +197,14 @@ function notifyex_ped(_title,_subtitle, _icontype, _message, _colID)
     end)
 end
 
+function chatMessage(_author, _message, _r, _g, _b)
+    TriggerEvent('chat:addMessage', {
+        color = { _r, _g, _b},
+        multiline = true,
+        args = {_author, _message}
+      })
+end
+
 function notifyex(_img, _title, _subtitle, _icontype, _message, _colID)
     Citizen.CreateThread(function()
         -- Add the notification text

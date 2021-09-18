@@ -44,6 +44,16 @@ AddEventHandler('core.UpdateClientResources', function(_info, _showNotification)
     end
 end)
 
+--------------------------
+RegisterCommand("coords", function(source, args)
+    coords = GetEntityCoords(PlayerPedId()) 
+    rotaion = GetEntityRotation(PlayerPedId()) 
+    heading = GetEntityHeading(PlayerPedId()) 
+    chatMessage("COORDONATES", string.format("x: %f | y: %f | z:%f | heading: %f", coords.x,coords.y,coords.z, heading), 255, 255, 255)
+    chatMessage("ROTATION", string.format("x: %f | y: %f | z:%f", rotaion.x,rotaion.y,rotaion.z), 255, 255, 255)
+end, false)
+-------------------------
+
 AddEventHandler('core.UpdatePlayerPed', function(data)
     PlayerInfo.ped = data
     setPlayerClothes(PlayerInfo.ped)
@@ -52,19 +62,5 @@ end)
 AddEventHandler("playerSpawned", function(spawnInfo)
     Citizen.CreateThread(function()
         setPlayerCharacter(PlayerInfo.ped)
-    end)
-end)
-
-RegisterCommand('player', function()
-    Citizen.CreateThread(function()
-        RequestModel('mp_m_freemode_01')
-        while not HasModelLoaded('mp_m_freemode_01') do
-            RequestModel('mp_m_freemode_01')
-            Wait(0)
-        end
-        SetPlayerModel(PlayerId(), 'mp_m_freemode_01')
-        SetModelAsNoLongerNeeded('mp_m_freemode_01')
-
-        SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 21, 0, 0, 1.0, 1.0, 0.0, false)
     end)
 end)
