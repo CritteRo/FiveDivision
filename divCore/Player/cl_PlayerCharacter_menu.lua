@@ -15,8 +15,8 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     end
     WarMenu.OpenMenu('core.ClothesMenu')
 
-    primaryHairIndex = PlayerInfo.ped['hair'][5]
-    secondaryHairIndex = PlayerInfo.ped['hair'][5]
+    primaryHairIndex = PlayerInfo.ped['hair'][5]+1
+    secondaryHairIndex = PlayerInfo.ped['hair'][6]+1
 
     comp11Variations = {}
     comp8Variations = {}
