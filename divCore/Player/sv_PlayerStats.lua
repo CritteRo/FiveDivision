@@ -77,10 +77,11 @@ RegisterCommand('addstat', function(source, args)
     TriggerEvent('core.ChangePlayerInfo', 'stats', 'Core/sv_PlayerStats.lua', src, tostring(args[1]), 0, tonumber(args[2]), true)
 end)
 
-AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp6, comp4, primaryHair, secondaryHair)
+AddEventHandler('core.UpdatePlayerClothesVariations', function(comp11, comp8, comp7, comp6, comp4, primaryHair, secondaryHair)
     local src = source
     PlayerInfo[src].ped['comp11'][2] = comp11
     PlayerInfo[src].ped['comp8'][2] = comp8
+    PlayerInfo[src].ped['comp7'][2] = comp7
     PlayerInfo[src].ped['comp6'][2] = comp6
     PlayerInfo[src].ped['comp4'][2] = comp4
     PlayerInfo[src].ped['hair'][5] = primaryHair

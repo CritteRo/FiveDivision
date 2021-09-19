@@ -1,6 +1,7 @@
 
 comp11Index = 1
 comp8Index = 1
+comp7Index = 1
 comp4Index = 1
 comp6Index = 1
 primaryHairIndex = 1
@@ -20,6 +21,7 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
 
     comp11Variations = {}
     comp8Variations = {}
+    comp7Variations = {}
     comp4Variations = {}
     comp6Variations = {}
     hairColors = getAllColors()
@@ -40,6 +42,15 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
                 comp8Index = #comp8Variations + 1
             end
             comp8Variations[#comp8Variations + 1] = i
+        end
+    end
+
+    for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 8, PlayerInfo.ped['comp7'][1]), 1 do
+        if IsPedComponentVariationValid(PlayerPedId(), 8, PlayerInfo.ped['comp7'][1], i) then
+            if i == PlayerInfo.ped['comp7'][2] then
+                comp7Index = #comp7Variations + 1
+            end
+            comp7Variations[#comp7Variations + 1] = i
         end
     end
 
@@ -90,20 +101,26 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
                 setPlayerSpecificComponent(8, PlayerInfo.ped['comp8'][1], comp8Variations[comp8Index])
             end
 
+            local _, _comp7Index = WarMenu.ComboBox('Accessories', comp7Variations, comp7Index)
+            if _comp7Index ~= comp7Index then
+                comp7Index = _comp7Index
+                setPlayerSpecificComponent(7, PlayerInfo.ped['comp7'][1], comp8Variations[comp7Index])
+            end
+
+            local _, _comp4Index = WarMenu.ComboBox('Pants', comp4Variations, comp4Index)
+            if _comp4Index ~= comp4Index then
+                comp4Index = _comp4Index
+                setPlayerSpecificComponent(4, PlayerInfo.ped['comp4'][1], comp4Variations[comp4Index])
+            end
+
             local _, _comp6Index = WarMenu.ComboBox('Shoes', comp6Variations, comp6Index)
             if _comp6Index ~= comp6Index then
                 comp6Index = _comp6Index
                 setPlayerSpecificComponent(6, PlayerInfo.ped['comp6'][1], comp6Variations[comp6Index])
             end
 
-            local _, _comp4Index = WarMenu.ComboBox('Pant', comp4Variations, comp4Index)
-            if _comp4Index ~= comp4Index then
-                comp4Index = _comp4Index
-                setPlayerSpecificComponent(4, PlayerInfo.ped['comp4'][1], comp4Variations[comp4Index])
-            end
-
             if WarMenu.IsMenuAboutToBeClosed() then
-                TriggerServerEvent('core.UpdatePlayerClothesVariations', comp11Variations[comp11Index], comp8Variations[comp8Index], comp6Variations[comp6Index], comp4Variations[comp4Index], primaryHairIndex-1, secondaryHairIndex-1)
+                TriggerServerEvent('core.UpdatePlayerClothesVariations', comp11Variations[comp11Index], comp8Variations[comp8Index], comp7Variations[comp7Index], comp6Variations[comp6Index], comp4Variations[comp4Index], primaryHairIndex-1, secondaryHairIndex-1)
             end
 
             WarMenu.End()

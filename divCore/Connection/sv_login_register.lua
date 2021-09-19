@@ -111,6 +111,48 @@ end
 
 AddEventHandler("playerConnecting", OnPlayerConnecting)
 
+RegisterCommand('_reload_me', function(source, args)
+    local src = source
+    local name = GetPlayerName(src)
+    local identifiers = GetPlayerIdentifiers(src)
+    local license  = false
+
+    for k,v in pairs(GetPlayerIdentifiers(src))do
+        if string.sub(v, 1, string.len("license:")) == "license:" then
+            license = v
+        end
+        
+    end
+    exports.oxmysql:fetch("SELECT COUNT(uid) AS idcount FROM users WHERE `name` = ?", {name}, function(result) --numara conturile cu numele asta
+        if result[1]['idcount'] == 1 then --daca exista license => exista un cont cu numele ala
+            local send = 1
+            exports.oxmysql:fetch("SELECT * FROM `users` WHERE `name` = ?",{name},function (result)
+                if result[1].license == license then
+                    if result[1].bantime == 0 then
+                        print(string.format("Reloaded with %s", tostring(license)))
+                        PlayerInfo[src] = {
+                            uid = result[1].uid,
+                            name = result[1].name,
+                            bantime = result[1].bantime,
+                            mutetime = result[1].mutetime,
+                            stats = json.decode(result[1].stats),
+                            weapons = json.decode(result[1].weapons),
+                            clothes = json.decode(result[1].clothes),
+                            ped = json.decode(result[1].ped),
+                            lang = result[1].lang,
+                            admin = result[1].admin,
+                            license = result[1].license,
+                            activity = 0,
+                            group = 0,
+                        }
+                        TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+                    end
+                end
+            end)
+        end
+    end)
+end)
+
 AddEventHandler('playerJoining', function(oldID)
     local src = source
     PlayerInfo[src] = tempData[tonumber(oldID)]
