@@ -454,8 +454,8 @@ cosmeticClothes = {
             {'comp7', 0},
         },
         ['mp_f_freemode_01'] = {
-            {'comp9', 54, "FIB Badge"},
-            {'comp7', 0},
+            {'comp7', 0, "FIB Badge"},
+            {'comp9', 54},
         },
     },
     [159] = {
