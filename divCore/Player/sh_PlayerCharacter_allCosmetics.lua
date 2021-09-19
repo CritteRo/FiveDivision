@@ -468,7 +468,96 @@ cosmeticClothes = {
             {'comp9', 0},
         },
     },
------------------------------------------------
+--------------SHOES----------------------
+    [160] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 22, "High-top textile shoes"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 49, "High-top textile shoes"},
+        },
+    },
+    [161] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 1, "Low-top textile shoes"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 3, "Low-top textile shoes"},
+        },
+    },
+    [162] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 75, "Basketball sneakers"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 79, "Basketball sneakers"},
+        },
+    },
+    [163] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 55, "Street sneakers I"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 58, "Street sneakers I"},
+        },
+    },
+    [164] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 46, "Street sneakers II"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 47, "Street sneakers II"},
+        },
+    },
+    [165] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 31, "Running shoes"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 32, "Running shoes"},
+        },
+    },
+    [166] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 21, "Formal shoes"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 29, "Formal shoes"},
+        },
+    },
+    [167] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 81, "Clean boots"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 85, "Clean boots"},
+        },
+    },
+    [168] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 85, "Tactical winter boots"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 89, "Tactical winter boots"},
+        },
+    },
+    [169] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 65, "Formal boots"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 68, "Formal boots"},
+        },
+    },
+    [170] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 12, "Trendy boots"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 2, "Trendy boots"},
+        },
+    },
+-----------------------------------------
     [5] = {
         ['mp_m_freemode_01'] = {
             {"comp3", 1, "Sports Jacket"},
