@@ -23,6 +23,16 @@ PlayerInfo = {
     }
 }
 
+--Chat Mute
+AddEventHandler('chatMessage', function(source, name, message)
+    if PlayerInfo[source].mutetime ~= 0 then
+		CancelEvent()
+        print("["..source.."]"..GetPlayerName(source).." is muted. Message will not appear in chat.")
+		TriggerClientEvent("chatMessage", source, "Server",{255,0,0}, "You are muted for ~y~"..PlayerInfo[source].mutetime.."~s~ minutes.")
+	end
+end)
+--end chat mute
+
 RegisterCommand("setcomp", function(source, args)
     local src = source
     if true then
@@ -97,7 +107,7 @@ AddEventHandler('core.SendLevelUpdate', function(level)
         PlayerInfo[src].stats['level'] = tonumber(level)
         updateStatsInDatabase(src, PlayerInfo[src].uid)
         TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
-        TriggerClientEvent('core.UpdateServerResources', src, PlayerInfo[src])
+        TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
     end
 end)
 

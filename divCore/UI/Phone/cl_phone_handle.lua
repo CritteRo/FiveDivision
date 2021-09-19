@@ -7,8 +7,8 @@ TriggerEvent('scalePhone.BuildApp', 'app_emailView', "emailView", "Rules", 0, 0,
 AddEventHandler('phone.ReceiveEmail', function(email)
     local mails = {title = email.title, to = email.to, from = email.from, message = email.message, event = 'phone.OpenEmail', canOpenMenu = false, selectEvent = ""}
     mails.eventParams = mails
-    TriggerEvent('scalePhone.BuildAppButton', 'app_email', mails, true, -1)
-    TriggerEvent('scalePhone.AddAppNotification', 'app_email')
+    TriggerEvent('scalePhone.BuildAppButton', 'app_emails', mails, true, -1)
+    TriggerEvent('scalePhone.AddAppNotification', 'app_emails')
 end)
 
 AddEventHandler('phone.ReceiveMessage', function(sms, isMine)
