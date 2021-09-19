@@ -116,6 +116,7 @@ end)
 
 WarMenu.CreateMenu('core.ClothesMenu2', 'Cosmetics', "Wardrobe Menu", coreMenuStyle)
 WarMenu.CreateSubMenu('core.ClothesMenu2_tops', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
+WarMenu.CreateSubMenu('core.ClothesMenu2_accessories', 'core.ClothesMenu2', "Wardrobe Accessories", coreMenuStyle)
 WarMenu.CreateSubMenu('core.ClothesMenu2_pants', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
 WarMenu.CreateSubMenu('core.ClothesMenu2_shoes', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
 WarMenu.CreateSubMenu('core.ClothesMenu2_hair', 'core.ClothesMenu2', "Wardrobe Tops", coreMenuStyle)
@@ -130,6 +131,7 @@ AddEventHandler('core.ui.ShowWardrobeMenu', function()
         if WarMenu.Begin('core.ClothesMenu2') then
             WarMenu.MenuButton("Hair Styles", 'core.ClothesMenu2_hair')
             WarMenu.MenuButton("Tops", 'core.ClothesMenu2_tops')
+            WarMenu.MenuButton("Accessories", 'core.ClothesMenu2_accessories')
             WarMenu.MenuButton("Pants", 'core.ClothesMenu2_pants')
             WarMenu.MenuButton("Shoes", 'core.ClothesMenu2_shoes')
             WarMenu.End()
@@ -166,6 +168,16 @@ AddEventHandler('core.ui.ShowWardrobeMenu', function()
         elseif WarMenu.Begin('core.ClothesMenu2_hair') then --hair
             for i,k in pairs(PlayerInfo.clothes) do
                 if cosmeticClothes[k][PlayerInfo.ped['model']][1][1] == "comp2" then
+                    WarMenu.Button(tostring(cosmeticClothes[k][PlayerInfo.ped['model']][1][3]))
+                    if WarMenu.IsItemSelected() then
+                        TriggerServerEvent('core.SetPlayerCosmeticItem', k)
+                    end
+                end
+            end
+            WarMenu.End()
+        elseif WarMenu.Begin('core.ClothesMenu2_accessories') then --accessories
+            for i,k in pairs(PlayerInfo.clothes) do
+                if cosmeticClothes[k][PlayerInfo.ped['model']][1][1] == "comp7" then
                     WarMenu.Button(tostring(cosmeticClothes[k][PlayerInfo.ped['model']][1][3]))
                     if WarMenu.IsItemSelected() then
                         TriggerServerEvent('core.SetPlayerCosmeticItem', k)
