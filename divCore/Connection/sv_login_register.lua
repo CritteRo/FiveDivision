@@ -146,6 +146,7 @@ RegisterCommand('_reload_me', function(source, args)
                             group = 0,
                         }
                         TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+                        TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                     end
                 end
             end)
@@ -157,6 +158,7 @@ AddEventHandler('playerJoining', function(oldID)
     local src = source
     PlayerInfo[src] = tempData[tonumber(oldID)]
     TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+    TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
     TriggerEvent('core.GatherPlayersForScoreboard')
     tempData[tonumber(oldID)] = nil
 end)

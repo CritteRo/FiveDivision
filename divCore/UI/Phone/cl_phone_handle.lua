@@ -7,6 +7,7 @@ TriggerEvent('scalePhone.BuildApp', 'app_emailView', "emailView", "Rules", 0, 0,
 AddEventHandler('phone.ReceiveEmail', function(email)
     local mails = {title = email.title, to = email.to, from = email.from, message = email.message, event = 'phone.OpenEmail', canOpenMenu = false, selectEvent = ""}
     mails.eventParams = mails
+    notifyex('CHAR_LESTER', 'New Email!', "From: "..email.from, 2, email.message, 123)
     TriggerEvent('scalePhone.BuildAppButton', 'app_emails', mails, true, -1)
     TriggerEvent('scalePhone.AddAppNotification', 'app_emails')
 end)
@@ -17,6 +18,7 @@ AddEventHandler('phone.ReceiveMessage', function(sms, isMine)
     if sms.hasPic ~= nil then
         mess.hasPic = sms.hasPic
     end
+    notifyex(sms.hasPic, 'New Message!', "From: "..sms.contact, 1, sms.message, 123)
     mess.eventParams.identifier = "/"..sms.contact.."/"..sms.message.."/"..tostring(isMine).."/" -- we set up a unique string in the message data, to make sure we can find it at a later stage.
     TriggerEvent('scalePhone.BuildAppButton', 'app_messages', mess, true, -1)
     if isMine == false then

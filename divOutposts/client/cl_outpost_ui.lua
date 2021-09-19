@@ -7,7 +7,7 @@ outpostScaleform = 0
 
 
 Citizen.CreateThread(function()
-    TriggerEvent('outpost.ReloadOutpostBlips')
+    TriggerServerEvent('outpost.RequestServerOutposts')
     outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
     while true do
         playerNearOutpost = nil
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
         end
         if playerNearOutpost ~=nil then
             local dist = #(vector3(outposts[playerNearOutpost].blipX, outposts[playerNearOutpost].blipY, outposts[playerNearOutpost].blipZ) - coords)
-            if dist >=30.0 then
+            if dist >=5.0 then
                 local camcoord = GetFinalRenderedCamRot(2)
                 DrawScaleformMovie_3dSolid(outpostScaleform, outposts[playerNearOutpost].blipX, outposts[playerNearOutpost].blipY, outposts[playerNearOutpost].blipZ+5, camcoord, 1.0, 1.0, 15.0, 15.0, 15.0, 100)
             end
@@ -37,7 +37,15 @@ Citizen.CreateThread(function()
     end
 end)
 
-AddEventHandler('outpost.ReloadOutpostBlips', function()
+RegisterNetEvent('outpost.ReloadOutpostBlips')
+AddEventHandler('outpost.ReloadOutpostBlips', function(_outposts)
+    if _outposts ~= nil then
+        outposts = _outposts
+        if playerNearOutpost ~= nil then
+            Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[outposts[playerNearOutpost].status].."\n", outpostStatusColor[outposts[playerNearOutpost].status]..outposts[playerNearOutpost].name.."~s~", "", '', "", false, "", outposts[playerNearOutpost].xp, outposts[playerNearOutpost].cash,"")
+        end
+    end
+    print('running outpost check')
     for i,k in pairs(outposts) do
         local color = 3 --liberated
         local img = 417 --liberated
