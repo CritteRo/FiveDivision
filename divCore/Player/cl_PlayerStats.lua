@@ -17,6 +17,13 @@ PlayerInfo = {
     license = "license:99999999999999999",
 }
 
+Citizen.CreateThread( function()
+    while true do
+       Citizen.Wait(0)
+       RestorePlayerStamina(PlayerId(), 1.0)
+       end
+   end)   
+
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
     updateStatsUI(true, tonumber(PlayerInfo.stats['xp']), tonumber(PlayerInfo.stats['cash']), tonumber(PlayerInfo.stats['bank']))

@@ -6,7 +6,7 @@ AddEventHandler('weather.SetSnowWeather', function(overrideTime)
     end
     ClearOverrideWeather()
     ClearWeatherTypePersist()
-    SetWeatherTypePersist("XMAS")
+    SetWeatherTypePersist("XMAS") --XMAS
     SetWeatherTypeNow("XMAS")
     SetWeatherTypeNowPersist("XMAS")
     SetForceVehicleTrails(true)

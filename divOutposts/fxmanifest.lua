@@ -7,11 +7,12 @@ description 'part of FiveReborn'
 dependency 'divCore'
 
 client_scripts {
-    'cl_outpost_main.lua',
+    'client/cl_outpost_main.lua',
+    'client/cl_outpost_ui.lua',
 }
 
 server_scripts {
-    'sv_outpost_main.lua',
+    'server/sv_outpost_main.lua',
 }
 
-shared_script 'sh_outpost_main.lua'
+shared_script 'shared/sh_outpost_main.lua'
