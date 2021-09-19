@@ -145,6 +145,7 @@ AddEventHandler('core.OpenCharCreationMenu', function()
                 PlayerInfo.ped['overlay'] = {overlayIndexes[0].idList[overlayIndexes[0].index], overlayIndexes[3].idList[overlayIndexes[3].index], overlayIndexes[4].idList[overlayIndexes[4].index], 0, overlayIndexes[5].idList[overlayIndexes[5].index], 0, overlayIndexes[6].idList[overlayIndexes[6].index], overlayIndexes[7].idList[overlayIndexes[7].index], overlayIndexes[8].idList[overlayIndexes[8].index], 0, overlayIndexes[9].idList[overlayIndexes[9].index]}
                 PlayerInfo.ped['overlayColor'] = {overlayColorIndexes[1].list[overlayColorIndexes[1].index], overlayColorIndexes[2].list[overlayColorIndexes[2].index], overlayColorIndexes[3].list[overlayColorIndexes[3].index], overlayColorIndexes[4].list[overlayColorIndexes[4].index], overlayColorIndexes[5].list[overlayColorIndexes[5].index], overlayColorIndexes[6].list[overlayColorIndexes[6].index]}
                 TriggerServerEvent('core.SavePlayerCharacter', PlayerInfo.ped)
+                WarMenu.CloseMenu()
             end
             WarMenu.Button('Cancel Character Creation')
             if WarMenu.IsItemSelected() then
