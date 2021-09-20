@@ -13,3 +13,7 @@ enemySpawns = {
         {handle = 0, x = 56.04, y = -414.601, z = 39.92},
     },
 }
+
+factionPeds = {
+    [1] = "s_m_y_dealer_01", --hobos
+}

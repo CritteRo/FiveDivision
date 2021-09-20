@@ -38,6 +38,7 @@ end)
 Citizen.CreateThread(function()
     for i,k in pairs(outposts) do
         outposts[i].status = 0
+        spawnOutpostEnemies(i)
     end
     local updateTime = 60*1000
     while true do
@@ -166,7 +167,7 @@ function spawnOutpostEnemies(outpostID)
             if DoesEntityExist(k.handle) then
                 if not IsEntityVisible(k.handle) or GetEntityHealth(k.handle) <= 0 then
                     DeleteEntity(k.handle)
-                    k.handle = CreatePed(1, "s_m_m_snowcop_01", k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                    k.handle = CreatePed(1, factionPeds[1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
                 end
             else
                 k.handle = CreatePed(1, "s_m_m_snowcop_01", k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
