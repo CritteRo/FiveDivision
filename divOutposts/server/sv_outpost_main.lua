@@ -161,4 +161,18 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
 end)
 
 function spawnOutpostEnemies(outpostID)
+    if enemySpawns[outpostID] ~= nil then
+        for i,k in pairs(enemySpawns[outpostID]) do
+            if DoesEntityExist(k.handle) then
+                if not IsEntityVisible(k.handle) or GetEntityHealth(k.handle) <= 0 then
+                    DeleteEntity(k.handle)
+                    k.handle = CreatePed(1, "s_m_m_snowcop_01", k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                end
+            else
+                k.handle = CreatePed(1, "s_m_m_snowcop_01", k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+            end
+        end
+    else
+        print('outpost has no enemies')
+    end
 end
