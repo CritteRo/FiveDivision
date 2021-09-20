@@ -16,7 +16,7 @@ Citizen.CreateThread(function()
                 end
             elseif outposts[playerNearOutpost].status == 1 then --neutral. need to install Division relay.
                 if #(c2 - coords) <= 5.0 then
-                    alert('~INPUT_ENTER~ Instal Division broadcaster.')
+                    alert('~INPUT_ENTER~ Liberate outpost.')
                     if IsControlJustPressed(0--[[control type]],  23--[[control index]]) then
                         TriggerServerEvent("outpost.InstallingBroadcaster", playerNearOutpost)
                         useButton(2)
@@ -36,40 +36,25 @@ end)
 
 function useButton(use)
     if use == 1 then
-        print('pressed button')
         local coords = GetEntityCoords(PlayerPedId())
         local heading = GetEntityHeading(PlayerPedId())
         TaskPlantBomb(PlayerPedId(), coords.x, coords.y, coords.z, heading)
         caption('Destroying enemy broadcaster...', 4000)
         Citizen.Wait(4000)
-        print('sent Event')
         --ClearPedTasks(PlayerPedId())
         TriggerServerEvent("outpost.DestroyedBroadcaster", playerNearOutpost)
     elseif use == 2 then
         TaskPlantBomb(PlayerPedId(), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()))
-        print('pressed button')
         caption('Preparing flare...', 4000)
         Citizen.Wait(4000)
-        print('sent Event')
         TriggerServerEvent("outpost.InstalledBroadcaster", playerNearOutpost)
-        Citizen.Wait(500)
+        Citizen.Wait(200)
         local coords = GetEntityCoords(PlayerPedId())
-        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 6000, true, true)
+        SetPlayerControl(PlayerId(), false, 1)
+        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 4000, true, true)
         Citizen.Wait(1000)
         TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
+        Citizen.Wait(500)
+        SetPlayerControl(PlayerId(), true, 1)
     end
 end
-
-local ped = 0
-
-RegisterCommand('getped', function()
-    
-end)
-
-RegisterCommand('shoot', function()
-    local coords = GetEntityCoords(PlayerPedId())
-    TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z-1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
-    cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", GetGameplayCamCoord(), GetGameplayCamRot(2), GetGameplayCamFov())
-    SetCamActive(cam1, true)
-    RenderScriptCams(true, false, 0, true, false)
-end)

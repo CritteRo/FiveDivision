@@ -146,13 +146,13 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         PlayerInfo[src].inOutpost = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
                         ClearPedTasks(ped)
-                        local coords = GetEntityCoords(ped)
-                        --local lookat = CreatePed(1, "a_m_m_acult_01", coords.x+50.0, coords.y+50.0, coords.z+100, 0.0, true, false)
-                        --FreezeEntityPosition(lookat, true)
+                        --local coords = GetEntityCoords(ped)
+                        --SetPlayerControl(src, false, 1)
                         RemoveWeaponFromPed(ped, "weapon_flaregun")
                         GiveWeaponToPed(ped, "weapon_flaregun", 1, false, true)
-                        --TaskShootAtEntity(ped, lookat, 5000, GetHashKey("FIRING_PATTERN_SINGLE_SHOT"))
-                        --DeleteEntity(lookat)
+                        --TaskShootAtCoord(ped, coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
+                        --Citizen.Wait(100)
+                        --SetPlayerControl(src, true, 1)
                     end
                 end
             end
