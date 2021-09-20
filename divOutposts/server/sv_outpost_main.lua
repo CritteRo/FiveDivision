@@ -88,6 +88,7 @@ end)
 
 AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
     local src = source
+    --ClearPedTasks(GetPlayerPed(src))
     if PlayerInfo[src] ~= nil then
         if PlayerInfo[src].isDestroying == true then
             if PlayerInfo[src].inOutpost ~= 0 then
@@ -131,6 +132,8 @@ end)
 
 AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
     local src = source
+    local ped = GetPlayerPed(src)
+    ClearPedTasks(ped)
     if PlayerInfo[src] ~= nil then
         if PlayerInfo[src].isInstalling == true then
             if PlayerInfo[src].inOutpost ~= 0 then
@@ -142,6 +145,14 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         PlayerInfo[src].installingStart = 0
                         PlayerInfo[src].inOutpost = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
+                        ClearPedTasks(ped)
+                        local coords = GetEntityCoords(ped)
+                        --local lookat = CreatePed(1, "a_m_m_acult_01", coords.x+50.0, coords.y+50.0, coords.z+100, 0.0, true, false)
+                        --FreezeEntityPosition(lookat, true)
+                        RemoveWeaponFromPed(ped, "weapon_flaregun")
+                        GiveWeaponToPed(ped, "weapon_flaregun", 1, false, true)
+                        --TaskShootAtEntity(ped, lookat, 5000, GetHashKey("FIRING_PATTERN_SINGLE_SHOT"))
+                        --DeleteEntity(lookat)
                     end
                 end
             end

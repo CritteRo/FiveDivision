@@ -145,7 +145,7 @@ RegisterCommand('_reload_me', function(source, args)
                             activity = 0,
                             group = 0,
                         }
-                        TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
+                        TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
                         TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                     end
                 end

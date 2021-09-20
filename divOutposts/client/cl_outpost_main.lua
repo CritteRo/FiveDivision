@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
                         useButton(2)
                     end
                 else
-                    caption('Install a ~b~DivisionTech broadcaster~s~, to claim this outpost.', 10)
+                    caption('Shoot a ~b~flare gun~s~ at the top of the outpost, to reclaim it.', 10)
                 end
             elseif outposts[playerNearOutpost].status == 2 then --friendly. Just wait.
                 Citizen.Wait(1000)
@@ -37,22 +37,39 @@ end)
 function useButton(use)
     if use == 1 then
         print('pressed button')
-        local wait = 4000
+        local coords = GetEntityCoords(PlayerPedId())
+        local heading = GetEntityHeading(PlayerPedId())
+        TaskPlantBomb(PlayerPedId(), coords.x, coords.y, coords.z, heading)
         caption('Destroying enemy broadcaster...', 4000)
         Citizen.Wait(4000)
         print('sent Event')
+        --ClearPedTasks(PlayerPedId())
         TriggerServerEvent("outpost.DestroyedBroadcaster", playerNearOutpost)
     elseif use == 2 then
-        local wait = 4000
-        while wait <= 0 do
-            wait = wait -1
-            
-            Citizen.Wait(1)
-        end
+        TaskPlantBomb(PlayerPedId(), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()))
         print('pressed button')
-        caption('Installing Division broadcaster...', 4000)
+        caption('Preparing flare...', 4000)
         Citizen.Wait(4000)
         print('sent Event')
         TriggerServerEvent("outpost.InstalledBroadcaster", playerNearOutpost)
+        Citizen.Wait(500)
+        local coords = GetEntityCoords(PlayerPedId())
+        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 6000, true, true)
+        Citizen.Wait(1000)
+        TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
     end
 end
+
+local ped = 0
+
+RegisterCommand('getped', function()
+    
+end)
+
+RegisterCommand('shoot', function()
+    local coords = GetEntityCoords(PlayerPedId())
+    TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z-1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
+    cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", GetGameplayCamCoord(), GetGameplayCamRot(2), GetGameplayCamFov())
+    SetCamActive(cam1, true)
+    RenderScriptCams(true, false, 0, true, false)
+end)
