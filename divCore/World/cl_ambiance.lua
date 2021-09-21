@@ -13,4 +13,5 @@ AddEventHandler('weather.SetSnowWeather', function(overrideTime)
     SetForcePedFootstepsTracks(true)
 end)
 
+SetFlashLightKeepOnWhileMoving(true)
 TriggerEvent('weather.SetSnowWeather')

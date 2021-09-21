@@ -94,6 +94,7 @@ AddEventHandler('outpost.SetPedBehavior', function(outpost)
     SetRelationshipGroupDontAffectWantedLevel(enemyGroup, true)
     for i,k in pairs(enemySpawns[outpost]) do
         if IsEntityAPed(k.handle) then
+            print('found ped '..k.handle)
             SetPedAsGroupMember(k.handle, enemyGroup)
             SetPedRelationshipGroupHash(k.handle, enemyGroupR)
             SetPedConfigFlag(k.handle, 13, true)
@@ -108,15 +109,65 @@ AddEventHandler('outpost.SetPedBehavior', function(outpost)
 end)
 
 AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
-    print('ped behavior set 2')
-    if GetPedRelationshipGroupHash(PlayerPedId()) ~= myGroup then
-        SetPedRelationshipGroupHash(PlayerPedId(), myGroup)
-    end 
-    for i,k in pairs(enemySpawns[outpost]) do
-        if IsEntityAPed(k.handle) then
-            SetPedRelationshipGroupHash(k.handle, enemyGroup)
-            SetPedAsEnemy(k.handle, true)
-            SetPedCombatMovement(k.handle, math.random(1,3))
+    --print('ped behavior set 2')
+    --if GetPedRelationshipGroupHash(PlayerPedId()) ~= myGroup then
+        --SetPedRelationshipGroupHash(PlayerPedId(), myGroup)
+    --end
+    SetRelationshipBetweenGroups(5--[[hate]], GetHashKey("PLAYER"), GetHashKey('AMBIENT_GANG_BALLAS'))
+    SetRelationshipBetweenGroups(5--[[hate]], GetHashKey('AMBIENT_GANG_BALLAS'), GetHashKey("PLAYER"))
+    for i,k in pairs(enemySpawns[tonumber(outpost)]) do
+        print('checking ped '..k.handle)
+        local retest = 0
+        ::recheck::
+        if IsEntityAPed(NetToPed(k.handle)) then
+            local ped = NetToPed(k.handle)
+            print('found ped '..ped)
+            SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_BALLAS'))
+            SetPedAsEnemy(ped, true)
+            SetPedCombatMovement(ped, math.random(1,3))
+        else
+            if retest < 11 then
+                print('rechecking ped '..k.handle)
+                Citizen.Wait(10)
+                retest = retest + 1
+                goto recheck
+            else
+                print("couldn't find "..k.handle)
+            end
         end
+    end
+    SetRelationshipGroupDontAffectWantedLevel(GetHashKey("PLAYER"), true)
+    SetRelationshipGroupDontAffectWantedLevel(GetHashKey('AMBIENT_GANG_BALLAS'), true)
+end)
+
+RegisterNetEvent('test.SendPedToClient')
+AddEventHandler('test.SendPedToClient', function(_ped)
+    print(_ped)
+    while not DoesEntityExist(NetToPed(_ped)) do 
+            Wait(10)
+    end
+    local ped = NetToPed(_ped)
+    if DoesEntityExist(ped) then
+        print(ped.." is an entity")
+    else
+        print(ped.." is NOT entity")
+    end
+
+    if DoesEntityExist(tonumber(ped)) then
+        print(ped.." is an tonumber entity")
+    else
+        print(ped.." is NOT tonumber entity")
+    end
+
+    if IsEntityAPed(ped) then
+        print(ped.." is an ped")
+    else
+        print(ped.." is NOT ped")
+    end
+
+    if IsEntityAPed(tonumber(ped)) then
+        print(ped.." is an tonumber ped")
+    else
+        print(ped.." is NOT tonumber ped")
     end
 end)

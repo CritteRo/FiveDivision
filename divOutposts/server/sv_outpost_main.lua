@@ -180,8 +180,24 @@ function spawnOutpostEnemies(outpostID, factionID)
                 SetPedArmour(k.handle, 100)
             end
         end
+        for v,h in pairs(enemySpawns[outpostID]) do
+            h.handle = NetworkGetNetworkIdFromEntity(h.handle)
+        end
         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
     else
         print('outpost has no enemies')
     end
 end
+
+function createPed(player)
+    local src = player
+    local coords = GetEntityCoords(GetPlayerPed(src))
+    local ped = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], coords.x, coords.y, coords.z, math.random(0,200)+0.0, true, false)
+    print(ped..' is server ped id')
+    print(NetworkGetNetworkIdFromEntity(ped).."is ped net id")
+    TriggerClientEvent('test.SendPedToClient', src, NetworkGetNetworkIdFromEntity(ped))
+end
+
+RegisterCommand('ped', function(source, args)
+    createPed(source)
+end)

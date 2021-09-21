@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
                 end
                 if enteredOutpost == false then
                     enteredOutpost = true
-                    TriggerEvent('outpost.SetPedBehavior', i)
+                    TriggerEvent('outpost.SetPedBehavior_2', i)
                 end
                 break
             end
