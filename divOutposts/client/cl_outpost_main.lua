@@ -53,10 +53,33 @@ function useButton(use)
         Citizen.Wait(200)
         local coords = GetEntityCoords(PlayerPedId())
         SetPlayerControl(PlayerId(), false, 1)
+        DoScreenFadeOut(1000)
+        while not IsScreenFadedOut() do
+            Citizen.Wait(10)
+        end
+        local cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", outposts[playerNearOutpost].x3, outposts[playerNearOutpost].y3, outposts[playerNearOutpost].z3, outposts[playerNearOutpost].rx, outposts[playerNearOutpost].ry, outposts[playerNearOutpost].rz, 70 * 1.0)
+        SetCamActive(cam1, true)
+        RenderScriptCams(true, false, 0, true, false)
+        DoScreenFadeIn(1000)
+        while not IsScreenFadedIn() do
+            Citizen.Wait(10)
+        end
         TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, true, true)
         Citizen.Wait(500)
         TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
-        Citizen.Wait(500)
+        Citizen.Wait(1000)
+
+        DoScreenFadeOut(1000)
+        while not IsScreenFadedOut() do
+            Citizen.Wait(10)
+        end
+        ClearFocus()
+        RenderScriptCams(false, false, 0, true, false)
+        DestroyCam(cam1, false)
+        DoScreenFadeIn(1000)
+        while not IsScreenFadedIn() do
+            Citizen.Wait(10)
+        end
         SetPlayerControl(PlayerId(), true, 1)
     end
 end

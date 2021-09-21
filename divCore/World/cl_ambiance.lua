@@ -11,7 +11,8 @@ AddEventHandler('weather.SetSnowWeather', function(overrideTime)
     SetWeatherTypeNowPersist("XMAS")
     SetForceVehicleTrails(true)
     SetForcePedFootstepsTracks(true)
+    SetFlashLightKeepOnWhileMoving(true)
+    SetArtificialLightsState(true) --blackout
+    SetArtificialLightsStateAffectsVehicles(false) --but don't affect vehicles
 end)
-
-SetFlashLightKeepOnWhileMoving(true)
 TriggerEvent('weather.SetSnowWeather')

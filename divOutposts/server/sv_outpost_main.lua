@@ -146,7 +146,6 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         outposts[PlayerInfo[src].inOutpost].status = 2
                         PlayerInfo[src].isInstalling = false
                         PlayerInfo[src].installingStart = 0
-                        PlayerInfo[src].inOutpost = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
                         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
                         ClearPedTasks(ped)
@@ -157,6 +156,9 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         --TaskShootAtCoord(ped, coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
                         --Citizen.Wait(100)
                         --SetPlayerControl(src, true, 1)
+                        Citizen.Wait(5000)
+                        TriggerClientEvent('cS.MidsizeBanner', src, "OUTPOST LIBERATED", outposts[PlayerInfo[src].inOutpost].name, 123, 12, true)
+                        PlayerInfo[src].inOutpost = 0
                     end
                 end
             end
