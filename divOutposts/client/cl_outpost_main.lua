@@ -50,11 +50,16 @@ function useButton(use)
     elseif use == 2 then
         TaskPlantBomb(PlayerPedId(), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()))
         caption('Preparing flare...', 4000)
-        Citizen.Wait(4000)
+        RemoveWeaponFromPed(PlayerPedId(), "weapon_flaregun")
+        GiveWeaponToPed(PlayerPedId(), "weapon_flaregun", 1, false, true)
+        SetPlayerControl(PlayerId(), false, 1)
+        RequestAnimDict( "reaction@intimidation@1h")
+        while (not HasAnimDictLoaded("reaction@intimidation@1h")) do Citizen.Wait(0) end
+        TaskPlayAnim(PlayerPedId(), "reaction@intimidation@1h", "intro", 8.0, 8.0, 3000, 0, 0.0, 0,0,0)
+        Citizen.Wait(3000)
         TriggerServerEvent("outpost.InstalledBroadcaster", playerNearOutpost)
         Citizen.Wait(200)
         local coords = GetEntityCoords(PlayerPedId())
-        SetPlayerControl(PlayerId(), false, 1)
         DoScreenFadeOut(1000)
         while not IsScreenFadedOut() do
             Citizen.Wait(10)

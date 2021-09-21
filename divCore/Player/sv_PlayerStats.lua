@@ -33,6 +33,16 @@ AddEventHandler('chatMessage', function(source, name, message)
 end)
 --end chat mute
 
+AddEventHandler('core.RequestResourceUpdates', function()
+    for _,player in ipairs(GetPlayers()) do
+        local src = tonumber(player)
+        if PlayerInfo[src] ~= nil then
+            TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
+            TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+        end
+    end
+end)
+
 RegisterCommand("setcomp", function(source, args)
     local src = source
     if true then
