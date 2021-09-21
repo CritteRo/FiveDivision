@@ -91,7 +91,7 @@ end)
 
 AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
     local src = source
-    --ClearPedTasks(GetPlayerPed(src))
+    ClearPedTasks(GetPlayerPed(src))
     if PlayerInfo[src] ~= nil then
         if PlayerInfo[src].isDestroying == true then
             if PlayerInfo[src].inOutpost ~= 0 then
@@ -203,4 +203,17 @@ end
 
 RegisterCommand('ped', function(source, args)
     createPed(source)
+end)
+
+AddEventHandler('onResourceStop', function(name)
+    if name == GetCurrentResourceName() then
+        print(name)
+        for v,h in pairs(enemySpawns) do
+            for i,k in pairs(h) do
+                if DoesEntityExist(NetworkGetEntityFromNetworkId(k.handle)) then
+                    DeleteEntity(NetworkGetEntityFromNetworkId(k.handle))
+                end
+            end
+        end
+    end
 end)

@@ -40,7 +40,9 @@ function useButton(use)
     if use == 1 then
         local coords = GetEntityCoords(PlayerPedId())
         local heading = GetEntityHeading(PlayerPedId())
-        TaskPlantBomb(PlayerPedId(), coords.x, coords.y, coords.z, heading)
+        RequestAnimDict("misstrevor2ig_7")
+        while (not HasAnimDictLoaded("misstrevor2ig_7")) do Citizen.Wait(0) end
+        TaskPlayAnim(PlayerPedId(), "misstrevor2ig_7", "plant_bomb", 8.0, 8.0, 4000, 0, 0.0, 0,0,0)
         caption('Destroying enemy broadcaster...', 4000)
         Citizen.Wait(4000)
         --ClearPedTasks(PlayerPedId())
