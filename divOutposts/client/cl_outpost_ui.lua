@@ -3,6 +3,7 @@ outpostBlips = {
 }
 playerNearOutpost = nil
 lastOutpost = 0
+enteredOutpost = false
 outpostScaleform = 0
 
 
@@ -21,6 +22,10 @@ Citizen.CreateThread(function()
                     outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
                     Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, "", k.xp, k.cash,"")
                 end
+                if enteredOutpost == false then
+                    enteredOutpost = true
+                    TriggerEvent('outpost.SetPedBehavior', i)
+                end
                 break
             end
         end
@@ -32,6 +37,7 @@ Citizen.CreateThread(function()
             end
         else
             Citizen.Wait(1000)
+            enteredOutpost = false
         end
         Citizen.Wait(0)
     end

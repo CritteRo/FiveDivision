@@ -38,16 +38,16 @@ end)
 Citizen.CreateThread(function()
     for i,k in pairs(outposts) do
         outposts[i].status = 0
-        spawnOutpostEnemies(i)
+        spawnOutpostEnemies(i, 1)
     end
-    local updateTime = 60*1000
+    local updateTime = 5*60*1000
     while true do
-        Citizen.Wait(updateTime) --30 seconds, update one neutral or friendly outpost
+        Citizen.Wait(updateTime) --60 seconds, update one neutral or friendly outpost
         local rand = math.random(1, #outposts)
         if outposts[rand].status ~= 0 then
             if outposts[rand].status == 1 then
                 outposts[rand].status = 0
-                spawnOutpostEnemies(rand)
+                spawnOutpostEnemies(rand, 1)
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was captured!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             elseif outposts[rand].status == 2 then
@@ -56,6 +56,7 @@ Citizen.CreateThread(function()
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             end
             TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
+            TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
         end
     end
 end)
@@ -63,6 +64,7 @@ end)
 AddEventHandler('outpost.RequestServerOutposts', function()
     local src = source
     TriggerClientEvent('outpost.ReloadOutpostBlips', src, outposts)
+    TriggerClientEvent('outpost.ReloadOutpostPeds', src, enemySpawns)
 end)
 
 AddEventHandler('outpost.DestroyingBroadcaster', function(outpostID)
@@ -146,6 +148,7 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         PlayerInfo[src].installingStart = 0
                         PlayerInfo[src].inOutpost = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
+                        TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
                         ClearPedTasks(ped)
                         --local coords = GetEntityCoords(ped)
                         --SetPlayerControl(src, false, 1)
@@ -161,18 +164,23 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
     end
 end)
 
-function spawnOutpostEnemies(outpostID)
+function spawnOutpostEnemies(outpostID, factionID)
     if enemySpawns[outpostID] ~= nil then
         for i,k in pairs(enemySpawns[outpostID]) do
             if DoesEntityExist(k.handle) then
                 if not IsEntityVisible(k.handle) or GetEntityHealth(k.handle) <= 0 then
                     DeleteEntity(k.handle)
-                    k.handle = CreatePed(1, factionPeds[1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                    k.handle = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                    GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
+                    SetPedArmour(k.handle, 100)
                 end
             else
-                k.handle = CreatePed(1, "s_m_m_snowcop_01", k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                k.handle = CreatePed(1, factionPeds[1][1], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
+                SetPedArmour(k.handle, 100)
             end
         end
+        TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
     else
         print('outpost has no enemies')
     end

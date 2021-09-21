@@ -1,3 +1,5 @@
+RegisterNetEvent('outpost.ReloadOutpostPeds')
+
 Citizen.CreateThread(function()
     while true do
         if playerNearOutpost ~= nil then
@@ -58,3 +60,33 @@ function useButton(use)
         SetPlayerControl(PlayerId(), true, 1)
     end
 end
+
+AddEventHandler('outpost.ReloadOutpostPeds', function(peds)
+    enemySpawns = peds
+end)
+
+enemyGroup = -1
+myGroup = -1
+
+AddEventHandler('outpost.SetPedBehavior', function(outpost)
+    print('ped behavior set')
+    if DoesGroupExist(enemyGroup) then
+        RemoveGroup(enemyGroup)
+    end
+    if IsPedInGroup(PlayerPedId()) then
+        myGroup = GetPedGroupIndex(PlayerPedId())
+    else
+        myGroup = CreateGroup(0--[[unused]])
+        SetPedAsGroupMember(PlayerPedId(), myGroup)
+        SetPedConfigFlag(PlayerPedId(), 13, true)
+    end
+    enemyGroup = CreateGroup(0--[[unused]])
+    SetRelationshipBetweenGroups(5--[[hate]], myGroup, enemyGroup)
+    SetRelationshipBetweenGroups(5--[[hate]], enemyGroup, myGroup)
+    for i,k in pairs(enemySpawns[outpost]) do
+        if IsEntityAPed(k.handle) then
+            SetPedAsGroupMember(k.handle, enemyGroup)
+            SetPedConfigFlag(k.handle, 13, true)
+        end
+    end
+end)
