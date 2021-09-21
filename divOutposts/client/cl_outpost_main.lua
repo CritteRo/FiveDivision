@@ -53,9 +53,8 @@ function useButton(use)
         Citizen.Wait(200)
         local coords = GetEntityCoords(PlayerPedId())
         SetPlayerControl(PlayerId(), false, 1)
-        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 4000, true, true)
-        Citizen.Wait(1000)
-        TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
+        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 1000, true, true)
+        TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 1000, "FIRING_PATTERN_SINGLE_SHOT")
         Citizen.Wait(500)
         SetPlayerControl(PlayerId(), true, 1)
     end
@@ -64,6 +63,13 @@ end
 AddEventHandler('outpost.ReloadOutpostPeds', function(peds)
     enemySpawns = peds
 end)
+
+retval, enemyGroupR = AddRelationshipGroup('enemies')
+retmeme, myGroupR = AddRelationshipGroup('enemies')
+SetRelationshipBetweenGroups(5--[[hate]], myGroupR, enemyGroupR)
+SetRelationshipBetweenGroups(5--[[hate]], enemyGroupR, myGroupR)
+SetRelationshipGroupDontAffectWantedLevel(myGroupR, true)
+SetRelationshipGroupDontAffectWantedLevel(enemyGroupR, true)
 
 enemyGroup = -1
 myGroup = -1
@@ -78,15 +84,39 @@ AddEventHandler('outpost.SetPedBehavior', function(outpost)
     else
         myGroup = CreateGroup(0--[[unused]])
         SetPedAsGroupMember(PlayerPedId(), myGroup)
+        SetPedRelationshipGroupHash(PlayerPedId(), myGroupR)
         SetPedConfigFlag(PlayerPedId(), 13, true)
     end
     enemyGroup = CreateGroup(0--[[unused]])
     SetRelationshipBetweenGroups(5--[[hate]], myGroup, enemyGroup)
     SetRelationshipBetweenGroups(5--[[hate]], enemyGroup, myGroup)
+    SetRelationshipGroupDontAffectWantedLevel(myGroup, true)
+    SetRelationshipGroupDontAffectWantedLevel(enemyGroup, true)
     for i,k in pairs(enemySpawns[outpost]) do
         if IsEntityAPed(k.handle) then
             SetPedAsGroupMember(k.handle, enemyGroup)
+            SetPedRelationshipGroupHash(k.handle, enemyGroupR)
             SetPedConfigFlag(k.handle, 13, true)
+            SetPedAsEnemy(k.handle, true)
+            SetPedCombatMovement(k.handle, math.random(1,3))
+        end
+    end
+    SetRelationshipBetweenGroups(5--[[hate]], myGroupR, enemyGroupR)
+    SetRelationshipBetweenGroups(5--[[hate]], enemyGroupR, myGroupR)
+    SetRelationshipGroupDontAffectWantedLevel(myGroupR, true)
+    SetRelationshipGroupDontAffectWantedLevel(enemyGroupR, true)
+end)
+
+AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
+    print('ped behavior set 2')
+    if GetPedRelationshipGroupHash(PlayerPedId()) ~= myGroup then
+        SetPedRelationshipGroupHash(PlayerPedId(), myGroup)
+    end 
+    for i,k in pairs(enemySpawns[outpost]) do
+        if IsEntityAPed(k.handle) then
+            SetPedRelationshipGroupHash(k.handle, enemyGroup)
+            SetPedAsEnemy(k.handle, true)
+            SetPedCombatMovement(k.handle, math.random(1,3))
         end
     end
 end)
