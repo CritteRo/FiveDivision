@@ -15,5 +15,5 @@ enemySpawns = {
 }
 
 factionPeds = {
-    [1] = {"s_m_y_dealer_01", "weapon_pistol"} --hobos
+    [1] = {--[["s_m_y_dealer_01"]]"u_m_m_streetart_01", "weapon_pistol"} --hobos
 }

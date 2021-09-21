@@ -53,8 +53,9 @@ function useButton(use)
         Citizen.Wait(200)
         local coords = GetEntityCoords(PlayerPedId())
         SetPlayerControl(PlayerId(), false, 1)
-        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 1000, true, true)
-        TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 1000, "FIRING_PATTERN_SINGLE_SHOT")
+        TaskAimGunAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, true, true)
+        Citizen.Wait(500)
+        TaskShootAtCoord(PlayerPedId(), coords.x, coords.y, coords.z+1000.0, 3000, "FIRING_PATTERN_SINGLE_SHOT")
         Citizen.Wait(500)
         SetPlayerControl(PlayerId(), true, 1)
     end
@@ -109,19 +110,13 @@ AddEventHandler('outpost.SetPedBehavior', function(outpost)
 end)
 
 AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
-    --print('ped behavior set 2')
-    --if GetPedRelationshipGroupHash(PlayerPedId()) ~= myGroup then
-        --SetPedRelationshipGroupHash(PlayerPedId(), myGroup)
-    --end
     SetRelationshipBetweenGroups(5--[[hate]], GetHashKey("PLAYER"), GetHashKey('AMBIENT_GANG_BALLAS'))
     SetRelationshipBetweenGroups(5--[[hate]], GetHashKey('AMBIENT_GANG_BALLAS'), GetHashKey("PLAYER"))
     for i,k in pairs(enemySpawns[tonumber(outpost)]) do
-        print('checking ped '..k.handle)
         local retest = 0
         ::recheck::
         if IsEntityAPed(NetToPed(k.handle)) then
             local ped = NetToPed(k.handle)
-            print('found ped '..ped)
             SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_BALLAS'))
             SetPedAsEnemy(ped, true)
             SetPedCombatMovement(ped, math.random(1,3))
