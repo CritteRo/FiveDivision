@@ -184,7 +184,9 @@ function spawnOutpostEnemies(outpostID, factionID)
             end
         end
         for v,h in pairs(enemySpawns[outpostID]) do
-            h.handle = NetworkGetNetworkIdFromEntity(h.handle)
+            if DoesEntityExist(h.handle) then
+                h.handle = NetworkGetNetworkIdFromEntity(h.handle)
+            end
         end
         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
     else
