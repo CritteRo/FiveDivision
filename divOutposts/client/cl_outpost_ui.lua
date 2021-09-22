@@ -65,10 +65,12 @@ AddEventHandler('outpost.ReloadOutpostBlips', function(_outposts)
         if outpostBlips[i] ~= nil then
             if outpostBlips[i][1] ~= nil then
                 RemoveBlip(outpostBlips[i][1])
+                exports['blip_info']:ResetBlipInfo(outpostBlips[i][1])
                 DeleteCheckpoint(outpostBlips[i][2])
                 DeleteCheckpoint(outpostBlips[i][3])
             end
             outpostBlips[i][1] = createStaticBlip(k.name, img, k.blipX, k.blipY, k.blipZ, color, 0.9)
+            setBlipInfo(outpostBlips[i][1], k)
             if k.status ~= 2 then
                 outpostBlips[i][2] = CreateCheckpoint(5, k.x1, k.y1, k.z1, 0.0, 0.0, 0.0, 3.01, 255, 190, 100, 60, 0)
                 SetCheckpointCylinderHeight(outpostBlips[i][2], 2.01, 6.01, 3.01)
@@ -81,6 +83,7 @@ AddEventHandler('outpost.ReloadOutpostBlips', function(_outposts)
             outpostBlips[i] = {
                 [1] = createStaticBlip(k.name, img, k.blipX, k.blipY, k.blipZ, color, 0.9),
             }
+            setBlipInfo(outpostBlips[i][1], k)
             if k.status ~= 2 then
                 outpostBlips[i][2] = CreateCheckpoint(5, k.x1, k.y1, k.z1, 0.0, 0.0, 0.0, 3.01, 255, 190, 100, 60, 0)
                 SetCheckpointCylinderHeight(outpostBlips[i][2], 2.01, 6.01, 3.01)
@@ -98,6 +101,17 @@ outpostStatusName = {
     [0] = "Enemy Outpost",
     [1] = "Neutral Outpost",
     [2] = "Liberated Outpost",
+}
+
+outpostStatusBlip = {
+    [0] = "~r~Captured~s~",
+    [1] = "~s~Abandoned~s~",
+    [2] = "~b~Liberated~s~",
+}
+
+outpostFactionName = {
+    [0] = "The Division",
+    [1] = "Monke",
 }
 
 outpostStatusColor = {
@@ -118,6 +132,15 @@ function createStaticBlip(name, blip, x, y, z, color, size)
     EndTextCommandSetBlipName(_blip)
 
     return _blip
+end
+
+function setBlipInfo(blip, outpost)
+    exports['blip_info']:SetBlipInfoTitle(blip, outpost.name, false)
+    --exports['blip_info']:SetBlipInfoImage(blip, "dict", "tex") Will use a custom .ytd file
+    exports['blip_info']:SetBlipInfoEconomy(blip, "", "") --will use xp and cash, whenever I fix the mission name scaleform issues.
+    exports['blip_info']:AddBlipInfoName(blip, "Faction:", outpostFactionName[0]) --faction name here, 
+    exports['blip_info']:AddBlipInfoHeader(blip, "Type:", "Outpost")
+    exports['blip_info']:AddBlipInfoText(blip, "Status:", outpostStatusBlip[outpost.status])
 end
 
 function notify(string, colID)

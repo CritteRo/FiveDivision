@@ -5,6 +5,7 @@ author 'CritteR / CritteRo'
 description 'part of FiveReborn'
 
 dependency 'divCore'
+dependency 'blip_info'
 
 client_scripts {
     'client/cl_outpost_main.lua',
