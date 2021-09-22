@@ -2,8 +2,10 @@
 comp11Index = 1
 comp8Index = 1
 comp7Index = 1
-comp4Index = 1
 comp6Index = 1
+comp5Index = 1
+comp4Index = 1
+comp1Index = 1
 primaryHairIndex = 1
 secondaryHairIndex = 1
 
@@ -22,8 +24,10 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
     comp11Variations = {}
     comp8Variations = {}
     comp7Variations = {}
-    comp4Variations = {}
     comp6Variations = {}
+    comp5Variations = {}
+    comp4Variations = {}
+    comp1Variations = {}
     hairColors = getAllColors()
 
 
@@ -63,12 +67,30 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
         end
     end
 
+    for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 5, PlayerInfo.ped['comp5'][1]), 1 do
+        if IsPedComponentVariationValid(PlayerPedId(), 5, PlayerInfo.ped['comp5'][1], i) then
+            if i == PlayerInfo.ped['comp5'][2] then
+                comp5Index = #comp5Variations + 1
+            end
+            comp5Variations[#comp5Variations + 1] = i
+        end
+    end
+
     for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 4, PlayerInfo.ped['comp4'][1]), 1 do
         if IsPedComponentVariationValid(PlayerPedId(), 4, PlayerInfo.ped['comp4'][1], i) then
             if i == PlayerInfo.ped['comp4'][2] then
                 comp4Index = #comp4Variations + 1
             end
             comp4Variations[#comp4Variations + 1] = i
+        end
+    end
+
+    for i=0, GetNumberOfPedTextureVariations(PlayerPedId(), 1, PlayerInfo.ped['comp1'][1]), 1 do
+        if IsPedComponentVariationValid(PlayerPedId(), 1, PlayerInfo.ped['comp1'][1], i) then
+            if i == PlayerInfo.ped['comp1'][2] then
+                comp1Index = #comp1Variations + 1
+            end
+            comp1Variations[#comp1Variations + 1] = i
         end
     end
 
@@ -89,6 +111,12 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
                 setPlayerHairColor(primaryHairIndex-1, secondaryHairIndex-1)
             end
 
+            local _, _comp1Index = WarMenu.ComboBox('Mask', comp1Variations, comp1Index)
+            if _comp1Index ~= comp1Index then
+                comp1Index = _comp1Index
+                setPlayerSpecificComponent(1, PlayerInfo.ped['comp1'][1], comp1Variations[comp1Index])
+            end
+
             local _, _comp11Index = WarMenu.ComboBox('Shirt', comp11Variations, comp11Index)
             if _comp11Index ~= comp11Index then
                 comp11Index = _comp11Index
@@ -104,7 +132,13 @@ AddEventHandler('core.ui.ShowClothesVariationsMenu', function()
             local _, _comp7Index = WarMenu.ComboBox('Accessories', comp7Variations, comp7Index)
             if _comp7Index ~= comp7Index then
                 comp7Index = _comp7Index
-                setPlayerSpecificComponent(7, PlayerInfo.ped['comp7'][1], comp8Variations[comp7Index])
+                setPlayerSpecificComponent(7, PlayerInfo.ped['comp7'][1], comp7Variations[comp7Index])
+            end
+
+            local _, _comp5Index = WarMenu.ComboBox('Bag', comp5Variations, comp5Index)
+            if _comp5Index ~= comp5Index then
+                comp5Index = _comp5Index
+                setPlayerSpecificComponent(5, PlayerInfo.ped['comp5'][1], comp5Variations[comp5Index])
             end
 
             local _, _comp4Index = WarMenu.ComboBox('Pants', comp4Variations, comp4Index)
