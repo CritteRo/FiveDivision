@@ -197,7 +197,7 @@ defaultChar = {
     ['prop7'] = {-1,0},
 }
 
-defaultClothes = {1,2,3,4} --Contains default cosmetics ids.
+defaultClothes = {1,2,3,4,5,6,7} --Contains default cosmetics ids.
 
 defaultWeapons = {
     ['pistol'] = {

@@ -38,6 +38,32 @@ cosmeticClothes = {
             {"comp2", 10, "Default Hairstyle"},
         },
     },
+    [5] = {
+        ['mp_m_freemode_01'] = {
+            {"comp7", 0, "No Accessories"},
+            {"comp9", 0},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp7", 0, "No Accessories"},
+            {"comp9", 0},
+        },
+    },
+    [6] = {
+        ['mp_m_freemode_01'] = {
+            {"comp1", 0, "No Mask"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp1", 0, "No Mask"},
+        },
+    },
+    [7] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 0, "No Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 0, "No Bag"},
+        },
+    },
 ---------HAIR STYLES--------------------------------------------------------------------
     [100] = {
         ['mp_m_freemode_01'] = {
