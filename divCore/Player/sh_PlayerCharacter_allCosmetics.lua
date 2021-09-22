@@ -825,4 +825,94 @@ cosmeticClothes = {
             {"comp4", 114, "Vigilante Pants"},
         },
     },
+------------BAGS-----------------------------------------------
+    [800] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 11, "Country Flags I Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 11, "Country Flags I Bag"},
+        },
+    },
+    [801] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 21, "Country Flags II Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 21, "Country Flags II Bag"},
+        },
+    },
+    [802] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 70, "Country Flags III Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 70, "Country Flags III Bag"},
+        },
+    },
+    [803] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 31, "Solid Color I Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 31, "Solid Color I Bag"},
+        },
+    },
+    [804] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 52, "Solid Color II Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 52, "Solid Color II Bag"},
+        },
+    },
+    [805] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 89, "Branded Bag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 89, "Branded Bag"},
+        },
+    },
+    [806] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 41, "Classic Doufflebag I"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 41, "Classic Doufflebag I"},
+        },
+    },
+    [807] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 45, "Classic Doufflebag II"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 45, "Classic Doufflebag II"},
+        },
+    },
+    [808] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 82, "Solid Color Doufflebag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 28, "Solid Color Doufflebag"},
+        },
+    },
+    [809] = {
+        ['mp_m_freemode_01'] = {
+            {"comp5", 86, "Branded Doufflebag"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp5", 86, "Branded Doufflebag"},
+        },
+    },
+-------------------MASKS------------------------------
+    [810] = {
+        ['mp_m_freemode_01'] = {
+            {"comp1", 169, "Windbreaker Mask"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp1", 169, "Windbreaker Mask"},
+        },
+    },
 }
