@@ -557,20 +557,105 @@ cosmeticClothes = {
             {'comp6', 2, "Trendy boots"},
         },
     },
------------------------------------------
-    [5] = {
+---------------TOPS-----------------
+    [300] = {
         ['mp_m_freemode_01'] = {
             {"comp3", 1, "Sports Jacket"},
             {"comp8", 0},
             {"comp11", 88},
         },
         ['mp_f_freemode_01'] = {
-            {"comp3", 7, 'Jacket'},
+            {"comp3", 3, 'Jacket'},
             {"comp8", 51},
             {"comp11", 240},
         },
     },
-    [6] = {
+    [301] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Closed-Zipper Hoodie"},
+            {"comp8", 15},
+            {"comp11", 57},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Closed-Zipper Hoodie'},
+            {"comp8", 34},
+            {"comp11", 50},
+        },
+    },
+    [302] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Classic Hoodie"},
+            {"comp8", 15},
+            {"comp11", 262},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Classic Hoodie'},
+            {"comp8", 34},
+            {"comp11", 271},
+        },
+    },
+    [303] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Bigness Jacket"},
+            {"comp8", 15},
+            {"comp11", 296},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Bigness Jacket'},
+            {"comp8", 34},
+            {"comp11", 307},
+        },
+    },
+    [304] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Bigness Jacket - Hooded"},
+            {"comp8", 15},
+            {"comp11", 262},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Bigness Jacket - Hooded'},
+            {"comp8", 34},
+            {"comp11", 308},
+        },
+    },
+    [305] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Windbreaker"},
+            {"comp8", 15},
+            {"comp11", 251},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Windbreaker'},
+            {"comp8", 34},
+            {"comp11", 259},
+        },
+    },
+    [306] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Windbreaker - Hooded"},
+            {"comp8", 15},
+            {"comp11", 253},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Windbreaker - Hooded'},
+            {"comp8", 34},
+            {"comp11", 261},
+        },
+    },
+    [307] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Patriotic Top"},
+            {"comp8", 24},
+            {"comp11", 149},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Patriotic Top'},
+            {"comp8", 73},
+            {"comp11", 146},
+        },
+    },
+----------PANTS-------------
+    [600] = {
         ['mp_m_freemode_01'] = {
             {"comp4", 4, "Fit Jeans"},
         },
@@ -578,12 +663,44 @@ cosmeticClothes = {
             {"comp4", 0, "Fit Jeans"},
         },
     },
-    [7] = {
+    [601] = {
         ['mp_m_freemode_01'] = {
             {"comp4", 1, "Regular Jeans"},
         },
         ['mp_f_freemode_01'] = {
             {"comp4", 1, "Regular Jeans"},
+        },
+    },
+    [602] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 98, "Regular Windbreaker Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 101, "Regular Windbreaker Pants"},
+        },
+    },
+    [603] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 97, "Raised Windbreaker Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 100, "Raised Windbreaker Pants"},
+        },
+    },
+    [604] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 69, "Branded Sweatpants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 71, "Branded Sweatpants"},
+        },
+    },
+    [605] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 68, "Patriotic Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 70, "Patriotic Pants"},
         },
     },
 }
