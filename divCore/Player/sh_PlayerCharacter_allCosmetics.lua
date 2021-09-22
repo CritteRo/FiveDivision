@@ -557,6 +557,14 @@ cosmeticClothes = {
             {'comp6', 2, "Trendy boots"},
         },
     },
+    [171] = {
+        ['mp_m_freemode_01'] = {
+            {'comp6', 84, "Vigilante boots"},
+        },
+        ['mp_f_freemode_01'] = {
+            {'comp6', 88, "Vigilante boots"},
+        },
+    },
 ---------------TOPS-----------------
     [300] = {
         ['mp_m_freemode_01'] = {
@@ -654,6 +662,54 @@ cosmeticClothes = {
             {"comp11", 146},
         },
     },
+    [308] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Battleworn Top"},
+            {"comp8", 15},
+            {"comp11", 284},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Battleworn Top'},
+            {"comp8", 34},
+            {"comp11", 297},
+        },
+    },
+    [309] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "SWAT Top"},
+            {"comp8", 15},
+            {"comp11", 320},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'SWAT Top'},
+            {"comp8", 34},
+            {"comp11", 331},
+        },
+    },
+    [310] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Vigilante Top"},
+            {"comp8", 15},
+            {"comp11", 276},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Vigilante Top'},
+            {"comp8", 34},
+            {"comp11", 289},
+        },
+    },
+    [311] = {
+        ['mp_m_freemode_01'] = {
+            {"comp3", 1, "Fallout Top"},
+            {"comp8", 15},
+            {"comp11", 275},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp3", 3, 'Fallout Top'},
+            {"comp8", 34},
+            {"comp11", 288},
+        },
+    },
 ----------PANTS-------------
     [600] = {
         ['mp_m_freemode_01'] = {
@@ -701,6 +757,46 @@ cosmeticClothes = {
         },
         ['mp_f_freemode_01'] = {
             {"comp4", 70, "Patriotic Pants"},
+        },
+    },
+    [606] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 59, "Raised Sweatpants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 61, "Raised Sweatpants"},
+        },
+    },
+    [607] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 64, "Sweatpants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 66, "Sweatpants"},
+        },
+    },
+    [608] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 111, "Battleworn Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 118, "Battleworn Pants"},
+        },
+    },
+    [609] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 125, "SWAT Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 131, "SWAT Pants"},
+        },
+    },
+    [610] = {
+        ['mp_m_freemode_01'] = {
+            {"comp4", 107, "Vigilante Pants"},
+        },
+        ['mp_f_freemode_01'] = {
+            {"comp4", 114, "Vigilante Pants"},
         },
     },
 }
