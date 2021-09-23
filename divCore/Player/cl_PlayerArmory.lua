@@ -22,7 +22,7 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
             WarMenu.End()
         elseif WarMenu.Begin('core.WeaponsMenu_variations') then
             if PlayerInfo.weapons[weaponMenu] ~= nil then
-                WarMenu.Button('Get Ammo')
+                WarMenu.SpriteButton('Replenish Ammo', 'commonmenu', 'shop_ammo_icon_a', 255,255,255,255)
                 if WarMenu.IsItemSelected() then
                     TriggerServerEvent('core.GiveAmmoToPlayer', weaponMenu)
                 end

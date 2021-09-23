@@ -9,10 +9,11 @@ end)
 
 AddEventHandler('core.GiveAmmoToPlayer', function(weapon)
     local src = source
+    local _ammo = 999
     if PlayerInfo[src] ~= nil and PlayerInfo[src].weapons ~= nil then
         if PlayerInfo[src].weapons[weapon] ~= nil and PlayerInfo[src].weapons[weapon]['gun'][2] == true then
             local ped = GetPlayerPed(src)
-            GiveWeaponToPed(ped, "weapon_"..PlayerInfo[src].weapons[weapon]['gun'][1], 30, false, true)
+            GiveWeaponToPed(ped, "weapon_"..PlayerInfo[src].weapons[weapon]['gun'][1], _ammo, false, true)
             for i,k in pairs(PlayerInfo[src].weapons[weapon]) do
                 if k[1] ~= weapon and k[2] == true and k[4] == true then
                     GiveWeaponComponentToPed(ped, "weapon_"..PlayerInfo[src].weapons[weapon]['gun'][1], k[1])
