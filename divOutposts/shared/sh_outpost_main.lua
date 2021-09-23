@@ -3,6 +3,7 @@ outposts = {
     [2] = {name = "Premium Deluxe Motorsport", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]],blipX = -51.86, blipY = -1112.39, blipZ = 26.44, x1 = -30.25, y1 = -1104.98, z1 = 25.42, x2 = -44.41, y2 = -1095.54, z2 = 35.16, x3 = -91.08, y3 = -1127.41, z3 = 37.101, rx = 0.0, ry = 0.0, rz = -62.34, xp = 0, cash = 0},
     [3] = {name = "Little Seul Construction Site", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]],blipX = -474.01, blipY = -915.26, blipZ = 29.41, x1 = -448.403, y1 = -940.547, z1 = 37.503, x2 = -501.62, y2 = -989.148, z2 = 53.776, x3 = -501.166, y3 = -886.558, z3 = 51.06, rx = 0.0, ry = 0.0, rz = -163.945, xp = 0, cash = 0},
     [4] = {name = "Pillbox Rooftop Rumble", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]],blipX = 127.383, blipY = -1087.175, blipZ = 46.347, x1 = 140.14, y1 = -1090.71, z1 = 48.14, x2 = 174.46, y2 = -1095.78, z2 = 52.705, x3 = 112.613, y3 = -1069.68, z3 = 47.36, rx = 0.0, ry = 0.0, rz = -123.282, xp = 0, cash = 0},
+    [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]],blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = 0, cash = 0},
 }
 
 enemySpawns = {
@@ -33,6 +34,9 @@ enemySpawns = {
         {handle = 0, x = 144.11, y = -1095.58, z = 52.387, h = 96.524},
         {handle = 0, x = 162.25, y = -1105.26, z = 49.155, h = 11.840},
         {handle = 0, x = 176.82, y = -1095.51, z = 52.291, h = 274.86},
+    },
+    [5] = {
+        {handle = 0, x = 428.46, y = -975.801, z = 30.71, h = 18.497},
     },
 }
 

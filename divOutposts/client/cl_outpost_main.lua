@@ -142,27 +142,29 @@ end)
 AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
     SetRelationshipBetweenGroups(5--[[hate]], GetHashKey("PLAYER"), GetHashKey('AMBIENT_GANG_BALLAS'))
     SetRelationshipBetweenGroups(5--[[hate]], GetHashKey('AMBIENT_GANG_BALLAS'), GetHashKey("PLAYER"))
-    for i,k in pairs(enemySpawns[tonumber(outpost)]) do
-        local retest = 0
-        ::recheck::
-        if IsEntityAPed(NetToPed(k.handle)) then
-            local ped = NetToPed(k.handle)
-            SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_BALLAS'))
-            SetPedAsEnemy(ped, true)
-            SetPedCombatMovement(ped, math.random(1,3))
-        else
-            if retest < 11 then
-                print('rechecking ped '..k.handle)
-                Citizen.Wait(10)
-                retest = retest + 1
-                goto recheck
+    SetRelationshipGroupDontAffectWantedLevel(GetHashKey("PLAYER"), false)
+    SetRelationshipGroupDontAffectWantedLevel(GetHashKey('AMBIENT_GANG_BALLAS'), false)
+    if enemySpawns[tonumber(outpost)] ~= nil then
+        for i,k in pairs(enemySpawns[tonumber(outpost)]) do
+            local retest = 0
+            ::recheck::
+            if IsEntityAPed(NetToPed(k.handle)) then
+                local ped = NetToPed(k.handle)
+                SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_BALLAS'))
+                SetPedAsEnemy(ped, true)
+                SetPedCombatMovement(ped, math.random(1,3))
             else
-                print("couldn't find "..k.handle)
+                if retest < 11 then
+                    print('rechecking ped '..k.handle)
+                    Citizen.Wait(10)
+                    retest = retest + 1
+                    goto recheck
+                else
+                    print("couldn't find "..k.handle)
+                end
             end
         end
     end
-    SetRelationshipGroupDontAffectWantedLevel(GetHashKey("PLAYER"), true)
-    SetRelationshipGroupDontAffectWantedLevel(GetHashKey('AMBIENT_GANG_BALLAS'), true)
 end)
 
 RegisterNetEvent('test.SendPedToClient')
