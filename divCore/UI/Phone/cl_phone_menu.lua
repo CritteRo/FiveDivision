@@ -25,6 +25,7 @@ TriggerEvent('scalePhone.BuildHomepageApp', 'app_gps', "gps", "GPS", 58, 0, "", 
 
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_more', "settings", "More Apps", 6, 0, "", "scalePhone.GoToHomepage", {}) -- 6
 TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Player Stats", icon = 23, event = "scalePhone.OpenApp", eventParams = 'app_stats'}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Fast Travel to Outpost", icon = 0, event = "phone.StartFastTravel", eventParams = 'outpost'}, false, -1)
 
 TriggerEvent('scalePhone.BuildSnapmatic', 'app_snapmatic') -- 7
 TriggerEvent('scalePhone.BuildThemeSettings', 'app_settings') -- 8
@@ -102,4 +103,16 @@ AddEventHandler('core.GetInitialStats', function(_info)
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "XP  //  ".._info.stats['xp'], subtitle = ""}, false, -1)
 
     --[[FOOTER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Player Stats", subtitle = ""}, false, -1)
+end)
+
+AddEventHandler('phone.StartFastTravel', function(_type)
+    local WaypointHandle = GetFirstBlipInfoId(8)
+    if DoesBlipExist(WaypointHandle) then
+        local waypointCoords = GetBlipInfoIdCoord(WaypointHandle)
+        if _type == "outpost" then
+            TriggerServerEvent('outpost.TeleportToOutpost', {x = waypointCoords['x'], y = waypointCoords['y']})
+        end
+    else
+        print('no waypoint')
+    end
 end)

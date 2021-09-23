@@ -104,7 +104,8 @@ AddEventHandler('outpost.SwitchPlayer', function(_id)
     while GetPlayerSwitchState() ~= 5 do
         Citizen.Wait(0)
     end
-    TriggerEvent("cS.GameFeed", "FiveDivision", "Fast traveling to ~b~"..outposts[tonumber(_id)].name.."~s~...", "TIP ~y~#69~s~\n\nSuppressors can help you avoid unnecessary gunfights.", "v_73_fib01_txd", "xj_v_fibscreen", false, 8, true)
+    TriggerEvent("cS.GameFeed", "FiveDivision", "Fast traveling to ~b~"..outposts[tonumber(_id)].name.."~s~...", "TIP ~y~#69~s~\nSuppressors can help you avoid unnecessary gunfights.", "commonmenu", "", false, 8, false)
+    TriggerEvent('scalePhone.ClosePhone')
     Citizen.Wait(8000)
     SwitchInPlayer(PlayerPedId())
 end)

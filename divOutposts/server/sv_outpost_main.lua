@@ -225,22 +225,26 @@ AddEventHandler('outpost.TeleportToOutpost', function(waypoint)
     local src = source
     local id = nil
     for i,k in pairs(outposts) do
-        if #(vector2(waypoint.x, waypoint.y)-vector2(k.blipX, k.blipY)) <= 5.01 then
+        if #(vector3(waypoint.x, waypoint.y,0.0)-vector3(k.blipX, k.blipY, 0.0)) <= 5.01 then
             id = i
             break
         end
     end
     if id ~= nil then
-        local ped = GetPlayerPed(src)
-        local coords = GetEntityCoords(ped)
-        local dist = #(vector2(coords.x, coords.y)-vector2(outposts[id].blipX, outposts[id].blipY))
-        if dist >= 300.01 then
-            TriggerClientEvent('outpost.SwitchPlayer', src, id)
-            Citizen.Wait(1000)
-            SetEntityCoords(ped, outposts[id].x1, outposts[id].y1, outposts[id].z1, false, false, false, false)
-            TriggerClientEvent('core.notify', src, "simple", {text = "Fast travelling to ~b~"..outposts[id].name.."~s~...", colID = 2})
+        if outposts[id].status == 2 then
+            local ped = GetPlayerPed(src)
+            local coords = GetEntityCoords(ped)
+            local dist = #(vector2(coords.x, coords.y)-vector2(outposts[id].blipX, outposts[id].blipY))
+            if dist >= 300.01 then
+                TriggerClientEvent('outpost.SwitchPlayer', src, id)
+                Citizen.Wait(1000)
+                SetEntityCoords(ped, outposts[id].x1, outposts[id].y1, outposts[id].z1, false, false, false, false)
+                TriggerClientEvent('core.notify', src, "simple", {text = "Fast travelling to ~b~"..outposts[id].name.."~s~...", colID = 2})
+            else
+                TriggerClientEvent('core.notify', src, "simple", {text = "Fast Travel unavailable. You are too close to the outpost.", colID = 8})
+            end
         else
-            TriggerClientEvent('core.notify', src, "simple", {text = "Fast Travel unavailable. You are too close to the outpost.", colID = 8})
+            TriggerClientEvent('core.notify', src, "simple", {text = "Fast Travel unavailable. Outpost is not liberated.", colID = 8})
         end
     else
         TriggerClientEvent('core.notify', src, "simple", {text = "No outpost found at waypoint coordonates.", colID = 8})
