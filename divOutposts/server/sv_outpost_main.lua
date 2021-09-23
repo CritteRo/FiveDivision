@@ -174,12 +174,18 @@ function spawnOutpostEnemies(outpostID, factionID)
                 if not IsEntityVisible(NetworkGetEntityFromNetworkId(k.handle)) or GetEntityHealth(NetworkGetEntityFromNetworkId(k.handle)) <= 0 then
                     DeleteEntity(NetworkGetEntityFromNetworkId(k.handle))
                     k.handle = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                    SetPedRandomComponentVariation(k.handle, 1)
+                    if k.h ~= nil then
+                        SetEntityHeading(k.handle, math.random(1, 200)+0.00001)
+                    else
+                        SetEntityHeading(k.handle, k.h)
+                    end
                     GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
                     SetPedArmour(k.handle, 100)
                 end
             else
                 k.handle = CreatePed(1, factionPeds[1][1], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
-                SetPedRandomComponentVariation(k.handle, 0)
+                SetPedRandomComponentVariation(k.handle, 1)
                 GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
                 SetPedArmour(k.handle, 100)
             end
