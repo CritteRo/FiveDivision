@@ -97,6 +97,18 @@ AddEventHandler('outpost.ReloadOutpostBlips', function(_outposts)
     end
 end)
 
+RegisterNetEvent('outpost.SwitchPlayer')
+AddEventHandler('outpost.SwitchPlayer', function(_id)
+    SwitchOutPlayer(PlayerPedId(), 0, 1)
+    -- Wait for the switch cam to be in the sky in the 'waiting' state (5).
+    while GetPlayerSwitchState() ~= 5 do
+        Citizen.Wait(0)
+    end
+    TriggerEvent("cS.GameFeed", "FiveDivision", "Fast traveling to ~b~"..outposts[tonumber(_id)].name.."~s~...", "TIP ~y~#69~s~\n\nSuppressors can help you avoid unnecessary gunfights.", "v_73_fib01_txd", "xj_v_fibscreen", false, 8, true)
+    Citizen.Wait(8000)
+    SwitchInPlayer(PlayerPedId())
+end)
+
 outpostStatusName = {
     [0] = "Enemy Outpost",
     [1] = "Neutral Outpost",
