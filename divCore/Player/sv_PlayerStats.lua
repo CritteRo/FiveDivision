@@ -77,6 +77,11 @@ RegisterCommand('giveclothes', function(source, args)
     end
 end)
 
+RegisterCommand('getAllCosmetics', function(source, args)
+    local src = source
+    
+end)
+
 RegisterCommand('addclothing', function(source, args)
     local src = source
     TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), 0, true, true)

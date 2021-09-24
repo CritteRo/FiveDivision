@@ -67,7 +67,6 @@ AddEventHandler('core.UpdatePlayerPed', function(data)
 end)
 
 AddEventHandler("playerSpawned", function(spawnInfo)
-    Citizen.CreateThread(function()
-        setPlayerCharacter(PlayerInfo.ped)
-    end)
+    setPlayerCharacter(PlayerInfo.ped)
+    TriggerServerEvent('core.RequestSpawnLoadout') --in PlayerArmory
 end)

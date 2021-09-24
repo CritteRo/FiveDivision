@@ -1,4 +1,5 @@
 weaponMenu = ""
+local _altSprite = false
 coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
 WarMenu.CreateMenu('core.WeaponsMenu', 'Weapon Mods', "Weapon Mods Menu", coreMenuStyle)
 WarMenu.CreateSubMenu('core.WeaponsMenu_variations', 'core.WeaponsMenu', "Weapon Mods Toggle Menu", coreMenuStyle)
@@ -22,12 +23,21 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
             WarMenu.End()
         elseif WarMenu.Begin('core.WeaponsMenu_variations') then
             if PlayerInfo.weapons[weaponMenu] ~= nil then
-                WarMenu.SpriteButton('Replenish Ammo', 'commonmenu', 'shop_ammo_icon_a', 255,255,255,255)
+                WarMenu.SpriteButton('Replenish Ammo', 'commonmenu', _altSprite and 'shop_ammo_icon_b' or 'shop_ammo_icon_a') --replenish ammo
+                if WarMenu.IsItemHovered() then
+                    _altSprite = true
+                else
+                    _altSprite = false
+                end
                 if WarMenu.IsItemSelected() then
                     TriggerServerEvent('core.GiveAmmoToPlayer', weaponMenu)
                 end
+                WarMenu.CheckBox("Give Weapon on respawn", PlayerInfo.weapons[weaponMenu]['onRespawn'][2]) --checkbox. Respawn with this gun.
+                if WarMenu.IsItemSelected() then
+                    TriggerServerEvent('core.TogglePlayerWeaponMod', weaponMenu, "onRespawn")
+                end
                 for i,k in pairs(PlayerInfo.weapons[weaponMenu]) do
-                    if k[1] ~= weaponMenu and k[2] == true then
+                    if k[1] ~= weaponMenu and k[1] ~= "onRespawn" and k[2] == true then
                         WarMenu.CheckBox(k[3], k[4])
                         if WarMenu.IsItemSelected() then
                             TriggerServerEvent('core.TogglePlayerWeaponMod', weaponMenu, k[1])
