@@ -19,14 +19,22 @@ Citizen.CreateThread(function()
                 playerNearOutpost = i
                 if enteredOutpost == false or lastOutpost ~= i then
                     enteredOutpost = true
+                    local _enemies = 'test'
+                    --if enemySpawns[i] ~= nil then
+                        --_enemies = #enemySpawns[i]
+                    --end
                     TriggerEvent('outpost.SetPedBehavior_2', i)
                     outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
-                    Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, "", k.xp, k.cash,"")
+                    Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, outpostFactionName[k.factionID], k.xp, k.cash,"")
                 end
                 if lastOutpost ~= i then
+                    local _enemies = 'test'
+                    --if enemySpawns[i] ~= nil then
+                        --_enemies = #enemySpawns[i]
+                    --end
                     lastOutpost = i
                     outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
-                    Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, "", k.xp, k.cash,"")
+                    Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, outpostFactionName[k.factionID], k.xp, k.cash,"")
                 end
                 break
             end
@@ -50,7 +58,8 @@ AddEventHandler('outpost.ReloadOutpostBlips', function(_outposts)
     if _outposts ~= nil then
         outposts = _outposts
         if playerNearOutpost ~= nil then
-            Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[outposts[playerNearOutpost].status].."\n", outpostStatusColor[outposts[playerNearOutpost].status]..outposts[playerNearOutpost].name.."~s~", "", '', "", false, "", outposts[playerNearOutpost].xp, outposts[playerNearOutpost].cash,"")
+            outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
+            Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[outposts[playerNearOutpost].status].."\n", outpostStatusColor[outposts[playerNearOutpost].status]..outposts[playerNearOutpost].name.."~s~", "", '', "", false, outpostFactionName[outposts[playerNearOutpost].factionID], outposts[playerNearOutpost].xp, outposts[playerNearOutpost].cash,"")
         end
     end
     print('running outpost check')
@@ -111,29 +120,6 @@ AddEventHandler('outpost.SwitchPlayer', function(_id)
     Citizen.Wait(8000)
     SwitchInPlayer(PlayerPedId())
 end)
-
-outpostStatusName = {
-    [0] = "Enemy Outpost",
-    [1] = "Neutral Outpost",
-    [2] = "Liberated Outpost",
-}
-
-outpostStatusBlip = {
-    [0] = "~r~Captured~s~",
-    [1] = "~s~Abandoned~s~",
-    [2] = "~b~Liberated~s~",
-}
-
-outpostFactionName = {
-    [0] = "The Division",
-    [1] = "Monke",
-}
-
-outpostStatusColor = {
-    [0] = "~r~",
-    [1] = "~s~",
-    [2] = "~b~",
-}
 
 function createStaticBlip(name, blip, x, y, z, color, size)
     _blip = AddBlipForCoord(x, y, z)

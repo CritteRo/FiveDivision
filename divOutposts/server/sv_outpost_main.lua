@@ -39,6 +39,9 @@ end)
 Citizen.CreateThread(function()
     for i,k in pairs(outposts) do
         outposts[i].status = 0
+        outposts[i].factionID = math.random(1,2)
+        outposts[i].xp = 2000
+        outposts[i].cash = 5000
         spawnOutpostEnemies(i, 1)
     end
     local updateTime = 5*60*1000
@@ -47,7 +50,7 @@ Citizen.CreateThread(function()
         ::retry::
         local toretry = false
         local rand = math.random(1, #outposts)
-        for _,player in iparis(GetPlayers()) do
+        for _,player in ipairs(GetPlayers()) do
             local coords = GetEntityCoords(GetPlayerPed(player))
             local dist = #(vector3(outposts[rand].blipX, outposts[rand].blipY, 0.0) - vector3(coords.x, coords.y, 0.0))
             if dist <= 200.01 then
@@ -61,11 +64,17 @@ Citizen.CreateThread(function()
         if outposts[rand].status ~= 0 then
             if outposts[rand].status == 1 then
                 outposts[rand].status = 0
+                outposts[rand].factionID = math.random(1,2)
+                outposts[rand].xp = 2000
+                outposts[rand].cash = 5000
                 spawnOutpostEnemies(rand, 1)
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was captured!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             elseif outposts[rand].status == 2 then
                 outposts[rand].status = 1
+                outposts[rand].factionID = -1
+                outposts[rand].xp = 3000
+                outposts[rand].cash = 0
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was abandoned!\n\nIf you don't reclaim it, the enemies will!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             end
@@ -114,6 +123,9 @@ AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
                     if outposts[PlayerInfo[src].inOutpost].status == 0 then
                         print(PlayerInfo[src].inOutpost)
                         outposts[PlayerInfo[src].inOutpost].status = 1
+                        outposts[PlayerInfo[src].inOutpost].factionID = -1
+                        outposts[PlayerInfo[src].inOutpost].xp = 3000
+                        outposts[PlayerInfo[src].inOutpost].cash = 0
                         PlayerInfo[src].isDestroying = false
                         PlayerInfo[src].destroyingStart = 0
                         PlayerInfo[src].inOutpost = 0
@@ -158,6 +170,9 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                 if finishTimer - PlayerInfo[src].installingStart >= 2000 then
                     if outposts[PlayerInfo[src].inOutpost].status == 1 then
                         outposts[PlayerInfo[src].inOutpost].status = 2
+                        outposts[PlayerInfo[src].inOutpost].factionID = 0
+                        outposts[PlayerInfo[src].inOutpost].xp = 0
+                        outposts[PlayerInfo[src].inOutpost].cash = 0
                         PlayerInfo[src].isInstalling = false
                         PlayerInfo[src].installingStart = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
@@ -186,20 +201,20 @@ function spawnOutpostEnemies(outpostID, factionID)
             if DoesEntityExist(NetworkGetEntityFromNetworkId(k.handle)) then
                 if not IsEntityVisible(NetworkGetEntityFromNetworkId(k.handle)) or GetEntityHealth(NetworkGetEntityFromNetworkId(k.handle)) <= 0 then
                     DeleteEntity(NetworkGetEntityFromNetworkId(k.handle))
-                    k.handle = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                    k.handle = CreatePed(1, factionPeds[outposts[outpostID].factionID][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
                     SetPedRandomComponentVariation(k.handle, 1)
                     if k.h ~= nil then
                         SetEntityHeading(k.handle, math.random(1, 200)+0.00001)
                     else
                         SetEntityHeading(k.handle, k.h)
                     end
-                    GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
+                    GiveWeaponToPed(k.handle, factionPeds[outposts[outpostID].factionID][2], 100, false, true)
                     SetPedArmour(k.handle, 100)
                 end
             else
-                k.handle = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                k.handle = CreatePed(1, factionPeds[outposts[outpostID].factionID][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
                 SetPedRandomComponentVariation(k.handle, 1)
-                GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
+                GiveWeaponToPed(k.handle, factionPeds[outposts[outpostID].factionID][2], 100, false, true)
                 SetPedArmour(k.handle, 100)
             end
         end
