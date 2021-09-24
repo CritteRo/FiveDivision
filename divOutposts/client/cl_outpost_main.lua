@@ -153,6 +153,9 @@ AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
                 SetPedRelationshipGroupHash(ped, GetHashKey('AMBIENT_GANG_BALLAS'))
                 SetPedAsEnemy(ped, true)
                 SetPedCombatMovement(ped, math.random(1,3))
+                SetPedCombatAttributes(ped, 46, true)
+                SetPedCombatAttributes(ped, 5, true)
+                SetPedCombatAbility(ped, 1)
             else
                 if retest < 11 then
                     print('rechecking ped '..k.handle)

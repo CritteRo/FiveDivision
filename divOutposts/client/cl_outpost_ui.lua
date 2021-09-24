@@ -17,14 +17,14 @@ Citizen.CreateThread(function()
             local dist = #(vector3(k.blipX, k.blipY, k.blipZ)-coords)
             if dist <= 120.0 then
                 playerNearOutpost = i
+                if enteredOutpost == false or lastOutpost ~= i then
+                    enteredOutpost = true
+                    TriggerEvent('outpost.SetPedBehavior_2', i)
+                end
                 if lastOutpost ~= i then
                     lastOutpost = i
                     outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
                     Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, "", k.xp, k.cash,"")
-                end
-                if enteredOutpost == false then
-                    enteredOutpost = true
-                    TriggerEvent('outpost.SetPedBehavior_2', i)
                 end
                 break
             end
@@ -36,8 +36,8 @@ Citizen.CreateThread(function()
                 DrawScaleformMovie_3dSolid(outpostScaleform, outposts[playerNearOutpost].blipX, outposts[playerNearOutpost].blipY, outposts[playerNearOutpost].blipZ+5, camcoord, 1.0, 1.0, 15.0, 15.0, 15.0, 100)
             end
         else
-            Citizen.Wait(1000)
             enteredOutpost = false
+            Citizen.Wait(1000)
         end
         Citizen.Wait(0)
     end
