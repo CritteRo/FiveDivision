@@ -15,6 +15,7 @@ function setPlayerClothes(character)
     local ped = PlayerPedId()
     -- ['overlay'] = {255, 255, 255, 0, 255, 0, 255, 255, 255, 0, 255}, --blemishes, ageing, makeup, makeupColor, blush, blushColor, complexion, sun damage, lipstick, lipstickColor, freckles
     SetPedHelmet(ped, false)
+    SetPedCanLosePropsOnDamage(ped, false) --don't lose glasses when hit
     SetPedHeadOverlay(ped, 0, character['overlay'][1], 1.0) --blemishes
     SetPedHeadOverlay(ped, 1, character['hair'][2], 1.0) --facHair
     SetPedHeadOverlay(ped, 2, character['hair'][3], 1.0) --eyeHair
