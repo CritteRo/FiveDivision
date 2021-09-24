@@ -44,7 +44,20 @@ Citizen.CreateThread(function()
     local updateTime = 5*60*1000
     while true do
         Citizen.Wait(updateTime) --60 seconds, update one neutral or friendly outpost
+        ::retry::
+        local toretry = false
         local rand = math.random(1, #outposts)
+        for _,player in iparis(GetPlayers()) do
+            local coords = GetEntityCoords(GetPlayerPed(player))
+            local dist = #(vector3(outposts[rand].blipX, outposts[rand].blipY, 0.0) - vector3(coords.x, coords.y, 0.0))
+            if dist <= 200.01 then
+                toretry = true
+                break
+            end
+        end
+        if toretry then
+            goto retry
+        end
         if outposts[rand].status ~= 0 then
             if outposts[rand].status == 1 then
                 outposts[rand].status = 0
