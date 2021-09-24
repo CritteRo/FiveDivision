@@ -79,7 +79,24 @@ end)
 
 RegisterCommand('getAllCosmetics', function(source, args)
     local src = source
-    
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].clothes ~= nil then
+        if PlayerInfo[src].admin ~= nil and PlayerInfo[src].admin >= 3 then
+            local start = GetGameTimer()
+            PlayerInfo[src].clothes = {}
+            local row = 1
+            for i,k in pairs(cosmeticClothes) do
+                PlayerInfo[src].clothes[row] = i
+                row = row + 1
+            end
+            print('added all clothes. It took '..GetGameTimer() - start)
+            TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
+            TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+            updateClothesInDatabase(src, PlayerInfo[src].uid)
+        end
+    else
+        local _notif = {type = "simple", text = "You don't have the required permissions", colID = 8}
+        TriggerClientEvent('core.notify', src, _notif.type, _notif)
+    end
 end)
 
 RegisterCommand('addclothing', function(source, args)
