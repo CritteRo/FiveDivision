@@ -184,7 +184,7 @@ function spawnOutpostEnemies(outpostID, factionID)
                     SetPedArmour(k.handle, 100)
                 end
             else
-                k.handle = CreatePed(1, factionPeds[1][1], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
+                k.handle = CreatePed(1, factionPeds[1][1]--[[when factions are added, this is where you will find the ped of factionID]], k.x, k.y, k.z, math.random(0,200)+0.0, true, false)
                 SetPedRandomComponentVariation(k.handle, 1)
                 GiveWeaponToPed(k.handle, factionPeds[1][2], 100, false, true)
                 SetPedArmour(k.handle, 100)

@@ -41,5 +41,7 @@ enemySpawns = {
 }
 
 factionPeds = {
-    [1] = {--[["s_m_y_dealer_01"]]"u_m_m_streetart_01", "weapon_pistol"} --hobos
+    [0] = {"mp_m_fibsec_01", "weapon_carbinerifle"}, --FIB
+    [1] = {"u_m_m_streetart_01", "weapon_pistol"}, --Monkey face
+    [2] = {"g_m_m_chicold_01", "weapon_combatpistol"}, --jackets
 }

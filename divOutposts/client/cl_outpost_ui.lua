@@ -20,6 +20,8 @@ Citizen.CreateThread(function()
                 if enteredOutpost == false or lastOutpost ~= i then
                     enteredOutpost = true
                     TriggerEvent('outpost.SetPedBehavior_2', i)
+                    outpostScaleform = Scaleform.Request('MP_MISSION_NAME_FREEMODE')
+                    Scaleform.CallFunction(outpostScaleform, false, "SET_MISSION_INFO", outpostStatusName[k.status].."\n", outpostStatusColor[k.status]..k.name.."~s~", "", '', "", false, "", k.xp, k.cash,"")
                 end
                 if lastOutpost ~= i then
                     lastOutpost = i
