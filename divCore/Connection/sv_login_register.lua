@@ -201,21 +201,21 @@ defaultClothes = {1,2,3,4,5,6,7} --Contains default cosmetics ids.
 
 defaultWeapons = {
     ['pistol'] = {
-        ['gun'] = {'pistol', false, "Pistol"},
+        ['gun'] = {'pistol', false, "Pistol", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_PISTOL_CLIP_02'] = {'COMPONENT_PISTOL_CLIP_02', false, "Pistol Extended Clip", false},
         ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "Pistol Flashlight", false},
         ['COMPONENT_AT_PI_SUPP_02'] = {'COMPONENT_AT_PI_SUPP_02', false, "Pistol Suppressor", false},
     },
     ['combatpistol'] = {
-        ['gun'] = {'combatpistol', false, "Combat Pistol"},
+        ['gun'] = {'combatpistol', false, "Combat Pistol", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_COMBATPISTOL_CLIP_02'] = {'COMPONENT_COMBATPISTOL_CLIP_02', false, "CPistol Extended Clip", false},
         ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "CPistol Flashlight", false},
         ['COMPONENT_AT_PI_SUPP'] = {'COMPONENT_AT_PI_SUPP', false, "CPistol Supperssor", false},
     },
     ['microsmg'] = {
-        ['gun'] = {'microsmg', false, "Micro SMG"},
+        ['gun'] = {'microsmg', false, "Micro SMG", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_MICROSMG_CLIP_02'] = {'COMPONENT_MICROSMG_CLIP_02', false, "MicroSMG Extended Clip", false},
         ['COMPONENT_AT_PI_FLSH'] = {'COMPONENT_AT_PI_FLSH', false, "MicroSMG Flashlight", false},
@@ -223,7 +223,7 @@ defaultWeapons = {
         ['COMPONENT_AT_AR_SUPP_02'] = {'COMPONENT_AT_AR_SUPP_02', false, "MicroSMG Suppressor", false},
     },
     ['smg_mk2'] = {
-        ['gun'] = {'smg_mk2', false, "SMG Mk2"},
+        ['gun'] = {'smg_mk2', false, "SMG Mk2", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_SMG_MK2_CLIP_02'] = {'COMPONENT_SMG_MK2_CLIP_02', false, "SMG Extended Clip", false},
         ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "SMG Flashlight", false},
@@ -242,13 +242,13 @@ defaultWeapons = {
         ['COMPONENT_SMG_MK2_CAMO_IND_01'] = {'COMPONENT_SMG_MK2_CAMO_IND_01', false, "SMG Patriotic Camo", false},
     },
     ['pumpshotgun'] = {
-        ['gun'] = {'pumpshotgun', false, "Pump Shotgun"},
+        ['gun'] = {'pumpshotgun', false, "Pump Shotgun", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_AT_AR_FLSH'] = {'COMPONENT_AT_AR_FLSH', false, "Pump Shotgun Flashlight", false},
         ['COMPONENT_AT_SR_SUPP'] = {'COMPONENT_AT_SR_SUPP', false, "Pump Shotgun Supperssor", false},
     },
     ['carbinerifle'] = {
-        ['gun'] = {'carbinerifle', false, "Carbine Rifle"},
+        ['gun'] = {'carbinerifle', false, "Carbine Rifle", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_CARBINERIFLE_CLIP_02'] = {'COMPONENT_CARBINERIFLE_CLIP_02', false, "Carbine Extended Magazine", false},
         ['COMPONENT_CARBINERIFLE_CLIP_03'] = {'COMPONENT_CARBINERIFLE_CLIP_03', false, "Carbine Box Magazine", false},
@@ -258,7 +258,7 @@ defaultWeapons = {
         ['COMPONENT_AT_AR_AFGRIP'] = {'COMPONENT_AT_AR_AFGRIP', false, "Carbine Grip", false},
     },
     ['carbinerifle_mk2'] = {
-        ['gun'] = {'carbinerifle_mk2', false, "Carbine Rifle Mk2"},
+        ['gun'] = {'carbinerifle_mk2', false, "Carbine Rifle Mk2", 0},
         ['onRespawn'] = {'onRespawn', false},
         ['COMPONENT_CARBINERIFLE_MK2_CLIP_02'] = {'COMPONENT_CARBINERIFLE_MK2_CLIP_02', false, "Carbine Mk2 Extended Magazine", false},
         ['COMPONENT_CARBINERIFLE_MK2_CLIP_INCENDIARY'] = {'COMPONENT_CARBINERIFLE_MK2_CLIP_INCENDIARY', false, "Carbine Mk2 Incendiary Rounds", false},

@@ -25,13 +25,16 @@ AddEventHandler('core.GiveAmmoToPlayer', function(weapon)
     end
 end)
 
-AddEventHandler('core.TogglePlayerWeaponMod', function(weapon, weaponmod)
+AddEventHandler('core.TogglePlayerWeaponMod', function(weapon, weaponmod, modIndex)
     local src = source
     if PlayerInfo[src] ~= nil and PlayerInfo[src].weapons ~= nil then
         if PlayerInfo[src].weapons[weapon] ~= nil and PlayerInfo[src].weapons[weapon]['gun'][2] == true then
             if weaponmod == "onRespawn" then
                 PlayerInfo[src].weapons[weapon][weaponmod][2] = not PlayerInfo[src].weapons[weapon][weaponmod][2]
                 TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
+            elseif weaponmod == 'tint' and tonumber(modIndex) ~= nil then
+                PlayerInfo[src].weapons[weapon]['gun'][4] = tonumber(modIndex)
+                TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], true)
             elseif PlayerInfo[src].weapons[weapon][weaponmod] ~= nil and PlayerInfo[src].weapons[weapon][weaponmod][2] == true then
                 local ped = GetPlayerPed(src)
                 PlayerInfo[src].weapons[weapon][weaponmod][4] = not PlayerInfo[src].weapons[weapon][weaponmod][4]
@@ -63,5 +66,6 @@ AddEventHandler('core.RequestSpawnLoadout', function()
                 end
             end
         end
+        TriggerClientEvent('core.SetWeaponTints', src)
     end
 end)

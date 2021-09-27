@@ -1,3 +1,5 @@
+RegisterNetEvent('core.SetWeaponTints')
+
 weaponMenu = ""
 local _altSprite = false
 coreMenuStyle = {titleColor = {255, 255, 255}, subTitleColor = {255, 255, 255}, titleBackgroundSprite = {dict = 'commonmenu', name = 'interaction_bgd'}}
@@ -9,6 +11,10 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
         return
     end
     WarMenu.OpenMenu('core.WeaponsMenu')
+
+    local wTint = {}
+    local tintIndex = 1
+
     while true do
         if WarMenu.Begin('core.WeaponsMenu') then
             for i,k in pairs(PlayerInfo.weapons) do
@@ -16,6 +22,13 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
                     WarMenu.Button(k['gun'][3])
                     if WarMenu.IsItemSelected() then
                         weaponMenu = k['gun'][1]
+                        wTint = {}
+                        for i=0, GetWeaponTintCount(GetHashKey("weapon_"..weaponMenu)), 1 do
+                            if GetPedWeaponTintIndex(PlayerPedId(), GetHashKey("weapon_"..weaponMenu)) == i then
+                                tintIndex = i+1
+                            end
+                            wTint[i+1] = i
+                        end
                         WarMenu.OpenMenu('core.WeaponsMenu_variations')
                     end
                 end
@@ -31,6 +44,12 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
                 end
                 if WarMenu.IsItemSelected() then
                     TriggerServerEvent('core.GiveAmmoToPlayer', weaponMenu)
+                end
+                local _, _Index = WarMenu.ComboBox('Weapon Tint', wTint, tintIndex)
+                if _Index ~= tintIndex then
+                    tintIndex = _Index
+                    SetPedWeaponTintIndex(PlayerPedId(), GetHashKey("weapon_"..weaponMenu), tintIndex -1)
+                    TriggerServerEvent('core.TogglePlayerWeaponMod', weaponMenu, "tint", tintIndex -1)
                 end
                 WarMenu.CheckBox("Give Weapon on respawn", PlayerInfo.weapons[weaponMenu]['onRespawn'][2]) --checkbox. Respawn with this gun.
                 if WarMenu.IsItemSelected() then
@@ -53,6 +72,26 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
     end
 end)
 
+AddEventHandler('core.SetWeaponTints', function()
+    local ped = PlayerPedId()
+    for i,k in pairs(PlayerInfo.weapons) do
+        if k['gun'][2] == true then
+            SetPedWeaponTintIndex(ped, GetHashKey("weapon_"..k['gun'][1]), k['gun'][4])
+        end
+    end
+end)
+
 RegisterCommand('weapons', function()
     TriggerEvent('core.ui.ShowWeaponsVariationsMenu')
+end)
+
+RegisterCommand('weaponTint', function(source, args)
+    local tint = tonumber(args[1])
+    if tint ~= nil and tint < 8 then
+        local retval, wHash = GetCurrentPedWeapon(PlayerPedId(), 1)
+        print(GetWeaponTintCount(wHash))
+        SetPedWeaponTintIndex(PlayerPedId(), wHash, tint)
+    else
+        print("can't find tint.")
+    end
 end)
