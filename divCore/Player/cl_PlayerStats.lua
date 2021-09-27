@@ -17,6 +17,10 @@ PlayerInfo = {
     license = "license:99999999999999999",
 }
 
+PlayerData = { --this array is used for temporary data that I might need at *some* point, like the task the player has to do when respawning.
+    respawnTask  = {}, 
+}
+
 Citizen.CreateThread( function()
     while true do
        Citizen.Wait(0)
@@ -69,4 +73,15 @@ end)
 AddEventHandler("playerSpawned", function(spawnInfo)
     setPlayerCharacter(PlayerInfo.ped)
     TriggerServerEvent('core.RequestSpawnLoadout') --in PlayerArmory
+    if PlayerData.respawnTask ~= nil then
+        setPlayerRespawnTask(PlayerData.respawnTask)
+    end
 end)
+
+function setPlayerRespawnTask(data)
+    if data.task == "walkToCoord" then
+        TaskFollowNavMeshToCoord(PlayerPedId(), data.x, data.y, data.z, 0.8, 6000, 1.0, false, 1)
+        Citizen.Wait(4000)
+        TaskAchieveHeading(PlayerPedId(), data.h, 1000)
+    end
+end
