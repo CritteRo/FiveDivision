@@ -80,18 +80,3 @@ AddEventHandler('core.SetWeaponTints', function()
         end
     end
 end)
-
-RegisterCommand('weapons', function()
-    TriggerEvent('core.ui.ShowWeaponsVariationsMenu')
-end)
-
-RegisterCommand('weaponTint', function(source, args)
-    local tint = tonumber(args[1])
-    if tint ~= nil and tint < 8 then
-        local retval, wHash = GetCurrentPedWeapon(PlayerPedId(), 1)
-        print(GetWeaponTintCount(wHash))
-        SetPedWeaponTintIndex(PlayerPedId(), wHash, tint)
-    else
-        print("can't find tint.")
-    end
-end)
