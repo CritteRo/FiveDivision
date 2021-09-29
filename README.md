@@ -4,6 +4,9 @@ A FiveM gamemode inspired by Tom Clancy's The Division
 ## IMPORTANT!
 I will **not** help you with this code. It's not completed. It will have some dependencies that you will need. Code might not be pretty, or might not be what you need.
 
+## DEVLOG:
+Want to see the progress, and some explanation behind some of the decisions? Follow my devlog on the cfx forum: https://forum.cfx.re/t/developing-writing-fivedivision-gamemode-devlog/4763980
+
 ## About:
 FiveDivision is meant to be a gamemode designed around Tom Clancy's The Division's gameplay-loop. Players can cooperate by completing missions, either solo or in a group, or working towards completing community goals, OR they can compete in organized PvP arenas, open-world combat, or PvPvE challenges.
 
