@@ -76,7 +76,8 @@ AddEventHandler('core.StartRespawnMenu', function(_type, _deathStats)
                 TriggerEvent('core.respawn', false, newCoords)
                 waitForResponse = false
             elseif IsControlJustReleased(0,  52) then
-                -- run code here
+                TriggerEvent('core.respawn', false)
+                waitForResponse = false
             end
         elseif _type == "mission" then
             alert("~INPUT_CONTEXT~ Spawn at nearest checkpoint\n~INPUT_CONTEXT_SECONDARY~ Spawn at mission start")
