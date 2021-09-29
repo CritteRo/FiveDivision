@@ -6,8 +6,10 @@ function setPlayerCharacter(character)
     end
     SetPlayerModel(PlayerId(), character['model'])
     SetModelAsNoLongerNeeded(character['model'])
-
-    SetPedHeadBlendData(PlayerPedId(), character['blend'][1], character['blend'][2], 0, character['blend'][1], character['blend'][2], 0, character['blend'][3], character['blend'][4], 0.0, false)
+    local ped = PlayerPedId()
+    SetPedHeadBlendData(ped, character['blend'][1], character['blend'][2], 0, character['blend'][1], character['blend'][2], 0, character['blend'][3], character['blend'][4], 0.0, false)
+    SetPedMaxHealth(ped, 200)
+	SetEntityHealth(ped, 200)
     setPlayerClothes(character)
 end
 
