@@ -162,7 +162,7 @@ end
 function alert(text)
     SetTextComponentFormat("STRING")
     AddTextComponentString(text)
-    DisplayHelpTextFromStringLabel(0,0,1,-1)
+    EndTextCommandDisplayHelp(0,0,1,-1)
 end
 
 function notifyex_ped(_title,_subtitle, _icontype, _message, _colID)

@@ -15,17 +15,18 @@ firstJoiners = {
 }
 
 RegisterNetEvent("core.respawn")
-AddEventHandler("core.respawn", function(firstSpawn)
+AddEventHandler("core.respawn", function(firstSpawn, _overrideSpawnPoint)
     if not firstSpawn then
-        SetTimecycleModifier("dying")
-        PlaySoundFrontend(-1, "Bed", "WastedSounds", false)
-        Citizen.Wait(3000)
         DoScreenFadeOut(2000)
         while not IsScreenFadedOut() do
             Citizen.Wait(0)
         end
         exports.spawnmanager:forceRespawn()
-        exports.spawnmanager:spawnPlayer(spawns[1])
+        if _overrideSpawnPoint ~= nil and type(_overrideSpawnPoint) == "table" then
+            exports.spawnmanager:spawnPlayer(_overrideSpawnPoint)
+        else
+            exports.spawnmanager:spawnPlayer(spawns[math.random(1, #spawns)])
+        end
         PlayerData.respawnTask = nil
         ClearTimecycleModifier()
         DoScreenFadeIn(1000)
@@ -54,6 +55,53 @@ AddEventHandler("core.respawn", function(firstSpawn)
     end
     TriggerEvent('weather.SetSnowWeather', 1)
 end)
+
+RegisterNetEvent("core.StartRespawnMenu")
+AddEventHandler('core.StartRespawnMenu', function(_type, _deathStats)
+    --_type should be "overworld", "mission" or "pvp".
+    SetTimecycleModifier("dying")
+    PlaySoundFrontend(-1, "Bed", "WastedSounds", false)
+    Citizen.Wait(3000)
+    local waitForResponse = true
+    while waitForResponse do
+        DisplayHudWhenDeadThisFrame()
+        caption('Show some death stats here...', 10)
+        if _type == "overworld" then --OPEN WORLD SPAWN
+            alert("~INPUT_CONTEXT~ Spawn Nearby\n~INPUT_CONTEXT_SECONDARY~ Spawn at nearest hideout") --51 and 52
+            if IsControlJustReleased(0,  51) then
+                local ped = PlayerPedId()
+                local deathCoords = GetEntityCoords(ped)
+                local ret, coordsTemp, _heading = GetClosestVehicleNodeWithHeading(deathCoords.x + (math.random(100,250) * int[math.random(1,2)]), deathCoords.y + (math.random(100,250) * int[math.random(1,2)]), deathCoords.z, 1, 3.0, 0)
+                local newCoords = {model = "mp_m_freemode_01", x = coordsTemp.x, y = coordsTemp.y, z = coordsTemp.z, heading = _heading, skipFade = false}
+                TriggerEvent('core.respawn', false, newCoords)
+                waitForResponse = false
+            elseif IsControlJustReleased(0,  52) then
+                -- run code here
+            end
+        elseif _type == "mission" then
+            alert("~INPUT_CONTEXT~ Spawn at nearest checkpoint\n~INPUT_CONTEXT_SECONDARY~ Spawn at mission start")
+            if IsControlJustReleased(0,  51) then
+                -- run code here
+            elseif IsControlJustReleased(0,  52) then
+                -- run code here
+            end
+        elseif _type == "pvp" then
+            alert("~INPUT_CONTEXT~ Spawn at nearest hideout.")
+            if IsControlJustReleased(0,  51) then
+                -- run code here
+            end
+        else
+            TriggerEvent('core.respawn', false)
+            waitForResponse = false
+        end
+        Citizen.Wait(0)
+    end
+end)
+
+int = {
+    [1] = 1,
+    [2] = -1,
+}
 
 RegisterCommand('respawn', function(source, args)
     if args[1] ~= nil then

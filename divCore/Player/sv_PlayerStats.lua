@@ -331,7 +331,7 @@ AddEventHandler("baseevents:onPlayerDied", function(killedBy, pos)
         local wTime = 5
         print(string.format("%s died.", GetPlayerName(victim)))
         TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
-        TriggerClientEvent("core.respawn", victim)
+        TriggerClientEvent("core.StartRespawnMenu", victim, "overworld")
 end)
 
 AddEventHandler('playerDropped', function(reason)
