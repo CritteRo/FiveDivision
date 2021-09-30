@@ -99,6 +99,20 @@ RegisterCommand('getAllCosmetics', function(source, args)
     end
 end)
 
+RegisterCommand('getAllWeapons', function(source, args)
+    local src = source
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].weapons ~= nil then
+        if PlayerInfo[src].admin ~= nil and PlayerInfo[src].admin >= 3 then
+            for i,k in pairs(PlayerInfo[src].weapons) do
+                for v,h in pairs(k) do
+                    h[2] = true
+                end
+            end
+            print('weapons loop finished')
+        end
+    end
+end)
+
 RegisterCommand('addclothing', function(source, args)
     local src = source
     TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Core/sv_PlayerStats.lua', src, tonumber(args[1]), 0, true, true)

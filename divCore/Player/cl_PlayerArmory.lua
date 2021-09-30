@@ -80,3 +80,7 @@ AddEventHandler('core.SetWeaponTints', function()
         end
     end
 end)
+
+RegisterCommand('weapons', function()
+    TriggerEvent('core.ui.ShowWeaponsVariationsMenu')
+end)
