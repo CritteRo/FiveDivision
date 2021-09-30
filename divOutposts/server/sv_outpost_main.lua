@@ -40,8 +40,6 @@ Citizen.CreateThread(function()
     for i,k in pairs(outposts) do
         outposts[i].status = 0
         outposts[i].factionID = math.random(1,2)
-        outposts[i].xp = 2000
-        outposts[i].cash = 5000
         spawnOutpostEnemies(i, 1)
     end
     local updateTime = 5*60*1000
@@ -65,16 +63,12 @@ Citizen.CreateThread(function()
             if outposts[rand].status == 1 then
                 outposts[rand].status = 0
                 outposts[rand].factionID = math.random(1,2)
-                outposts[rand].xp = 2000
-                outposts[rand].cash = 5000
                 spawnOutpostEnemies(rand, 1)
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was captured!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             elseif outposts[rand].status == 2 then
                 outposts[rand].status = 1
                 outposts[rand].factionID = -1
-                outposts[rand].xp = 3000
-                outposts[rand].cash = 0
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was abandoned!\n\nIf you don't reclaim it, the enemies will!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
             end
@@ -124,8 +118,6 @@ AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
                         print(PlayerInfo[src].inOutpost)
                         outposts[PlayerInfo[src].inOutpost].status = 1
                         outposts[PlayerInfo[src].inOutpost].factionID = -1
-                        outposts[PlayerInfo[src].inOutpost].xp = 3000
-                        outposts[PlayerInfo[src].inOutpost].cash = 0
                         PlayerInfo[src].isDestroying = false
                         PlayerInfo[src].destroyingStart = 0
                         PlayerInfo[src].inOutpost = 0
@@ -171,8 +163,6 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                     if outposts[PlayerInfo[src].inOutpost].status == 1 then
                         outposts[PlayerInfo[src].inOutpost].status = 2
                         outposts[PlayerInfo[src].inOutpost].factionID = 0
-                        outposts[PlayerInfo[src].inOutpost].xp = 0
-                        outposts[PlayerInfo[src].inOutpost].cash = 0
                         PlayerInfo[src].isInstalling = false
                         PlayerInfo[src].installingStart = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
