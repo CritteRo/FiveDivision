@@ -109,6 +109,9 @@ RegisterCommand('getAllWeapons', function(source, args)
                 end
             end
             print('weapons loop finished')
+            TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
+            TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+            updateWeaponsInDatabase(src, PlayerInfo[src].uid)
         end
     end
 end)
