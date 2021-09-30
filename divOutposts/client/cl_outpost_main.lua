@@ -169,35 +169,3 @@ AddEventHandler('outpost.SetPedBehavior_2', function(outpost)
         end
     end
 end)
-
-RegisterNetEvent('test.SendPedToClient')
-AddEventHandler('test.SendPedToClient', function(_ped)
-    print(_ped)
-    while not DoesEntityExist(NetToPed(_ped)) do 
-            Wait(10)
-    end
-    local ped = NetToPed(_ped)
-    if DoesEntityExist(ped) then
-        print(ped.." is an entity")
-    else
-        print(ped.." is NOT entity")
-    end
-
-    if DoesEntityExist(tonumber(ped)) then
-        print(ped.." is an tonumber entity")
-    else
-        print(ped.." is NOT tonumber entity")
-    end
-
-    if IsEntityAPed(ped) then
-        print(ped.." is an ped")
-    else
-        print(ped.." is NOT ped")
-    end
-
-    if IsEntityAPed(tonumber(ped)) then
-        print(ped.." is an tonumber ped")
-    else
-        print(ped.." is NOT tonumber ped")
-    end
-end)
