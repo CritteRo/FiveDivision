@@ -240,7 +240,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                         TriggerClientEvent('core.notify', player, "unlock", {title = "Item Removed", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 8})
                         TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                         TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
-                        updateClothesInDatabase(player, PlayerInfo[player].uid)
+                        if _prioritySave == true then
+                            updateClothesInDatabase(player, PlayerInfo[player].uid)
+                        end
                     end
                 else -- if we didn't find it
                     if _value == true then --should we add it?
@@ -249,7 +251,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Item Added", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 123})
                             TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
-                            updateClothesInDatabase(player, PlayerInfo[player].uid)
+                            if _prioritySave == true then
+                                updateClothesInDatabase(player, PlayerInfo[player].uid)
+                            end
                         else
                             print('[ ERROR IN core.ChangePlayerInfo :: Incorrect clothes _stat requested by "'.._initiator..'"]')
                         end
@@ -263,7 +267,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                     PlayerInfo[player].stats[_stat] = _value
                     TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
                     TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
-                    updateStatsInDatabase(player, PlayerInfo[player].uid)
+                    if _prioritySave == true then
+                        updateStatsInDatabase(player, PlayerInfo[player].uid)
+                    end
                 else
                     print('[ ERROR IN core.ChangePlayerInfo :: Incorrect stats _stat requested by "'.._initiator..'"]')
                 end
@@ -275,7 +281,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                             TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Added", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 123})
-                            updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            if _prioritySave == true then
+                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            end
                         end
                     elseif _value == false then
                         if PlayerInfo[player].weapons[_stat]['gun'][2] == true then
@@ -283,7 +291,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                             TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Removed", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 8})
-                            updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            if _prioritySave == true then
+                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                            end
                         end
                     else
                         print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weapons _value requested by "'.._initiator..'"]')
@@ -304,7 +314,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                                 TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                                 TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                                 TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Added", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
-                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                                if _prioritySave == true then
+                                    updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                                end
                             end
                         elseif _value == false then
                             if PlayerInfo[player].weapons[foundId][_stat][2] == true then
@@ -312,7 +324,9 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                                 TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
                                 TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                                 TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Removed", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
-                                updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                                if _prioritySave == true then
+                                    updateWeaponsInDatabase(player, PlayerInfo[player].uid)
+                                end
                             end
                         else
                             print('[ ERROR IN core.ChangePlayerInfo :: Incorrect weaponmods _value requested by "'.._initiator..'"]')

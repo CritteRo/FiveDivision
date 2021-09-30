@@ -14,6 +14,7 @@ client_scripts {
 
 server_scripts {
     'server/sv_outpost_main.lua',
+    'server/sv_outpost_reward.lua',
 }
 
 shared_script 'shared/sh_outpost_main.lua'

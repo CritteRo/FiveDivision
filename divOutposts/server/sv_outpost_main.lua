@@ -120,8 +120,10 @@ AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
                         outposts[PlayerInfo[src].inOutpost].factionID = -1
                         PlayerInfo[src].isDestroying = false
                         PlayerInfo[src].destroyingStart = 0
+                        TriggerEvent('outpost.SendRewardsToPlayers', src, PlayerInfo[src].inOutpost, 1)
                         PlayerInfo[src].inOutpost = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
+                        
                     end
                 end
             end
@@ -176,6 +178,7 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         --Citizen.Wait(100)
                         --SetPlayerControl(src, true, 1)
                         Citizen.Wait(5000)
+                        TriggerEvent('outpost.SendRewardsToPlayers', src, PlayerInfo[src].inOutpost, 2)
                         TriggerClientEvent('cS.MidsizeBanner', src, "OUTPOST LIBERATED", outposts[PlayerInfo[src].inOutpost].name, 123, 12, true)
                         PlayerInfo[src].inOutpost = 0
                     end
@@ -219,9 +222,14 @@ function spawnOutpostEnemies(outpostID, factionID)
     end
 end
 
+AddEventHandler('onResourceStart', function(name)
+    if name == GetCurrentResourceName() then
+        TriggerEvent('outpost.RequestOutpostRewards')
+    end
+end)
+
 AddEventHandler('onResourceStop', function(name)
     if name == GetCurrentResourceName() then
-        print(name)
         for v,h in pairs(enemySpawns) do
             for i,k in pairs(h) do
                 if DoesEntityExist(NetworkGetEntityFromNetworkId(k.handle)) then
