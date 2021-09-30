@@ -4,6 +4,7 @@ outposts = {
     [3] = {name = "Little Seul Construction Site", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = -474.01, blipY = -915.26, blipZ = 29.41, x1 = -448.403, y1 = -940.547, z1 = 37.503, x2 = -501.62, y2 = -989.148, z2 = 53.776, x3 = -501.166, y3 = -886.558, z3 = 51.06, rx = 0.0, ry = 0.0, rz = -163.945, xp = "", cash = ""},
     [4] = {name = "Pillbox Rooftop Rumble", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 127.383, blipY = -1087.175, blipZ = 46.347, x1 = 140.14, y1 = -1090.71, z1 = 48.14, x2 = 174.46, y2 = -1095.78, z2 = 52.705, x3 = 112.613, y3 = -1069.68, z3 = 47.36, rx = 0.0, ry = 0.0, rz = -123.282, xp = "", cash = ""},
     [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = "", cash = ""},
+    [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 46.86, x2 = 405.53, y2 = -349.99, z2 = 46.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
 }
 
 enemySpawns = {
@@ -45,6 +46,14 @@ enemySpawns = {
         {handle = 0, x = 464.54, y = -984.076, z = 39.891, h = 301.53},
         {handle = 0, x = 453.94, y = -985.56, z = 26.67, h = 86.86},
         {handle = 0, x = 463.835, y = -994.131, z = 24.914, h = 175.39},
+    },
+    [6] = {
+        {handle = 0, x = 394.36, y = -328.206, z = 46.901, h = 339.74},
+        {handle = 0, x = 381.07, y = -328.42, z = 46.805, h = 215.17},
+        {handle = 0, x = 380.17, y = -346.36, z = 46.77, h = 244.301},
+        {handle = 0, x = 406.33, y = -349.81, z = 46.81, h = 128.53},
+        {handle = 0, x = 409.15, y = -353.59, z = 46.84, h = 277.04},
+        {handle = 0, x = 400.27, y = -365.68, z = 46.79, h = 121.17},
     },
 }
 
