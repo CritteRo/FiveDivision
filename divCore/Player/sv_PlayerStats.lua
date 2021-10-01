@@ -159,6 +159,7 @@ AddEventHandler('core.SendLevelUpdate', function(level)
         updateStatsInDatabase(src, PlayerInfo[src].uid)
         TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
         TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+        TriggerEvent('core.GatherPlayersForScoreboard')
     end
 end)
 
