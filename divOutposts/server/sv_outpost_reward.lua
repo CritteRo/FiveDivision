@@ -57,7 +57,8 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                         TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockWeaponMod, rewards[oID].mvpUnlockWeapon, true, true)
                     end
                 else
-                    print('no reward for you')
+                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "xp", 0, PlayerInfo[mvp].stats['xp'] + rewards[oID].mvpXP, false)
+                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "cash", 0, PlayerInfo[mvp].stats['cash'] + rewards[oID].mvpCash, true)
                 end
             end
             for _,id in ipairs(GetPlayers()) do

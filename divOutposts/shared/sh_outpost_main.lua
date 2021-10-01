@@ -5,6 +5,7 @@ outposts = {
     [4] = {name = "Pillbox Rooftop Rumble", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 127.383, blipY = -1087.175, blipZ = 46.347, x1 = 140.14, y1 = -1090.71, z1 = 48.14, x2 = 174.46, y2 = -1095.78, z2 = 52.705, x3 = 112.613, y3 = -1069.68, z3 = 47.36, rx = 0.0, ry = 0.0, rz = -123.282, xp = "", cash = ""},
     [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = "", cash = ""},
     [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 46.86, x2 = 405.53, y2 = -349.99, z2 = 46.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
+    [7] = {name = "Strawberry Strip", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 84.29, blipY = -1385.98, blipZ = 36.21, x1 = 71.58, y1 = -1390.81, z1 = 29.37, x2 = 78.001, y2 = -1392.67, z2 = 36.86, x3 = 110.68, y3 = -1372.51, z3 = 36.86, rx = 0.0, ry = 0.0, rz = 132.62, xp = "", cash = ""},
 }
 
 enemySpawns = {
