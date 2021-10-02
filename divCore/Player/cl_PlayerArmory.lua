@@ -33,6 +33,10 @@ AddEventHandler('core.ui.ShowWeaponsVariationsMenu', function()
                     end
                 end
             end
+
+            if WarMenu.IsMenuAboutToBeClosed() then
+                TriggerServerEvent('core.SavePlayerLoadout')
+            end
             WarMenu.End()
         elseif WarMenu.Begin('core.WeaponsMenu_variations') then
             if PlayerInfo.weapons[weaponMenu] ~= nil then

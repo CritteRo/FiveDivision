@@ -1,6 +1,7 @@
 RegisterNetEvent('core.GiveAmmoToPlayer')
 RegisterNetEvent('core.TogglePlayerWeaponMod')
 RegisterNetEvent('core.RequestSpawnLoadout')
+RegisterNetEvent('core.SavePlayerLoadout')
 
 RegisterCommand('chute', function(source, args)
     local src = source
@@ -47,6 +48,11 @@ AddEventHandler('core.TogglePlayerWeaponMod', function(weapon, weaponmod, modInd
             end
         end
     end
+end)
+
+AddEventHandler('core.SavePlayerLoadout', function()
+    local src = source
+    updateWeaponsInDatabase(src, PlayerInfo[src].uid)
 end)
 
 AddEventHandler('core.RequestSpawnLoadout', function()
