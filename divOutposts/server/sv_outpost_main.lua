@@ -218,7 +218,7 @@ function spawnOutpostEnemies(outpostID, factionID)
         end
         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
     else
-        print('outpost has no enemies')
+        print('[[::INFO::]] Outpost '..outposts[outpostID].name..' has no enemy spawns.')
     end
 end
 

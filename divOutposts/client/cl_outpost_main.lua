@@ -64,8 +64,10 @@ function useButton(use)
         while not IsScreenFadedOut() do
             Citizen.Wait(10)
         end
-        local cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", outposts[playerNearOutpost].x3, outposts[playerNearOutpost].y3, outposts[playerNearOutpost].z3, outposts[playerNearOutpost].rx, outposts[playerNearOutpost].ry, outposts[playerNearOutpost].rz, 70 * 1.0)
-        SetCamActive(cam1, true)
+        local cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", outposts[playerNearOutpost].x3, outposts[playerNearOutpost].y3, outposts[playerNearOutpost].z3, outposts[playerNearOutpost].rx, outposts[playerNearOutpost].ry, outposts[playerNearOutpost].rz - 20, 70 * 1.0)
+        local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", outposts[playerNearOutpost].x3, outposts[playerNearOutpost].y3, outposts[playerNearOutpost].z3, outposts[playerNearOutpost].rx, outposts[playerNearOutpost].ry, outposts[playerNearOutpost].rz + 20, 70 * 1.0)
+        --SetCamActive(cam1, true)
+        SetCamActiveWithInterp(cam2, cam1, 8000, 1,4)
         RenderScriptCams(true, false, 0, true, false)
         DoScreenFadeIn(1000)
         while not IsScreenFadedIn() do
