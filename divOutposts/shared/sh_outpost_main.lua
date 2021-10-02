@@ -6,6 +6,7 @@ outposts = {
     [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = "", cash = ""},
     [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 45.86, x2 = 405.53, y2 = -349.99, z2 = 47.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
     [7] = {name = "Strawberry Strip", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 84.29, blipY = -1385.98, blipZ = 36.21, x1 = 71.58, y1 = -1390.81, z1 = 28.37, x2 = 78.001, y2 = -1392.67, z2 = 37.86, x3 = 110.68, y3 = -1372.51, z3 = 36.86, rx = 0.0, ry = 0.0, rz = 132.62, xp = "", cash = ""},
+    [8] = {name = "La Puerta Warehouse", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = -340.95, blipY = -1541.88, blipZ = 42.73, x1 = -340.27, y1 = -1541.56, z1 = 26.72, x2 = -334.68, y2 = -1541.04, z2 = 37.31, x3 = -290.36, y3 = -1525.118, z3 = 45.04, rx = 0.0, ry = 0.0, rz = 109.13, xp = "", cash = ""},
 }
 
 enemySpawns = {
