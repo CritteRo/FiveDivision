@@ -27,8 +27,8 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
             --mvp rewards
             if PlayerInfo[mvp] ~= nil and GetPlayerPing(mvp) ~= 0 then
                 --XP, Cash and sometimes a random unlock
-                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "xp", 0, PlayerInfo[mvp].stats['xp'] + rewards[oID].mvpXP, false)
-                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "cash", 0, PlayerInfo[mvp].stats['cash'] + rewards[oID].mvpCash, true)
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "xp", 0, PlayerInfo[mvp].stats['xp'] + rewards[oID].mvpXP, false, false)
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "cash", 0, PlayerInfo[mvp].stats['cash'] + rewards[oID].mvpCash, true, true)
             end
             for _,id in ipairs(GetPlayers()) do
                 local coords = GetEntityCoords(GetPlayerPed(id))
@@ -36,8 +36,8 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                 if dist <= 200.01 then
                     --xp and cash
                     if tonumber(id) ~= mvp then
-                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + rewards[oID].otherXP, false)
-                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + rewards[oID].otherCash, true)
+                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + rewards[oID].otherXP, false, false)
+                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + rewards[oID].otherCash, true, true)
                     end
                 end
             end
@@ -50,15 +50,15 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                 _change = math.random(1, 100)
                 if _change <= 101 then --30
                     if rewards[oID].unlockType == 1 then --cosmetic
-                        TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockCosmetic, 0, true, true)
+                        TriggerEvent('core.ChangePlayerInfo', 'clothes', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockCosmetic, 0, true, true, true)
                     elseif rewards[oID].unlockType == 2 then --weapon
-                        TriggerEvent('core.ChangePlayerInfo', 'weapons', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockWeapon, 0, true, true)
+                        TriggerEvent('core.ChangePlayerInfo', 'weapons', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockWeapon, 0, true, true, true)
                     elseif rewards[oID].unlockType == 3 then --weaponmod
-                        TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockWeaponMod, rewards[oID].mvpUnlockWeapon, true, true)
+                        TriggerEvent('core.ChangePlayerInfo', 'weaponmods', 'Outposts/sv_outpost_reward.lua', mvp, rewards[oID].mvpUnlockWeaponMod, rewards[oID].mvpUnlockWeapon, true, true, true)
                     end
                 else
-                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "xp", 0, PlayerInfo[mvp].stats['xp'] + rewards[oID].mvpXP, false)
-                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "cash", 0, PlayerInfo[mvp].stats['cash'] + rewards[oID].mvpCash, true)
+                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "xp", 0, PlayerInfo[mvp].stats['xp'] + rewards[oID].mvpXP, false, false)
+                    TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', mvp, "cash", 0, PlayerInfo[mvp].stats['cash'] + rewards[oID].mvpCash, true, true)
                 end
             end
             for _,id in ipairs(GetPlayers()) do
@@ -67,8 +67,8 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                 if dist <= 200.01 then
                     --xp and cash
                     if tonumber(id) ~= mvp then
-                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + rewards[oID].otherXP2, false)
-                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + rewards[oID].otherCash2, true)
+                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + rewards[oID].otherXP2, false, false)
+                        TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + rewards[oID].otherCash2, true, true)
                     end
                 end
             end
