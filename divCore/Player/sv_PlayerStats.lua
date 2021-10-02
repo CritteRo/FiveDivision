@@ -218,7 +218,7 @@ function updateWeaponsInDatabase(src, uid)
     end
 end
 
-AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _stat, _stat2, _value, _prioritySave)
+AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _stat, _stat2, _value, _prioritySave, _updateClient)
     --_stat2 is only used for weapon mods...for now..
     local srce = tonumber(source)
     local player = tonumber(_src)
@@ -240,7 +240,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                     if _value == false then --should we remove it?
                         PlayerInfo[player].clothes[foundId] = nil
                         TriggerClientEvent('core.notify', player, "unlock", {title = "Item Removed", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 8})
-                        TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                        if _updateClient ~= nil then
+                            if _updateClient == true then
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            end
+                        else
+                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                        end
                         TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                         if _prioritySave == true then
                             updateClothesInDatabase(player, PlayerInfo[player].uid)
@@ -251,7 +257,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                         if cosmeticClothes[tonumber(_stat)] ~= nil then
                             PlayerInfo[player].clothes[lastId+1] = tonumber(_stat)
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Item Added", text = cosmeticClothes[tonumber(_stat)][PlayerInfo[player].ped['model']][1][3], icontype = 7, colID = 123})
-                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            if _updateClient ~= nil then
+                                if _updateClient == true then
+                                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                end
+                            else
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            end
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             if _prioritySave == true then
                                 updateClothesInDatabase(player, PlayerInfo[player].uid)
@@ -267,7 +279,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                         PlayerInfo[player].waitingForLevel = true
                     end
                     PlayerInfo[player].stats[_stat] = _value
-                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
+                    if _updateClient ~= nil then
+                        if _updateClient == true then
+                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
+                        end
+                    else
+                        TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], true)
+                    end
                     TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                     if _prioritySave == true then
                         updateStatsInDatabase(player, PlayerInfo[player].uid)
@@ -280,7 +298,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                     if _value == true then
                         if PlayerInfo[player].weapons[_stat]['gun'][2] == false then
                             PlayerInfo[player].weapons[_stat]['gun'][2] = _value
-                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            if _updateClient ~= nil then
+                                if _updateClient == true then
+                                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                end
+                            else
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            end
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Added", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 123})
                             if _prioritySave == true then
@@ -290,7 +314,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                     elseif _value == false then
                         if PlayerInfo[player].weapons[_stat]['gun'][2] == true then
                             PlayerInfo[player].weapons[_stat]['gun'][2] = _value
-                            TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            if _updateClient ~= nil then
+                                if _updateClient == true then
+                                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                end
+                            else
+                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                            end
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                             TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Removed", text = PlayerInfo[player].weapons[_stat]['gun'][3], icontype = 2, colID = 8})
                             if _prioritySave == true then
@@ -313,7 +343,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                         if _value == true then
                             if PlayerInfo[player].weapons[foundId][_stat][2] == false then
                                 PlayerInfo[player].weapons[foundId][_stat][2] = _value
-                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                if _updateClient ~= nil then
+                                    if _updateClient == true then
+                                        TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                    end
+                                else
+                                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                end
                                 TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                                 TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Added", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
                                 if _prioritySave == true then
@@ -323,7 +359,13 @@ AddEventHandler('core.ChangePlayerInfo', function(_infoType, _initiator, _src, _
                         elseif _value == false then
                             if PlayerInfo[player].weapons[foundId][_stat][2] == true then
                                 PlayerInfo[player].weapons[foundId][_stat][2] = _value
-                                TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                if _updateClient ~= nil then
+                                    if _updateClient == true then
+                                        TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                    end
+                                else
+                                    TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player], false)
+                                end
                                 TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
                                 TriggerClientEvent('core.notify', player, "unlock", {title = "Weapon Mod Removed", text = PlayerInfo[player].weapons[foundId][_stat][3], icontype = 3, colID = 123})
                                 if _prioritySave == true then
