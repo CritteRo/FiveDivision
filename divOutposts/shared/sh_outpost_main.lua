@@ -4,8 +4,8 @@ outposts = {
     [3] = {name = "Little Seul Construction Site", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = -474.01, blipY = -915.26, blipZ = 29.41, x1 = -448.403, y1 = -940.547, z1 = 37.503, x2 = -501.62, y2 = -989.148, z2 = 53.776, x3 = -501.166, y3 = -886.558, z3 = 51.06, rx = 0.0, ry = 0.0, rz = -163.945, xp = "", cash = ""},
     [4] = {name = "Pillbox Rooftop Rumble", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 127.383, blipY = -1087.175, blipZ = 46.347, x1 = 140.14, y1 = -1090.71, z1 = 48.14, x2 = 174.46, y2 = -1095.78, z2 = 52.705, x3 = 112.613, y3 = -1069.68, z3 = 47.36, rx = 0.0, ry = 0.0, rz = -123.282, xp = "", cash = ""},
     [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = "", cash = ""},
-    [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 46.86, x2 = 405.53, y2 = -349.99, z2 = 46.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
-    [7] = {name = "Strawberry Strip", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 84.29, blipY = -1385.98, blipZ = 36.21, x1 = 71.58, y1 = -1390.81, z1 = 29.37, x2 = 78.001, y2 = -1392.67, z2 = 36.86, x3 = 110.68, y3 = -1372.51, z3 = 36.86, rx = 0.0, ry = 0.0, rz = 132.62, xp = "", cash = ""},
+    [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 45.86, x2 = 405.53, y2 = -349.99, z2 = 47.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
+    [7] = {name = "Strawberry Strip", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 84.29, blipY = -1385.98, blipZ = 36.21, x1 = 71.58, y1 = -1390.81, z1 = 28.37, x2 = 78.001, y2 = -1392.67, z2 = 37.86, x3 = 110.68, y3 = -1372.51, z3 = 36.86, rx = 0.0, ry = 0.0, rz = 132.62, xp = "", cash = ""},
 }
 
 enemySpawns = {
@@ -55,6 +55,14 @@ enemySpawns = {
         {handle = 0, x = 406.33, y = -349.81, z = 46.81, h = 128.53},
         {handle = 0, x = 409.15, y = -353.59, z = 46.84, h = 277.04},
         {handle = 0, x = 400.27, y = -365.68, z = 46.79, h = 121.17},
+    },
+    [7] = {
+        {handle = 0, x = 84.16, y = -1385.93, z = 36.21, h = 319.44},
+        {handle = 0, x = 68.89, y = -1399.03, z = 34.82, h = 88.131},
+        {handle = 0, x = 85.89, y = -1395.48, z = 29.21, h = 237.11},
+        {handle = 0, x = 85.91, y = -1387.25, z = 29.28, h = 359.14},
+        {handle = 0, x = 73.87, y = -1398.54, z = 29.37, h = 53.781},
+        {handle = 0, x = 80.81, y = -1396.11, z = 29.37, h = 2.8884},
     },
 }
 
