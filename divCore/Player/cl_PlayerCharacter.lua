@@ -10,6 +10,7 @@ function setPlayerCharacter(character)
     SetPedHeadBlendData(ped, character['blend'][1], character['blend'][2], 0, character['blend'][1], character['blend'][2], 0, character['blend'][3], character['blend'][4], 0.0, false)
     SetPedMaxHealth(ped, 200)
 	SetEntityHealth(ped, 200)
+    SetPedConfigFlag(ped, 184, false)
     setPlayerClothes(character)
 end
 
