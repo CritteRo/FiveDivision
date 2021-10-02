@@ -39,6 +39,7 @@ AddEventHandler('core.RequestResourceUpdates', function()
         if PlayerInfo[src] ~= nil then
             TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
             TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+            Citizen.Wait(10)
         end
     end
 end)

@@ -225,6 +225,7 @@ end
 AddEventHandler('onResourceStart', function(name)
     if name == GetCurrentResourceName() then
         TriggerEvent('outpost.RequestOutpostRewards')
+        TriggerEvent('core.RequestResourceUpdates')
     end
 end)
 
