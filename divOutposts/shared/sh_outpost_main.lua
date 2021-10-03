@@ -6,7 +6,8 @@ outposts = {
     [5] = {name = "Los Santos Police Derangement", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 423.301, blipY = -981.305, blipZ = 35.16, x1 = 462.38, y1 = -989.51, z1 = 23.91, x2 = 450.09, y2 = -981.67, z2 = 44.69, x3 = 398.801, y3 = -953.052, z3 = 43.08, rx = 0.0, ry = 0.0, rz = -122.96, xp = "", cash = ""},
     [6] = {name = "Alta Restaurant", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 389.601, blipY = -356.23, blipZ = 53.14, x1 = 385.94, y1 = -326.56, z1 = 45.86, x2 = 405.53, y2 = -349.99, z2 = 47.81, x3 = 367.82, y3 = -381.83, z3 = 53.85, rx = 0.0, ry = 0.0, rz = -33.89, xp = "", cash = ""},
     [7] = {name = "Strawberry Strip", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = 84.29, blipY = -1385.98, blipZ = 36.21, x1 = 71.58, y1 = -1390.81, z1 = 28.37, x2 = 78.001, y2 = -1392.67, z2 = 37.86, x3 = 110.68, y3 = -1372.51, z3 = 36.86, rx = 0.0, ry = 0.0, rz = 132.62, xp = "", cash = ""},
-    [8] = {name = "La Puerta Warehouse", status = 0--[[0 = enemy, 1 = abandoned, 2 = liberated]], factionID = 0, blipX = -340.95, blipY = -1541.88, blipZ = 42.73, x1 = -340.27, y1 = -1541.56, z1 = 26.72, x2 = -334.68, y2 = -1541.04, z2 = 37.31, x3 = -290.36, y3 = -1525.118, z3 = 45.04, rx = 0.0, ry = 0.0, rz = 109.13, xp = "", cash = ""},
+    [8] = {name = "La Puerta Warehouse", status = 0, factionID = 0, blipX = -340.95, blipY = -1541.88, blipZ = 42.73, x1 = -340.27, y1 = -1541.56, z1 = 26.72, x2 = -334.68, y2 = -1541.04, z2 = 37.31, x3 = -290.36, y3 = -1525.118, z3 = 45.04, rx = 0.0, ry = 0.0, rz = 109.13, xp = "", cash = ""},
+    [9] = {name = "Vespucci Timber", status = 0, factionID = 0, blipX = -1125.21, blipY = -964.62, blipZ = 12.85, x1 = -1125.02, y1 = -971.46, z1 = 2.15, x2 = -1130.67, y2 = -956.27, z2 = 6.63, x3 = -1098.37, y3 = -944.87, z3 = 14.01, rx = 0.0, ry = 0.0, rz = 125.96, xp = "", cash = ""},
 }
 
 enemySpawns = {
@@ -75,6 +76,17 @@ enemySpawns = {
         {handle = 0, x = -357.14, y = -1542.15, z = 27.72, h = 312.78},
         {handle = 0, x = -340.02, y = -1561.51, z = 25.23, h = 46.26},
         {handle = 0, x = -357.16, y = -1530.29, z = 27.71, h = 88.64},
+    },
+    [9] = {
+        {handle = 0, x = -1111.54, y = -974.17, z = 2.15, h = 281.73},
+        {handle = 0, x = -1123.43, y = -982.25, z = 2.15, h = 125.15},
+        {handle = 0, x = -1132.137, y = -956.16, z = 2.15, h = 5.01},
+        {handle = 0, x = -1125.36, y = -958.53, z = 2.15, h = 284.59},
+        {handle = 0, x = -1115.38, y = -953.85, z = 2.504, h = 28.78},
+        {handle = 0, x = -1130.48, y = -956.51, z = 6.63, h = 47.63},
+        {handle = 0, x = -1117.18, y = -973.17, z = 6.62, h = 301.88},
+        {handle = 0, x = -1125.94, y = -956.28, z = 6.69, h = 305.62},
+        {handle = 0, x = -1126.401, y = -962.19, z = 6.63, h = 238.26},
     },
 }
 
