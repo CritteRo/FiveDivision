@@ -64,11 +64,11 @@ RegisterNetEvent('phone.UpdateContacts')
 RegisterNetEvent('phone.ReceiveCall')
 
 AddEventHandler('phone.UpdateContacts', function(contacts) --we receive contacts from the server-side.
-    TriggerEvent('scalePhone.ResetAppButtons', 1) --first. We clear all contacts that we currently have.
+    TriggerEvent('scalePhone.ResetAppButtons', 'app_contacts') --first. We clear all contacts that we currently have.
     
     for i,k in pairs(contacts) do
         --local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "eventName", eventParams = {name = k.name, isBot = k.isBot}}
-        local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenContactView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID}}
+        local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenContactView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID, group = k.group}}
         if k.svID ~= nil then --if we got the server ID, or playerSrc, from the server, we include it in the eventParams. WE SHOULD GET IT, BY THE WAY.
             idc.eventParams.svID = k.svID
         end
@@ -84,7 +84,10 @@ AddEventHandler('phone.OpenContactView', function(data) --this is the contact vi
     TriggerEvent('scalePhone.BuildAppButton', 'app_contact_view', {text = "Call", icon = 25, event = "phone.SendCall", eventParams = data}, false, -1)
     TriggerEvent('scalePhone.BuildAppButton', 'app_contact_view', {text = "Message", icon = 19, event = "phone.SendSMS", eventParams = data}, false, -1)
     if tonumber(data.svID) > 0 then --if it's not a bot, add these buttons too.
-        --nothing here (yet!)
+        if data.group == 0 then
+            --phone.InviteToGroup
+            TriggerEvent('scalePhone.BuildAppButton', 'app_contact_view', {text = "Invite to group", icon = 25, event = "phone.InviteToGroup", eventParams = data}, false, -1)
+        end
     end
 
     TriggerEvent('scalePhone.OpenApp', 'app_contact_view', false) --at the end, we open the app.
@@ -164,6 +167,21 @@ AddEventHandler('phone.CloseCall', function(data)
     TriggerEvent('scalePhone.GoBackApp', data)
 end)
 
+AddEventHandler('phone.InviteToGroup', function(_data)
+    local pID = tonumber(_data.svID)
+    AddTextEntry('MS_PROMPT_SMS', "Invite message: ")
+    DisplayOnscreenKeyboard(1, "MS_PROMPT_SMS", "", "", "", "", "", 50)
+    while (UpdateOnscreenKeyboard() == 0) do
+        DisableAllControlActions(0);
+        Wait(0);
+    end
+    if (GetOnscreenKeyboardResult()) then
+        local result = GetOnscreenKeyboardResult()
+        --TriggerServerEvent('phone.sv.SendSMS', name, result, isBot, svID)
+        TriggerServerEvent('core.InviteToGroup', pID, result)
+    end
+    AddTextEntry('MS_PROMPT_SMS', "Send message: ")
+end)
 
 AddEventHandler('phone.ReplyToGroupInvite', function(_data)
     TriggerServerEvent('core.ReplyToGroupInvite', _data.groupID, _data.response)

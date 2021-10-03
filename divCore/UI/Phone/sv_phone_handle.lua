@@ -30,7 +30,12 @@ AddEventHandler('phone.sv.GatherContacts', function() --gathering a contact list
         row = row + 1
     end
     for _,player in ipairs(GetPlayers()) do --building online players, from ALL ONLINE PLAYERS. If you can get a contact array, this is where you would want it.
-        contacts[row] = {name = "[~b~"..player.."~s~]"..GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player}
+        local _group = 0
+        if PlayerInfo[tonumber(player)] ~= nil then
+            _group = PlayerInfo[tonumber(player)].group
+            print('found group in contacts')
+        end
+        contacts[row] = {name = "[~b~"..player.."~s~]"..GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player, group = _group}
         row = row + 1
     end
     TriggerClientEvent('phone.UpdateContacts', -1, contacts) --updating contact list for ALL players.
@@ -73,7 +78,7 @@ AddEventHandler('playerJoining', function(oldID) --if you have your own way of g
         sleepMode = 0,
         lang = "en",
     }
-    TriggerEvent('phone.sv.GatherContacts')
+    --TriggerEvent('phone.sv.GatherContacts')
 end)
 
 --[[  ::  MESSAGING  ::  ]]--

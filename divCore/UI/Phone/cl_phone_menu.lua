@@ -81,6 +81,7 @@ AddEventHandler('core.UpdateClientResources', function(_info)
     --[[buttons]]--
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "UID  //  ".._info.uid, subtitle = ""}, false, -1)
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "ARank  //  ".._info.admin, subtitle = ""}, false, -1)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "GroupID  //  ".._info.group, subtitle = ""}, false, -1)
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Cash  //  ".._info.stats['cash'], subtitle = ""}, false, -1)
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Bank  //  ".._info.stats['bank'], subtitle = ""}, false, -1)
     TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Coins  //  ".._info.stats['coins'], subtitle = ""}, false, -1)

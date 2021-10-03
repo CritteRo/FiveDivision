@@ -144,6 +144,7 @@ RegisterCommand('_reload_me', function(source, args)
                             license = result[1].license,
                             activity = 0,
                             group = 0,
+                            waitingForLevel = false,
                         }
                         if inCall[src] ~= nil then
                         else
@@ -170,6 +171,7 @@ AddEventHandler('playerJoining', function(oldID)
     TriggerClientEvent('core.GetInitialStats', src, PlayerInfo[src])
     TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
     TriggerEvent('core.GatherPlayersForScoreboard')
+    TriggerEvent('phone.sv.GatherContacts')
     tempData[tonumber(oldID)] = nil
 end)
 

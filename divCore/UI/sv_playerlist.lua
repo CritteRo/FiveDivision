@@ -6,6 +6,7 @@ AddEventHandler('core.GatherPlayersForScoreboard', function()
         local src = tonumber(player)
         if PlayerInfo[src] ~= nil then
             local _crew = adminRankToCrew[tonumber(PlayerInfo[src].admin)]
+            local _jp = tonumber(PlayerInfo[src].group)
             players_2[slotid_2] = {name = GetPlayerName(src), id = src, crew = _crew, rightText = "", rank = tostring(PlayerInfo[src].stats['level']), showJP = false, txd = 'CHAR_BLANK_ENTRY'}
             slotid_2 = slotid_2 + 1
         end
