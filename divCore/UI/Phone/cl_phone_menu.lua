@@ -24,8 +24,9 @@ TriggerEvent('scalePhone.BuildHomepageApp', 'app_numpad', "numpad", "Numpad", 27
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_gps', "gps", "GPS", 58, 0, "", "scalePhone.GoToHomepage", {}) -- 5
 
 TriggerEvent('scalePhone.BuildHomepageApp', 'app_more', "settings", "More Apps", 6, 0, "", "scalePhone.GoToHomepage", {}) -- 6
-TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Player Stats", icon = 23, event = "scalePhone.OpenApp", eventParams = 'app_stats'}, false, -1)
 TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Fast Travel to Outpost", icon = 0, event = "phone.StartFastTravel", eventParams = 'outpost'}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Player Stats", icon = 23, event = "scalePhone.OpenApp", eventParams = 'app_stats'}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Group Manager", icon = 23, event = "phone.OpenGroupMenu", eventParams = ''}, false, -1)
 
 TriggerEvent('scalePhone.BuildSnapmatic', 'app_snapmatic') -- 7
 TriggerEvent('scalePhone.BuildThemeSettings', 'app_settings') -- 8
@@ -106,6 +107,22 @@ AddEventHandler('core.GetInitialStats', function(_info)
     --[[FOOTER]]TriggerEvent('scalePhone.BuildAppButton', 'app_stats', {title = "Player Stats", subtitle = ""}, false, -1)
 end)
 
+
+--GROUP MENU. This is where you should be able to leave the group, or see other members.
+TriggerEvent('scalePhone.BuildApp', 'app_group_members', "contacts", "Members", 0, 0, "", "scalePhone.GoBackApp", {backApp = 'app_group_main'})
+AddEventHandler('phone.OpenGroupMenu', function()
+    if PlayerInfo.group ~= 0 then
+        TriggerEvent('scalePhone.BuildApp', 'app_group_main', 'settings', "Group Manager", 0,0,"", "scalePhone.GoBackApp", {backApp = 'app_more'})
+        TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Members", icon = 0, event = "scalePhone.OpenApp", eventParams = 'app_group_members'}, false, -1)
+        TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Leave Group", icon = 0, event = "phone.LeaveGroup", eventParams = ''}, false, -1)
+    else
+        TriggerEvent('scalePhone.BuildApp', 'app_group_main', "messageView", "Group Manager", 0, 0, "", 'scalePhone.GoBackApp', {backApp = 'app_more', contact = "Server", message = 'You are not part of any group.', fromme = false, hasPic = "", canOpenMenu = false, selectEvent = ""})
+    end
+    TriggerEvent('scalePhone.OpenApp', 'app_group_main', false)
+end)
+
+
+-- FAST TRAVEL
 AddEventHandler('phone.StartFastTravel', function(_type)
     local WaypointHandle = GetFirstBlipInfoId(8)
     if DoesBlipExist(WaypointHandle) then

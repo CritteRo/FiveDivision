@@ -56,6 +56,7 @@ AddEventHandler('core.InviteToGroup', function(_player, _inviteMessage, _overrid
                             TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                             TriggerClientEvent('core.UpdateClientResources', player, PlayerInfo[player])
                             TriggerEvent('core.UpdateServerResources', player, PlayerInfo[player])
+                            TriggerEvent('phone.sv.GatherContacts')
                         else
                             TriggerClientEvent('core.notify', src, "simple", {text = "Your group is full. Max members: "..maxGroupMembers..".", colID = 8})
                         end
@@ -91,6 +92,9 @@ AddEventHandler('core.ReplyToGroupInvite', function(group, response)
                     table.insert(PlayerGroup[_group].members, tonumber(src))
                     PlayerInviteQueue[src] = nil
                     PlayerInfo[src].group = _group
+                    TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
+                    TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+                    TriggerEvent('phone.sv.GatherContacts')
                 else
                     TriggerClientEvent('core.notify', src, "simple", {text = "Group is already full. Max members: "..maxGroupMembers..".", colID = 8})
                     TriggerClientEvent('core.notify', PlayerGroup[_group].leaderID, "simple", {text = "["..src.."]"..GetPlayerName(src).." tried to accept the group invite, but your group is full.", colID = 8})
@@ -100,6 +104,7 @@ AddEventHandler('core.ReplyToGroupInvite', function(group, response)
                 for i,k in pairs(PlayerGroup[_group].members) do
                     TriggerClientEvent('core.notify', k, "simple", {text = "["..src.."]"..GetPlayerName(src).." denied the group invitation!", colID = 8})
                 end
+                TriggerEvent('phone.sv.GatherContacts')
             else
                 print('could not reply to group invite. invalid response.')
             end
@@ -118,9 +123,6 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
     print(src)
     if tonumber(_overrideSource) ~= nil and GetPlayerPing(tonumber(_overrideSource)) then
         src = tonumber(_overrideSource)
-    else
-        return
-        print("BIG ERROR IN core.LeaveGroup! Group might need to be disbanded!!")
     end
     if PlayerInfo[src] ~= nil and PlayerInfo[src].group ~= 0 then
         local _group = PlayerInfo[src].group
@@ -128,6 +130,8 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
             if k == src then
                 PlayerGroup[_group].members[i] = nil
                 PlayerInfo[src].group = 0
+                TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
+                TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                 TriggerClientEvent('core.notify', k, "simple", {text = "You are no longer part of the group.", colID = 2})
             else
                 TriggerClientEvent('core.notify', k, "simple", {text = "["..src.."]"..GetPlayerName(src).." left the group.", colID = 2})
@@ -139,12 +143,18 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
                 newMember = k
             end
             if newMember ~= nil then -- if there is still someone in the group, make him/her lead
+                PlayerGroup[_group].leaderID = newMember
+                TriggerClientEvent('core.UpdateClientResources', newMember, PlayerInfo[newMember], false)
+                TriggerEvent('core.UpdateServerResources', newMember, PlayerInfo[newMember])
                 TriggerClientEvent('core.notify', newMember, "simple", {text = "You are now the group leader!", colID = 123})
             else --if not, disband the group.
             end
         end
+        TriggerEvent('phone.sv.GatherContacts')
     else
-        TriggerClientEvent('core.notify', k, "simple", {text = "You are not part of a group.", colID = 8})
+        if GetPlayerPing(src) ~= 0 then
+            TriggerClientEvent('core.notify', src, "simple", {text = "You are not part of a group.", colID = 8})
+        end
     end
 end)
 
