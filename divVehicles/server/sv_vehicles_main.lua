@@ -8,7 +8,7 @@ PlayerInfo = {
 }
 
 ambientCars = {
-    "mesa2", "asea2", "sadler2", "burrito5", "rancherxl2",
+    "mesa2", "asea2", "sadler2", "burrito5", "rancherxl2", "emperor3",
 }
 
 --[[
@@ -18,6 +18,7 @@ ambientCars = {
     - sadler2
     - burrito5
     - rancherxl2
+    - emperor3
     - stockade3
     - policeold1
     - policeold2
