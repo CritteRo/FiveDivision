@@ -121,6 +121,15 @@ AddEventHandler('phone.OpenGroupMenu', function()
     TriggerEvent('scalePhone.OpenApp', 'app_group_main', false)
 end)
 
+AddEventHandler('phone.OpenGroupMemberView', function(data)
+    TriggerEvent('scalePhone.BuildApp', 'app_group_member_view', "settings", data.name, 5, 0, "", "scalePhone.GoBackApp", {backApp = 'app_contacts'}) --you can build the app how many times you want. If it's the same appID, it will just overwrite it (and clear all buttons!)
+    TriggerEvent('scalePhone.BuildAppButton', 'app_group_member_view', {text = "Message", icon = 19, event = "phone.SendSMS", eventParams = data}, false, -1)
+    if PlayerInfo.isGroupLeader == true then
+        TriggerEvent('scalePhone.BuildAppButton', 'app_group_member_view', {text = "Kick", icon = 27, event = "phone.KickMemberFromGroup", eventParams = data}, false, -1)
+    end
+
+    TriggerEvent('scalePhone.OpenApp', 'app_group_member_view', false) --at the end, we open the app.
+end)
 
 -- FAST TRAVEL
 AddEventHandler('phone.StartFastTravel', function(_type)

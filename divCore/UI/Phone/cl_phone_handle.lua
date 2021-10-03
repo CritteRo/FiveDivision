@@ -68,13 +68,13 @@ AddEventHandler('phone.UpdateContacts', function(contacts) --we receive contacts
     TriggerEvent('scalePhone.ResetAppButtons', 'app_group_members')
     for i,k in pairs(contacts) do
         --local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "eventName", eventParams = {name = k.name, isBot = k.isBot}}
-        local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenContactView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID, group = k.group}}
+        local idc = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenContactView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID, group = k.group, lead = k.lead}}
         if k.svID ~= nil then --if we got the server ID, or playerSrc, from the server, we include it in the eventParams. WE SHOULD GET IT, BY THE WAY.
             idc.eventParams.svID = k.svID
         end
         TriggerEvent('scalePhone.BuildAppButton', 'app_contacts', idc, k.isBot, -1) --adding the contact. If it's a bot, we add it at the top.
         if k.group == PlayerInfo.group and k.group ~= 0 and k.isBot == false then
-            local idc2 = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenGroupMemberView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID, group = k.group}}
+            local idc2 = {name = k.name, pic = k.pic, isBot = k.isBot, event = "phone.OpenGroupMemberView", eventParams = {name = k.name, isBot = k.isBot, pic = k.pic, svID = k.svID, group = k.group, lead = k.lead}}
             if k.svID ~= nil then --if we got the server ID, or playerSrc, from the server, we include it in the eventParams. WE SHOULD GET IT, BY THE WAY.
                 idc2.eventParams.svID = k.svID
             end
@@ -195,6 +195,11 @@ end)
 
 AddEventHandler('phone.LeaveGroup', function()
     TriggerServerEvent('core.LeaveGroup')
+    TriggerEvent('scalePhone.OpenApp', 'app_more', false)
+end)
+
+AddEventHandler('phone.KickMemberFromGroup', function(_data)
+    TriggerServerEvent('core.KickMemberFromGroup', _data.svID)
     TriggerEvent('scalePhone.OpenApp', 'app_more', false)
 end)
 

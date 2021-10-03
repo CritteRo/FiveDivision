@@ -1,6 +1,7 @@
 RegisterNetEvent('core.InviteToGroup')
 RegisterNetEvent('core.ReplyToGroupInvite')
 RegisterNetEvent('core.LeaveGroup')
+RegisterNetEvent('core.KickMemberFromGroup')
 RegisterNetEvent('core.TransferGroupLeader')
 
 PlayerGroup = {
@@ -159,6 +160,48 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
         if GetPlayerPing(src) ~= 0 then
             TriggerClientEvent('core.notify', src, "simple", {text = "You are not part of a group.", colID = 8})
         end
+    end
+end)
+
+AddEventHandler('core.KickMemberFromGroup', function(_player, _reason)
+    local src = source
+    local imp = tonumber(_player)
+    if PlayerInfo[src] ~= nil and PlayerInfo[imp] ~= nil and GetPlayerPing(imp) ~= 0 then
+        local _group = PlayerInfo[src].group
+        if _group == PlayerInfo[imp].group and PlayerGroup[_group] ~= nil and PlayerGroup[_group].leaderID == src then
+            for i,k in pairs(PlayerGroup[_group].members) do
+                if k == imp then
+                    PlayerGroup[_group].members[i] = nil
+                    PlayerInfo[imp].group = 0
+                    PlayerInfo[imp].isGroupLeader = false
+                    TriggerClientEvent('core.UpdateClientResources', imp, PlayerInfo[imp], false)
+                    TriggerEvent('core.UpdateServerResources', imp, PlayerInfo[imp])
+                    TriggerClientEvent('core.notify', k, "simple", {text = "You have been kicked from the group.", colID = 2})
+                else
+                    TriggerClientEvent('core.notify', k, "simple", {text = "["..imp.."]"..GetPlayerName(imp).." was kicked from the group.", colID = 2})
+                end
+            end
+            if PlayerGroup[_group].leaderID == src then --if you're the leader, pass it to someone else.
+                local newMember = nil
+                for i,k in pairs(PlayerGroup[_group].members) do
+                    newMember = k
+                end
+                if newMember ~= nil then -- if there is still someone in the group, make him/her lead
+                    PlayerGroup[_group].leaderID = newMember
+                    PlayerInfo[newMember].isGroupLeader = true
+                    TriggerClientEvent('core.UpdateClientResources', newMember, PlayerInfo[newMember], false)
+                    TriggerEvent('core.UpdateServerResources', newMember, PlayerInfo[newMember])
+                    TriggerClientEvent('core.notify', newMember, "simple", {text = "You are now the group leader!", colID = 123})
+                else --if not, disband the group.
+                    PlayerGroup[_group] = nil
+                end
+            end
+            TriggerEvent('phone.sv.GatherContacts')
+        else
+            TriggerClientEvent('core.notify', src, "simple", {text = "You cannot kick another group member.", colID = 8})
+        end
+    else
+        print('invalid credentials in group member kick')
     end
 end)
 
