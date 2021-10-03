@@ -31,6 +31,7 @@ AddEventHandler('core.InviteToGroup', function(_player, _inviteMessage, _overrid
                 if PlayerInfo[src].group == 0 then
                     PlayerGroup[nextGroupID] = {leaderID = src, members = {src}, inviteQueue = {}, hudColor = 123, allCanInvite = false, name = "Group #"..nextGroupID..""}
                     PlayerInfo[src].group = nextGroupID
+                    PlayerInfo[src].isGroupLeader = true
                     _groupID = nextGroupID
                     nextGroupID = nextGroupID + 1
                 end
@@ -79,7 +80,7 @@ AddEventHandler('core.ReplyToGroupInvite', function(group, response)
     local src = source
     local _group = tonumber(group)
     if PlayerInfo[src] ~= nil and PlayerInfo[src].group == 0 then
-        if PlayerInviteQueue[src] ~= nil and PlayerInviteQueue[src] == _group then
+        if PlayerInviteQueue[src] ~= nil and PlayerGroup[_group] ~= nil and PlayerInviteQueue[src] == _group then
             if response == true then
                 local memberCount = 0
                 for i,k in pairs(PlayerGroup[_group].members) do
@@ -130,6 +131,7 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
             if k == src then
                 PlayerGroup[_group].members[i] = nil
                 PlayerInfo[src].group = 0
+                PlayerInfo[src].isGroupLeader = false
                 TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
                 TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                 TriggerClientEvent('core.notify', k, "simple", {text = "You are no longer part of the group.", colID = 2})
@@ -144,10 +146,12 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
             end
             if newMember ~= nil then -- if there is still someone in the group, make him/her lead
                 PlayerGroup[_group].leaderID = newMember
+                PlayerInfo[newMember].isGroupLeader = true
                 TriggerClientEvent('core.UpdateClientResources', newMember, PlayerInfo[newMember], false)
                 TriggerEvent('core.UpdateServerResources', newMember, PlayerInfo[newMember])
                 TriggerClientEvent('core.notify', newMember, "simple", {text = "You are now the group leader!", colID = 123})
             else --if not, disband the group.
+                PlayerGroup[_group] = nil
             end
         end
         TriggerEvent('phone.sv.GatherContacts')

@@ -78,6 +78,9 @@ AddEventHandler('phone.UpdateContacts', function(contacts) --we receive contacts
             if k.svID ~= nil then --if we got the server ID, or playerSrc, from the server, we include it in the eventParams. WE SHOULD GET IT, BY THE WAY.
                 idc2.eventParams.svID = k.svID
             end
+            if k.lead == true then
+                idc2.name = "[leader]"..idc2.name
+            end
             TriggerEvent('scalePhone.BuildAppButton', 'app_group_members', idc2, false, -1)
         end
     end

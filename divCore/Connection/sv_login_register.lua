@@ -89,6 +89,7 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
                                                 license = result[1].license,
                                                 activity = 0,
                                                 group = 0,
+                                                isGroupLeader = false,
                                                 waitingForLevel = false,
                                             }
                                             deferrals.done()
@@ -144,6 +145,7 @@ RegisterCommand('_reload_me', function(source, args)
                             license = result[1].license,
                             activity = 0,
                             group = 0,
+                            isGroupLeader = false,
                             waitingForLevel = false,
                         }
                         if inCall[src] ~= nil then

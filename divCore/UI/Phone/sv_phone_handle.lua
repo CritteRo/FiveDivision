@@ -31,11 +31,13 @@ AddEventHandler('phone.sv.GatherContacts', function() --gathering a contact list
     end
     for _,player in ipairs(GetPlayers()) do --building online players, from ALL ONLINE PLAYERS. If you can get a contact array, this is where you would want it.
         local _group = 0
+        local _leader = false
         if PlayerInfo[tonumber(player)] ~= nil then
             _group = PlayerInfo[tonumber(player)].group
+            _leader = PlayerInfo[tonumber(player)].isGroupLeader
             print('found group in contacts')
         end
-        contacts[row] = {name = "[~b~"..player.."~s~]"..GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player, group = _group}
+        contacts[row] = {name = "[~b~"..player.."~s~]"..GetPlayerName(player), pic = 'CHAR_BLANK_ENTRY', isBot = false, svID = player, group = _group, lead = _leader}
         row = row + 1
     end
     TriggerClientEvent('phone.UpdateContacts', -1, contacts) --updating contact list for ALL players.
