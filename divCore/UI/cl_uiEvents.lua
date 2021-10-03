@@ -1,6 +1,7 @@
 RegisterNetEvent("core.notify")
 RegisterNetEvent("core.alert")
 RegisterNetEvent("core.caption")
+RegisterNetEvent('core.helptext')
 RegisterNetEvent("core.message")
 RegisterNetEvent("core.banner")
 RegisterNetEvent('core.changeTitle')
@@ -46,6 +47,14 @@ end)
 
 AddEventHandler("core.caption", function(_caption)
     caption(_caption.text, _caption.ms)
+end)
+
+AddEventHandler("core.helptext", function(_helptext)
+    if _helptext.type == "coords" then
+        helptext_coords(_helptext.text, _helptext.coords)
+    elseif _helptext.type == "entity" then
+        helptext_entity(_helptext.text, _helptext.entity)
+    end
 end)
 
 AddEventHandler("core.message", function(_message)
@@ -165,6 +174,24 @@ function alert(text)
     EndTextCommandDisplayHelp(0,0,1,-1)
 end
 
+function helptext_coords(text, coords)
+	AddTextEntry('HelpText', text)
+	BeginTextCommandDisplayHelp('HelpText')
+	EndTextCommandDisplayHelp(2, false, false, -1)
+    SetFloatingHelpTextWorldPosition(1, coords)
+	--SetFloatingHelpTextStyle(1, 1, 2, -1, 3, 0)
+    --SetFloatingHelpTextStyle(_index, 1, _bgColor, bubble_outline?, arrow(0 = none, 1 - 4 arrow in different directions), offsetX)
+    SetFloatingHelpTextStyle(1, -100, 0, 1, 3, 0)
+end
+
+function helptext_entity(text, entity)
+	AddTextEntry('HelpText', text)
+	BeginTextCommandDisplayHelp('HelpText')
+	EndTextCommandDisplayHelp(2, false, false, -1)
+    SetFloatingHelpTextToEntity(1, entity, 1.0, 1.5)
+	SetFloatingHelpTextStyle(1, 1, 2, -1, 3, 0)
+end
+
 function notifyex_ped(_title,_subtitle, _icontype, _message, _colID)
     Citizen.CreateThread(function()
         -- Get the ped headshot image.
@@ -234,3 +261,11 @@ function ShowBanner(_text1, _text2)
     EndScaleformMovieMethod()
     return scaleform
 end
+
+RegisterCommand('help', function(source, args)
+    if args[1] ~= nil and args[1] == "coords" then
+        TriggerEvent('core.helptext', {type = "coords", text = tostring(args[2]), coords = GetEntityCoords(PlayerPedId())})
+    elseif args[1] ~= nil and args[1] == "entity" then
+        TriggerEvent('core.helptext', {type = "entity", text = tostring(args[2]), entity = PlayerPedId()})
+    end
+end)
