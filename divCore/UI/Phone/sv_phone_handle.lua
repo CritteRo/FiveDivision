@@ -45,8 +45,8 @@ RegisterCommand('critgetcontacts', function(source, args)
     local src = source
     if src == 0 then -- only if it's the console
         for i,player in ipairs(GetPlayers()) do
-            inCall[player] = { --making sure we have the goddamn array set.
-                name = GetPlayerName(player),
+            inCall[tonumber(player)] = { --making sure we have the goddamn array set.
+                name = GetPlayerName(tonumber(player)),
                 status = 0,
                 sleepMode = 0,
                 lang = "en",

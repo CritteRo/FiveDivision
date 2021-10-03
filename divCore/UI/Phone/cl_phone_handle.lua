@@ -19,11 +19,11 @@ AddEventHandler('phone.ReceiveMessage', function(sms, isMine)
     if sms.hasPic ~= nil then
         mess.hasPic = sms.hasPic
     end
-    notifyex(sms.hasPic, 'New Message!', "From: "..sms.contact, 1, sms.message, 123)
     mess.eventParams.identifier = "/"..sms.contact.."/"..sms.message.."/"..tostring(isMine).."/" -- we set up a unique string in the message data, to make sure we can find it at a later stage.
     TriggerEvent('scalePhone.BuildAppButton', 'app_messages', mess, true, -1)
     if isMine == false then
         TriggerEvent('scalePhone.AddAppNotification', 'app_messages')
+        notifyex(mess.hasPic, 'New Message!', "From: "..mess.contact, 1, mess.message, 123)
     end
 end)
 

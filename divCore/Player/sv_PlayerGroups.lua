@@ -48,7 +48,7 @@ AddEventHandler('core.InviteToGroup', function(_player, _inviteMessage, _overrid
                         if memberCount < maxGroupMembers then
                             PlayerInviteQueue[player] = _groupID
                             TriggerClientEvent('core.notify', player, "simple", {text = GetPlayerName(src).." invited you to their group!", colID = 123})
-                            local _sms = {svID = src, contact = GetPlayerName(src), message = "You have been invited to join our group.\n\nInvitation message:\n"..tostring(_inviteMessage).."", isGroupInvite = true, groupID = _groupID}
+                            local _sms = {svID = src, contact = GetPlayerName(src), message = "You have been invited to join group '"..PlayerGroup[_groupID].name.."'.\n\nInvitation message:\n".._inviteMessage.."", isGroupInvite = true, groupID = _groupID}
                             TriggerClientEvent('phone.ReceiveMessage', player, _sms, false)
                             TriggerClientEvent('core.notify', src, "simple", {text = "Group invite sent to "..GetPlayerName(player).."!", colID = 123})
                             --UPDATE BOTH PLAYERS HERE

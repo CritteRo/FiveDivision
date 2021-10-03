@@ -19,7 +19,7 @@ Citizen.CreateThread(function()
         for _, id in ipairs(GetPlayers()) do
             local src = tonumber(id)
             local rand = math.random(1,2)
-            if PlayerInfo[src].coords.roadCoords.x ~= nil then
+            if PlayerInfo[src] ~= nil then
                 local roadCoords = PlayerInfo[src].coords.roadCoords
                 local sideCoords = PlayerInfo[src].coords.sideCoords
                 local _heading = PlayerInfo[src].coords.heading
