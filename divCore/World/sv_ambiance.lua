@@ -9,7 +9,7 @@ serverWorldTimeSettings = {
 	s = 0
 }
 
-serverWeather = "CLEAR"
+serverWeather = "XMAS"
 serverBo = false
 
 AddEventHandler("onServerResourceStart", function(resName)
