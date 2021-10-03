@@ -126,6 +126,9 @@ AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
                         
                     end
                 end
+                PlayerInfo[src].isDestroying = false
+                PlayerInfo[src].destroyingStart = 0
+                PlayerInfo[src].inOutpost = 0
             end
         end
     end
@@ -183,6 +186,9 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         PlayerInfo[src].inOutpost = 0
                     end
                 end
+                PlayerInfo[src].isInstalling = false
+                PlayerInfo[src].installingStart = 0
+                PlayerInfo[src].inOutpost = 0
             end
         end
     end
