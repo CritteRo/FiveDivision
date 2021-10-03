@@ -38,6 +38,7 @@ server_scripts {
     'Connection/sv_login_register.lua',
     'Player/sv_PlayerStats.lua',
     'Player/sv_PlayerArmory.lua',
+    'Player/sv_PlayerGroups.lua',
     'CharacterCreation/sv_char_creation.lua',
     'Commands/sv_admin_commands.lua',
     'UI/sv_playerlist.lua',

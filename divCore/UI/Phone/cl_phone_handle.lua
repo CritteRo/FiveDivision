@@ -15,6 +15,7 @@ end)
 AddEventHandler('phone.ReceiveMessage', function(sms, isMine)
     local mess = {svID = sms.svID, contact = sms.contact, h = GetClockHours(), m = GetClockMinutes(), message = sms.message, event = 'phone.OpenMessage', isentthat = isMine, hasPic = sms.hasPic, canOpenMenu = true, selectEvent = "phone.OpenMessageOptions"}
     mess.eventParams = mess
+    mess.eventParams.raw = sms --redundant garbage. But I don't have time to make sure eventParams doesn't break anything, and I hate this code anyway, k bye.
     if sms.hasPic ~= nil then
         mess.hasPic = sms.hasPic
     end
@@ -34,8 +35,13 @@ end)
 AddEventHandler('phone.OpenMessageOptions', function(data)
     TriggerEvent('scalePhone.BuildApp', 'app_message_options', "settings", data.contact, 5, 0, "", "scalePhone.GoBackApp", {backApp = 'app_messages'}) --you can build the app how many times you want. If it's the same appID, it will just overwrite it (and clear all buttons!)
     if tonumber(data.svID) ~= nil and tonumber(data.svID) > 0 then --if it's not a bot, add these buttons too.
-        TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Reply", icon = 25, event = "phone.SendSMS", eventParams = {name = data.contact, isBot = false, svID = data.svID}}, false, -1) --Send a message back to the other player.
-        TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Call "..data.contact, icon = 25, event = "phone.SendCall", eventParams = {name = data.contact, pic = data.hasPic, isBot = false, svID = data.svID}}, false, -1) --call the other player directly
+        if data.raw.isGroupInvite == true then
+            TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Accept Invite", icon = 0, event = "phone.ReplyToGroupInvite", eventParams = {groupID = data.raw.groupID, response = true, deleteParams = {appID = 'app_messages', dataSample = data.identifier}}}, false, -1) --accept group invite.
+            TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Reject Invite", icon = 0, event = "phone.ReplyToGroupInvite", eventParams = {groupID = data.raw.groupID, response = false, deleteParams = {appID = 'app_messages', dataSample = data.identifier}}}, false, -1) --accept group invite.
+        else
+            TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Reply", icon = 25, event = "phone.SendSMS", eventParams = {name = data.contact, isBot = false, svID = data.svID}}, false, -1) --Send a message back to the other player.
+            TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Call "..data.contact, icon = 25, event = "phone.SendCall", eventParams = {name = data.contact, pic = data.hasPic, isBot = false, svID = data.svID}}, false, -1) --call the other player directly
+        end
     end
     TriggerEvent('scalePhone.BuildAppButton', 'app_message_options', {text = "Delete Message", icon = 19, event = 'phone.DeleteMessage', eventParams = {appID = 'app_messages', dataSample = data.identifier}}, false, -1) --deleting the message
 
@@ -156,4 +162,10 @@ end)
 AddEventHandler('phone.CloseCall', function(data)
     TriggerServerEvent('phone.sv.SendCallUpdate', 'hangup')
     TriggerEvent('scalePhone.GoBackApp', data)
+end)
+
+
+AddEventHandler('phone.ReplyToGroupInvite', function(_data)
+    TriggerServerEvent('core.ReplyToGroupInvite', _data.groupID, _data.response)
+    TriggerEvent('phone.DeleteMessage', _data.deleteParams)
 end)
