@@ -71,6 +71,9 @@ factionPeds = {
     [0] = {"mp_m_fibsec_01", "weapon_carbinerifle"}, --FIB
     [1] = {"u_m_m_streetart_01", "weapon_pistol"}, --Monkey face
     [2] = {"g_m_m_chicold_01", "weapon_sawnoffshotgun"}, --jackets
+    [3] = {"g_m_m_chigoon_01", "weapon_pistol_mk2"}, --jackets 2
+    [4] = {"g_m_y_lost_02", "weapon_microsmg"}, --lost
+    [5] = {'s_m_y_dockwork_01', "weapon_assaultrifle"}, --docksmen
 }
 
 outpostStatusName = {
@@ -89,7 +92,10 @@ outpostFactionName = {
     [-1] = "",
     [0] = "The Division",
     [1] = "Monke",
-    [2] = "Asian Jackets",
+    [2] = "North Yankton Thugs",
+    [3] = "Thugs",
+    [4] = "The Lost",
+    [5] = "Docksmen",
 }
 
 outpostStatusColor = {
