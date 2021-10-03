@@ -145,6 +145,16 @@ RegisterCommand('_reload_me', function(source, args)
                             activity = 0,
                             group = 0,
                         }
+                        if inCall[src] ~= nil then
+                        else
+                            inCall[src] = { --making sure we have the goddamn array set.
+                            name = GetPlayerName(src),
+                            status = 0,
+                            sleepMode = 0,
+                            lang = "en",
+                        }
+                        TriggerEvent('phone.sv.GatherContacts')
+                        end
                         TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
                         TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                     end
