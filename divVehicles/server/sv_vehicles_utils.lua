@@ -24,9 +24,13 @@ Citizen.CreateThread(function()
                 local sideCoords = PlayerInfo[src].coords.sideCoords
                 local _heading = PlayerInfo[src].coords.heading
                 if rand == 1 then
-                    spawnVehicle(ambientCars[math.random(1, #ambientCars)], roadCoords.x, roadCoords.y, roadCoords.z, _heading, 0, 0, true, true)
+                    if roadCoords ~= nil then
+                        spawnVehicle(ambientCars[math.random(1, #ambientCars)], roadCoords.x, roadCoords.y, roadCoords.z, _heading, 0, 0, true, true)
+                    end
                 else
-                    spawnVehicle(ambientCars[math.random(1, #ambientCars)], sideCoords.x, sideCoords.y, sideCoords.z, _heading, 0, 0, true, true)
+                    if sideCoords ~= nil then
+                        spawnVehicle(ambientCars[math.random(1, #ambientCars)], sideCoords.x, sideCoords.y, sideCoords.z, _heading, 0, 0, true, true)
+                    end
                 end
             else
                 print('player '..src.."doesn't have the correct coords..")
