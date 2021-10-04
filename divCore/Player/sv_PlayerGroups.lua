@@ -224,7 +224,7 @@ Citizen.CreateThread(function()
             for v,h in pairs(k.members) do
                 local ped = GetPlayerPed(h)
                 local coords = GetEntityCoords(ped)
-                _members[row] = {entity = NetworkGetNetworkIdFromEntity(ped), x = coords.x, y = coords.y, z = coords.z, name = GetPlayerName(h)}
+                _members[row] = {entity = NetworkGetNetworkIdFromEntity(ped), x = coords.x, y = coords.y, z = coords.z, name = GetPlayerName(h), hp = GetEntityHealth(ped)}
                 row = row + 1
             end
             for v,h in pairs(k.members) do

@@ -2,6 +2,7 @@ groupBlips = {}
 groupMembers = {}
 
 RegisterNetEvent('core.UpdateGroupBlips')
+DisplayPlayerNameTagsOnBlips(true)
 
 AddEventHandler('core.UpdateGroupBlips', function(members)
     groupMembers = members
@@ -15,12 +16,12 @@ AddEventHandler('core.UpdateGroupBlips', function(members)
             groupBlips[row] = createEntityBlip(k.name, 1, NetToPed(k.entity), 123, 0.6)
             SetBlipCategory(groupBlips[row], 7)
             ShowCrewIndicatorOnBlip(groupBlips[row], true)
-            SetBlipSecondaryColour(groupBlips[row], 0, 200, 0)
+            SetBlipSecondaryColour(groupBlips[row], (200-tonumber(k.hp)), tonumber(k.hp), 0)
         else
             groupBlips[row] = createStaticBlip(k.name, 1, k.x, k.y, k.z, 85, 0.6)
             SetBlipCategory(groupBlips[row], 7)
             ShowCrewIndicatorOnBlip(groupBlips[row], true)
-            SetBlipSecondaryColour(groupBlips[row], 0, 200, 0)
+            SetBlipSecondaryColour(groupBlips[row], (200-tonumber(k.hp)), tonumber(k.hp), 0)
         end
         row = row + 1
     end
@@ -33,6 +34,7 @@ function createStaticBlip(name, blip, x, y, z, color, size)
     SetBlipScale(_blip, size+0.0)
     SetBlipColour(_blip, color)
     SetBlipAsShortRange(_blip, true)
+    ShowHeightOnBlip(id, true)
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString(name)
     EndTextCommandSetBlipName(_blip)
@@ -47,6 +49,7 @@ function createEntityBlip(name, blip, entity, color, size)
     SetBlipColour(id, color)
     SetBlipScale(id, size+0.0001)
     SetBlipAsShortRange(id, false)
+    ShowHeightOnBlip(id, true)
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString(name)
     EndTextCommandSetBlipName(id)
