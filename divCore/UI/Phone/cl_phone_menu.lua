@@ -110,10 +110,21 @@ end)
 
 --GROUP MENU. This is where you should be able to leave the group, or see other members.
 TriggerEvent('scalePhone.BuildApp', 'app_group_members', "contacts", "Members", 0, 0, "", "scalePhone.GoBackApp", {backApp = 'app_group_main'})
+TriggerEvent('scalePhone.BuildApp', 'app_group_colors', "settings", "Group Colors", 0, 0, "", "scalePhone.GoBackApp", {backApp = 'app_group_main'})
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Black", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 2}}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Yellow", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 12}}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Red", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 6}}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Green", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 18}}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Gray", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 4}}, false, -1)
+TriggerEvent('scalePhone.BuildAppButton', 'app_group_colors', {text = "Pink", icon = 23, event = "phone.ChangeGroupSetting", eventParams = {type = "color", colID = 24}}, false, -1)
 AddEventHandler('phone.OpenGroupMenu', function()
     if PlayerInfo.group ~= 0 then
         TriggerEvent('scalePhone.BuildApp', 'app_group_main', 'settings', "Group Manager", 0,0,"", "scalePhone.GoBackApp", {backApp = 'app_more'})
         TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Members", icon = 0, event = "scalePhone.OpenApp", eventParams = 'app_group_members'}, false, -1)
+        if PlayerInfo.isGroupLeader == true then
+            TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Change group color", icon = 0, event = "scalePhone.OpenApp", eventParams = 'app_group_colors'}, false, -1)
+            TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Change group name", icon = 0, event = "phone.ChangeGroupSetting", eventParams = {type = "name"}}, false, -1)
+        end
         TriggerEvent('scalePhone.BuildAppButton', 'app_group_main', {text = "Leave Group", icon = 0, event = "phone.LeaveGroup", eventParams = ''}, false, -1)
     else
         TriggerEvent('scalePhone.BuildApp', 'app_group_main', "messageView", "Group Manager", 0, 0, "", 'scalePhone.GoBackApp', {backApp = 'app_more', contact = "Server", message = 'You are not part of any group.', fromme = false, hasPic = "", canOpenMenu = false, selectEvent = ""})
@@ -122,7 +133,7 @@ AddEventHandler('phone.OpenGroupMenu', function()
 end)
 
 AddEventHandler('phone.OpenGroupMemberView', function(data)
-    TriggerEvent('scalePhone.BuildApp', 'app_group_member_view', "settings", data.name, 5, 0, "", "scalePhone.GoBackApp", {backApp = 'app_contacts'}) --you can build the app how many times you want. If it's the same appID, it will just overwrite it (and clear all buttons!)
+    TriggerEvent('scalePhone.BuildApp', 'app_group_member_view', "settings", data.name, 5, 0, "", "scalePhone.GoBackApp", {backApp = 'app_group_members'}) --you can build the app how many times you want. If it's the same appID, it will just overwrite it (and clear all buttons!)
     TriggerEvent('scalePhone.BuildAppButton', 'app_group_member_view', {text = "Message", icon = 19, event = "phone.SendSMS", eventParams = data}, false, -1)
     if PlayerInfo.isGroupLeader == true then
         TriggerEvent('scalePhone.BuildAppButton', 'app_group_member_view', {text = "Kick", icon = 27, event = "phone.KickMemberFromGroup", eventParams = data}, false, -1)

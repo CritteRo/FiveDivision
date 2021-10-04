@@ -207,3 +207,22 @@ AddEventHandler('phone.ReplyToGroupInvite', function(_data)
     TriggerServerEvent('core.ReplyToGroupInvite', _data.groupID, _data.response)
     TriggerEvent('phone.DeleteMessage', _data.deleteParams)
 end)
+
+AddEventHandler('phone.ChangeGroupSetting', function(data)
+    if data.type == "name" then
+        AddTextEntry('MS_PROMPT_SMS', "Set group name: ")
+        DisplayOnscreenKeyboard(1, "MS_PROMPT_SMS", "", "", "", "", "", 10)
+        while (UpdateOnscreenKeyboard() == 0) do
+            DisableAllControlActions(0);
+            Wait(0);
+        end
+        if (GetOnscreenKeyboardResult()) then
+            local result = GetOnscreenKeyboardResult()
+            --TriggerServerEvent('phone.sv.SendSMS', name, result, isBot, svID)
+            TriggerServerEvent('core.ChangeGroupName', result)
+        end
+        AddTextEntry('MS_PROMPT_SMS', "Send message: ")
+    elseif data.type == "color" then
+        TriggerServerEvent('core.ChangeGroupColor', data.colID)
+    end
+end)

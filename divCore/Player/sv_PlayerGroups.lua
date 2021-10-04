@@ -3,6 +3,8 @@ RegisterNetEvent('core.ReplyToGroupInvite')
 RegisterNetEvent('core.LeaveGroup')
 RegisterNetEvent('core.KickMemberFromGroup')
 RegisterNetEvent('core.TransferGroupLeader')
+RegisterNetEvent('core.ChangeGroupColor')
+RegisterNetEvent('core.ChangeGroupName')
 
 PlayerGroup = {
     --[0] = {leaderID = 0, members = {0}, inviteQueue = {0}, hudColor = 8, allCanInvite = false, name = "Player's Group"},
@@ -212,6 +214,37 @@ AddEventHandler('core.KickMemberFromGroup', function(_player, _reason)
 end)
 
 AddEventHandler('core.TransferGroupLeader', function()
+    
+end)
+
+AddEventHandler('core.ChangeGroupColor', function(color)
+    local src = source
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].group ~= 0 then
+        local gID = PlayerInfo[src].group
+        if PlayerGroup[gID].leaderID == src then
+            PlayerGroup[gID].hudColor = tonumber(color)
+            pName = GetPlayerName(src)
+            for i,k in pairs(PlayerGroup[gID].members) do
+                TriggerClientEvent('core.notify', k, "simple", {text = pName.." changed group color.", colID = tonumber(color)})
+            end
+            TriggerEvent('core.GatherPlayersForScoreboard')
+        end
+    end
+end)
+
+AddEventHandler('core.ChangeGroupName', function(newName)
+    local src = source
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].group ~= 0 then
+        local gID = PlayerInfo[src].group
+        if PlayerGroup[gID].leaderID == src then
+            PlayerGroup[gID].name = tostring(newName)
+            pName = GetPlayerName(src)
+            for i,k in pairs(PlayerGroup[gID].members) do
+                TriggerClientEvent('core.notify', k, "simple", {text = pName.." changed group name to "..tostring(newName).."."})
+            end
+            TriggerEvent('core.GatherPlayersForScoreboard')
+        end
+    end
 end)
 
 AddEventHandler('playerDropped', function(reason)
