@@ -30,7 +30,7 @@ AddEventHandler('core.InviteToGroup', function(_player, _inviteMessage, _overrid
                 local _groupID = PlayerInfo[src].group
                 --if source is not in a group, create it!
                 if PlayerInfo[src].group == 0 then
-                    PlayerGroup[nextGroupID] = {leaderID = src, members = {src}, inviteQueue = {}, hudColor = 123, allCanInvite = false, name = "Group #"..nextGroupID..""}
+                    PlayerGroup[nextGroupID] = {leaderID = src, members = {src}, inviteQueue = {}, hudColor = 12, allCanInvite = false, name = "Group #"..nextGroupID..""}
                     PlayerInfo[src].group = nextGroupID
                     PlayerInfo[src].isGroupLeader = true
                     _groupID = nextGroupID
@@ -68,6 +68,7 @@ AddEventHandler('core.InviteToGroup', function(_player, _inviteMessage, _overrid
                 else
                     TriggerClientEvent('core.notify', src, "simple", {text = "You cannot invite players to this group.", colID = 8})
                 end
+                TriggerEvent('core.GatherPlayersForScoreboard')
             else
                 TriggerClientEvent('core.notify', src, "simple", {text = "Player is already in a group.", colID = 8})
             end
@@ -112,6 +113,7 @@ AddEventHandler('core.ReplyToGroupInvite', function(group, response)
             end
             TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src])
             TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
+            TriggerEvent('core.GatherPlayersForScoreboard')
         else
             print('could not reply to group invite. Group invalid or disbanded.')
         end
@@ -157,6 +159,7 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
             end
         end
         TriggerEvent('phone.sv.GatherContacts')
+        TriggerEvent('core.GatherPlayersForScoreboard')
     else
         if GetPlayerPing(src) ~= 0 then
             TriggerClientEvent('core.notify', src, "simple", {text = "You are not part of a group.", colID = 8})
@@ -199,6 +202,7 @@ AddEventHandler('core.KickMemberFromGroup', function(_player, _reason)
                 end
             end
             TriggerEvent('phone.sv.GatherContacts')
+            TriggerEvent('core.GatherPlayersForScoreboard')
         else
             TriggerClientEvent('core.notify', src, "simple", {text = "You cannot kick another group member.", colID = 8})
         end
@@ -229,6 +233,20 @@ Citizen.CreateThread(function()
             end
             for v,h in pairs(k.members) do
                 TriggerClientEvent('core.UpdateGroupBlips', h, _members)
+            end
+        end
+    end
+end)
+
+RegisterCommand('gcolor', function(source, args)
+    local src = source
+    if PlayerInfo[src] ~= nil and PlayerInfo[src].group ~= 0 then
+        if tonumber(args[1]) ~= nil then
+            PlayerGroup[PlayerInfo[src].group].hudColor = tonumber(args[1])
+            TriggerEvent('core.GatherPlayersForScoreboard')
+            for i,k in pairs(PlayerGroup[PlayerInfo[src].group].members) do
+                TriggerClientEvent('core.UpdateClientResources', k, PlayerInfo[k], false)
+                TriggerEvent('core.UpdateServerResources', k, PlayerInfo[k])
             end
         end
     end
