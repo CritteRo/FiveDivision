@@ -9,11 +9,18 @@ AddEventHandler('core.UpdateGroupBlips', function(members)
         RemoveBlip(k)
     end
     local row = 1
+    AddTextEntry("BLIP_OTHPLYR", "Group Members")
     for i,k in pairs(groupMembers) do
         if DoesEntityExist(NetToPed(k.entity)) then
             groupBlips[row] = createEntityBlip(k.name, 1, NetToPed(k.entity), 123, 0.6)
+            SetBlipCategory(groupBlips[row], 7)
+            ShowCrewIndicatorOnBlip(groupBlips[row], true)
+            SetBlipSecondaryColour(groupBlips[row], 0, 200, 0)
         else
             groupBlips[row] = createStaticBlip(k.name, 1, k.x, k.y, k.z, 85, 0.6)
+            SetBlipCategory(groupBlips[row], 7)
+            ShowCrewIndicatorOnBlip(groupBlips[row], true)
+            SetBlipSecondaryColour(groupBlips[row], 0, 200, 0)
         end
         row = row + 1
     end
