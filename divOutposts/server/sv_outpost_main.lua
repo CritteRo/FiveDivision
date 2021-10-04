@@ -39,7 +39,7 @@ end)
 Citizen.CreateThread(function()
     for i,k in pairs(outposts) do
         outposts[i].status = 0
-        outposts[i].factionID = math.random(1,2)
+        outposts[i].factionID = math.random(1,5)
         spawnOutpostEnemies(i, 1)
     end
     local updateTime = 5*60*1000
@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
         if outposts[rand].status ~= 0 then
             if outposts[rand].status == 1 then
                 outposts[rand].status = 0
-                outposts[rand].factionID = math.random(1,2)
+                outposts[rand].factionID = math.random(1,5) --Faction here
                 spawnOutpostEnemies(rand, 1)
                 local email = {title = 'Dispatch Outpost Status ', to = 'everyone', from = "Dispatch", message = "Outpost "..outposts[rand].name.." was captured!"}
                 TriggerClientEvent('phone.ReceiveEmail', -1, email)
