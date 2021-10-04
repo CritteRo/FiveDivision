@@ -406,6 +406,14 @@ AddEventHandler("baseevents:onPlayerDied", function(killedBy, pos)
         local wTime = 5
         print(string.format("%s died.", GetPlayerName(victim)))
         TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
+        if PlayerInfo[victim].group ~= 0 then
+            for _,id in ipairs(GetPlayers()) do
+                local src = tonumber(id)
+                if src ~= victim then
+                    TriggerClientEvent('core.notify', src, "simple", {text = "[~b~"..victim.."~s~]~b~"..GetPlayerName(victim).."~s~ died."})
+                end
+            end
+        end
         TriggerClientEvent("core.StartRespawnMenu", victim, "overworld")
 end)
 
