@@ -136,6 +136,7 @@ AddEventHandler('core.LeaveGroup', function(_overrideSource)
                 TriggerClientEvent('core.UpdateClientResources', src, PlayerInfo[src], false)
                 TriggerEvent('core.UpdateServerResources', src, PlayerInfo[src])
                 TriggerClientEvent('core.notify', k, "simple", {text = "You are no longer part of the group.", colID = 2})
+                TriggerClientEvent('core.UpdateGroupBlips', k, {})
             else
                 TriggerClientEvent('core.notify', k, "simple", {text = "["..src.."]"..GetPlayerName(src).." left the group.", colID = 2})
             end
@@ -173,6 +174,7 @@ AddEventHandler('core.KickMemberFromGroup', function(_player, _reason)
                 if k == imp then
                     PlayerGroup[_group].members[i] = nil
                     PlayerInfo[imp].group = 0
+                    TriggerClientEvent('core.UpdateGroupBlips', imp, {})
                     PlayerInfo[imp].isGroupLeader = false
                     TriggerClientEvent('core.UpdateClientResources', imp, PlayerInfo[imp], false)
                     TriggerEvent('core.UpdateServerResources', imp, PlayerInfo[imp])
@@ -181,7 +183,7 @@ AddEventHandler('core.KickMemberFromGroup', function(_player, _reason)
                     TriggerClientEvent('core.notify', k, "simple", {text = "["..imp.."]"..GetPlayerName(imp).." was kicked from the group.", colID = 2})
                 end
             end
-            if PlayerGroup[_group].leaderID == src then --if you're the leader, pass it to someone else.
+            if PlayerGroup[_group].leaderID == imp then --if you're the leader, pass it to someone else.
                 local newMember = nil
                 for i,k in pairs(PlayerGroup[_group].members) do
                     newMember = k
