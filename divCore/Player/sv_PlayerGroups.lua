@@ -208,12 +208,26 @@ end)
 AddEventHandler('core.TransferGroupLeader', function()
 end)
 
-RegisterCommand('gleave', function(source, args)
+AddEventHandler('playerDropped', function(reason)
     local src = source
     TriggerEvent('core.LeaveGroup', src)
 end)
 
-AddEventHandler('playerDropped', function(reason)
-    local src = source
-    TriggerEvent('core.LeaveGroup', src)
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(3000)
+        for i,k in pairs(PlayerGroup) do
+            local row = 1
+            local _members = {}
+            for v,h in pairs(k.members) do
+                local ped = GetPlayerPed(h)
+                local coords = GetEntityCoords(ped)
+                _members[row] = {entity = NetworkGetNetworkIdFromEntity(ped), x = coords.x, y = coords.y, z = coords.z, name = GetPlayerName(h)}
+                row = row + 1
+            end
+            for v,h in pairs(k.members) do
+                TriggerClientEvent('core.UpdateGroupBlips', h, _members)
+            end
+        end
+    end
 end)

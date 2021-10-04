@@ -23,6 +23,7 @@ client_scripts {
     'Player/cl_PlayerCharacter_menu.lua',
     'Player/cl_RespawnControl.lua',
     'Player/cl_PlayerArmory.lua',
+    'Player/cl_PlayerGroups.lua',
     'CharacterCreation/cl_char_creation_menu.lua',
     'CharacterCreation/cl_char_creation.lua',
     'Commands/cl_admin_commands.lua',
