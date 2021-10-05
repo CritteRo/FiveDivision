@@ -3,6 +3,7 @@ RegisterNetEvent('core.UpdatePlayerClothesVariations')
 RegisterNetEvent('core.SetPlayerCosmeticItem')
 RegisterNetEvent('core.SendLevelUpdate')
 RegisterNetEvent('baseevents:onPlayerDied')
+RegisterNetEvent('baseevents:onPlayerKilled')
 
 PlayerInfo = {
     [0] = {
@@ -402,19 +403,36 @@ end)
 
 AddEventHandler("baseevents:onPlayerDied", function(killedBy, pos)
     local victim = source
-        local message = ""
-        local wTime = 5
-        print(string.format("%s died.", GetPlayerName(victim)))
-        TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
-        if PlayerInfo[victim].group ~= 0 then
-            for _,id in ipairs(GetPlayers()) do
-                local src = tonumber(id)
-                if src ~= victim then
-                    TriggerClientEvent('core.notify', src, "simple", {text = "[~b~"..victim.."~s~]~b~"..GetPlayerName(victim).."~s~ died."})
-                end
+    local message = ""
+    local wTime = 5
+    print(string.format("%s died.", GetPlayerName(victim)))
+    TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
+    if PlayerInfo[victim].group ~= 0 then
+        for _,id in ipairs(GetPlayers()) do
+            local src = tonumber(id)
+            if src ~= victim then
+                TriggerClientEvent('core.notify', src, "simple", {text = "[~b~"..victim.."~s~]~b~"..GetPlayerName(victim).."~s~ died."})
             end
         end
-        TriggerClientEvent("core.StartRespawnMenu", victim, "overworld")
+    end
+    TriggerClientEvent("core.StartRespawnMenu", victim, "overworld")
+end)
+
+AddEventHandler("baseevents:onPlayerKilled", function(killedBy, deathData)
+    local victim = source
+    local message = ""
+    local wTime = 5
+    print(string.format("%s died.", GetPlayerName(victim)))
+    TriggerClientEvent("core.banner", victim, "~r~WASTED~s~", message, wTime)
+    if PlayerInfo[victim].group ~= 0 then
+        for _,id in ipairs(GetPlayers()) do
+            local src = tonumber(id)
+            if src ~= victim then
+                TriggerClientEvent('core.notify', src, "simple", {text = "[~b~"..victim.."~s~]~b~"..GetPlayerName(victim).."~s~ died."})
+            end
+        end
+    end
+    TriggerClientEvent("core.StartRespawnMenu", victim, "overworld")
 end)
 
 AddEventHandler('playerDropped', function(reason)
