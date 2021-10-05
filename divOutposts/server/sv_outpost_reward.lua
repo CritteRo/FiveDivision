@@ -36,7 +36,7 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                 if dist <= 200.01 then
                     --xp and cash
                     if tonumber(id) ~= mvp then
-                        if PlayerInfo[tonumber(id)].group == PlayerInfo[mvp].group then
+                        if PlayerInfo[tonumber(id)].group == PlayerInfo[mvp].group and PlayerInfo[tonumber(id)].group ~= 0 then
                             TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + rewards[oID].mvpXP, false, false)
                             TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + rewards[oID].mvpCash, true, true)
                         else
@@ -72,7 +72,7 @@ AddEventHandler('outpost.SendRewardsToPlayers', function(_mvp, _oID, _type)
                 if dist <= 200.01 then
                     --xp and cash
                     if tonumber(id) ~= mvp then
-                        if PlayerInfo[tonumber(id)].group == PlayerInfo[mvp].group then
+                        if PlayerInfo[tonumber(id)].group == PlayerInfo[mvp].group and PlayerInfo[tonumber(id)].group ~= 0 then
                             TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + (rewards[oID].otherXP2 * 2), false, false)
                             TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_outpost_reward.lua', id, "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + (rewards[oID].otherCash2 * 2), true, true)
                         else
