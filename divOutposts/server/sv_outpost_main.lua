@@ -21,11 +21,13 @@ RegisterNetEvent('outpost.TeleportToOutpost')
 AddEventHandler('core.UpdateServerResources', function(_src, _info)
     if PlayerInfo[tonumber(_src)] ~= nil then
         PlayerInfo[tonumber(_src)].stats = _info.stats
+        PlayerInfo[tonumber(_src)].group = _info.group
     else
         PlayerInfo[tonumber(_src)] = {
             name = _info.name,
             uid = _info.uid,
             stats = _info.stats,
+            group = _info.group,
             destroyingStart = 0,
             isDestroying = false,
             installingStart = 0,
