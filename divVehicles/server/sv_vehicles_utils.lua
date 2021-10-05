@@ -16,6 +16,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(refreshTime * 1000) --arbitrary number of ms...
         runVehicleCleanup()
+        --[[
         for _, id in ipairs(GetPlayers()) do
             local src = tonumber(id)
             local rand = math.random(1,2)
@@ -36,6 +37,7 @@ Citizen.CreateThread(function()
                 print('player '..src.."doesn't have the correct coords..")
             end
         end
+        ]]
     end
 end)
 
