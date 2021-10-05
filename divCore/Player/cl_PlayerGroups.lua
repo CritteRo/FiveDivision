@@ -12,16 +12,17 @@ AddEventHandler('core.UpdateGroupBlips', function(members)
     local row = 1
     AddTextEntry("BLIP_OTHPLYR", "Group Members")
     for i,k in pairs(groupMembers) do
+        local _r,_g,_b = generateColorFromHP(200 - k.hp, 200)
         if DoesEntityExist(NetToPed(k.entity)) then
             groupBlips[row] = createEntityBlip(k.name, 1, NetToPed(k.entity), 123, 0.6)
             SetBlipCategory(groupBlips[row], 7)
             ShowCrewIndicatorOnBlip(groupBlips[row], true)
-            SetBlipSecondaryColour(groupBlips[row], (200-tonumber(k.hp)), tonumber(k.hp), 0)
+            SetBlipSecondaryColour(groupBlips[row], _r, _g, 0)
         else
             groupBlips[row] = createStaticBlip(k.name, 1, k.x, k.y, k.z, 85, 0.6)
             SetBlipCategory(groupBlips[row], 7)
             ShowCrewIndicatorOnBlip(groupBlips[row], true)
-            SetBlipSecondaryColour(groupBlips[row], (200-tonumber(k.hp)), tonumber(k.hp), 0)
+            SetBlipSecondaryColour(groupBlips[row], _r, _g, 0)
         end
         row = row + 1
     end
@@ -55,4 +56,12 @@ function createEntityBlip(name, blip, entity, color, size)
     EndTextCommandSetBlipName(id)
 
     return id
+end
+
+function generateColorFromHP(_currentHP, _maxHP)
+    local r = (255 * _currentHP) / _maxHP
+    local g = (255 * (_maxHP - _currentHP)) / _maxHP
+    local b = 0
+
+    return r,g,b
 end
