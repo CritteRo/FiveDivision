@@ -36,6 +36,7 @@ client_scripts {
 }
 
 server_scripts {
+    'Connection/sv_database.lua',
     'Connection/sv_login_register.lua',
     'Player/sv_PlayerStats.lua',
     'Player/sv_PlayerArmory.lua',

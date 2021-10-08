@@ -234,6 +234,23 @@ AddEventHandler('onResourceStart', function(name)
     if name == GetCurrentResourceName() then
         TriggerEvent('outpost.RequestOutpostRewards')
         TriggerEvent('core.RequestResourceUpdates')
+        exports.oxmysql:execute([[
+            CREATE TABLE IF NOT EXISTS `outpost_rewards` (
+                uid SERIAL,
+                outpostID int NOT NULL DEFAULT 0,
+                unlockType int NOT NULL DEFAULT 0,
+                mvpXP int NOT NULL DEFAULT 0,
+                mvpCash int NOT NULL DEFAULT 0,
+                mvpUnlockWeapon text,
+                mvpUnlockWeaponMod text,
+                mvpUnlockCosmetic int,
+                otherCash int NOT NULL DEFAULT 0,
+                otherXP int NOT NULL DEFAULT 0,
+                otherCash2 int NOT NULL DEFAULT 0,
+                otherXP2 int NOT NULL DEFAULT 0
+            );
+        ]],{}, function(affectedRows)
+        end)
     end
 end)
 

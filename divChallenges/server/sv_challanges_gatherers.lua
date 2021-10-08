@@ -15,7 +15,7 @@ AddEventHandler('challenge.OutpostLiberated', function(oID, faction, mvp, others
         if sharedChallengeUsers[k][PlayerInfo[src].uid] ~= nil then
             sharedChallengeUsers[k][PlayerInfo[src].uid].dataPoint1 = sharedChallengeUsers[k][PlayerInfo[src].uid].dataPoint1 + 1
         else
-            sharedChallengeUsers[k][PlayerInfo[src].uid] = {uid = 0, pID = PlayerInfo[src].uid, name = PlayerInfo[src].name, challengeID = k, dataPoint1 = 1, dataPoint2 = 0, dataPoint3 = 0},
+            sharedChallengeUsers[k][PlayerInfo[src].uid] = {uid = 0, pID = PlayerInfo[src].uid, name = PlayerInfo[src].name, challengeID = k, dataPoint1 = 1, dataPoint2 = 0, dataPoint3 = 0}
         end
         syncDatabaseUsers(sharedChallengeUsers[k][PlayerInfo[src].uid])
     end

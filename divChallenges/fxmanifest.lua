@@ -7,6 +7,7 @@ client_scripts {
 }
 
 server_scripts {
+    'server/sv_challanges_db.lua',
     'server/sv_challanges_gatherers.lua',
     'server/sv_challanges_main.lua',
 }

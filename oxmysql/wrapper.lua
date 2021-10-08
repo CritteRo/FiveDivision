@@ -1,84 +1,111 @@
 ---
--- Execute query and fetch affected rows
+-- Execute unprepared query and fetch result
 --
--- @param query tring
+-- @param query string
 -- @param parameters table
 --
--- @return table with result
+-- @return table with result | false
 --
-local function executeSync(query, parameters)
+exports('executeSync', function(query, parameters)
     local p = promise.new()
     exports['oxmysql']:execute(query, parameters, function(result)
         p:resolve(result)
-    end)
+    end, GetInvokingResource())
     return Citizen.Await(p)
-end
-exports('executeSync', executeSync)
+end)
 
 ---
 -- Execute query and fetch all result
 --
--- @param query tring
+-- @param query string
 -- @param parameters table
 --
 -- @return table with result
 --
-local function fetchSync(query, parameters)
+exports('fetchSync', function(query, parameters)
     local p = promise.new()
     exports['oxmysql']:fetch(query, parameters, function(result)
         p:resolve(result)
-    end)
+    end, GetInvokingResource())
     return Citizen.Await(p)
-end
-exports('fetchSync', fetchSync)
+end)
 
 ---
 -- Execute query and fetch first row
 --
--- @param query tring
+-- @param query string
 -- @param parameters table
 --
 -- @return table with result row
 --
-local function singleSync(query, parameters)
+exports('singleSync', function(query, parameters)
     local p = promise.new()
     exports['oxmysql']:single(query, parameters, function(result)
         p:resolve(result)
-    end)
+    end, GetInvokingResource())
     return Citizen.Await(p)
-end
-exports('singleSync', singleSync)
+end)
 
 ---
--- Execute query and fetch first column of first row 
+-- Execute query and fetch first column of first row
 --
--- @param query tring
+-- @param query string
 -- @param parameters table
 --
 -- @return result
 --
-local function scalarSync(query, parameters)
+exports('scalarSync', function(query, parameters)
     local p = promise.new()
     exports['oxmysql']:scalar(query, parameters, function(result)
         p:resolve(result)
-    end)
+    end, GetInvokingResource())
     return Citizen.Await(p)
-end
-exports('scalarSync', scalarSync)
+end)
 
 ---
 -- Insert data and return inserted id
 --
--- @param query tring
+-- @param query string
 -- @param parameters table
 --
 -- @return insert data result
 --
-local function insertSync(query, parameters)
+exports('insertSync', function(query, parameters)
     local p = promise.new()
     exports['oxmysql']:insert(query, parameters, function(result)
         p:resolve(result)
-    end)
+    end, GetInvokingResource())
     return Citizen.Await(p)
-end
-exports('insertSync', insertSync)
+end)
+
+---
+-- Update data and return affected rows
+--
+-- @param query string
+-- @param parameters table
+--
+-- @return number affected rows
+--
+exports('updateSync', function(query, parameters)
+    local p = promise.new()
+    exports['oxmysql']:update(query, parameters, function(result)
+        p:resolve(result)
+    end, GetInvokingResource())
+    return Citizen.Await(p)
+end)
+
+---
+-- Execute a transaction and return boolean depending on success
+--
+-- @param queries table
+-- @param parameters table
+--
+-- @return boolean
+--
+exports('transactionSync', function(queries, parameters)
+    local p = promise.new()
+    exports['oxmysql']:transaction(queries, parameters, function(result)
+        p:resolve(result)
+    end, GetInvokingResource())
+    return Citizen.Await(p)
+end)

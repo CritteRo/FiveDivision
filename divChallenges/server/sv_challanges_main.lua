@@ -77,6 +77,7 @@ Citizen.CreateThread(function()
                 TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just expired.'})
             end
         end
+        Citizen.Wait(10000)
     end
 end)
 
