@@ -186,7 +186,7 @@ end)
 function updateClothesInDatabase(src, uid)
     if GetPlayerPing(src) ~= 0 then
         if PlayerInfo[src] ~= nil and PlayerInfo[src].clothes ~= nil and PlayerInfo[src].ped then
-            exports.oxmysql:execute("UPDATE `users` SET `clothes` = ?, `ped` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].clothes), json.encode(PlayerInfo[src].ped), uid}, function(affectedRows)
+            exports.oxmysql:update("UPDATE `users` SET `clothes` = ?, `ped` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].clothes), json.encode(PlayerInfo[src].ped), uid}, function(affectedRows)
                 if affectedRows >= 1 then
                     print('Clothes and ped saved for ['..src..']'..GetPlayerName(src)..'')
                 end
@@ -198,7 +198,7 @@ end
 function updateStatsInDatabase(src, uid)
     if GetPlayerPing(src) ~= 0 then
         if PlayerInfo[src] ~= nil and PlayerInfo[src].stats ~= nil then
-            exports.oxmysql:execute("UPDATE `users` SET `stats` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].stats), uid}, function(affectedRows)
+            exports.oxmysql:update("UPDATE `users` SET `stats` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].stats), uid}, function(affectedRows)
                 if affectedRows >= 1 then
                     print('Stats saved for ['..src..']'..GetPlayerName(src)..'')
                 end
@@ -210,7 +210,7 @@ end
 function updateWeaponsInDatabase(src, uid)
     if GetPlayerPing(src) ~= 0 then
         if PlayerInfo[src] ~= nil and PlayerInfo[src].weapons ~= nil then
-            exports.oxmysql:execute("UPDATE `users` SET `weapons` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].weapons), uid}, function(affectedRows)
+            exports.oxmysql:update("UPDATE `users` SET `weapons` = ? WHERE `uid` = ?",{json.encode(PlayerInfo[src].weapons), uid}, function(affectedRows)
                 if affectedRows >= 1 then
                     print('Weapons saved for ['..src..']'..GetPlayerName(src)..'')
                 end
