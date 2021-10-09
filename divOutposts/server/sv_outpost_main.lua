@@ -172,6 +172,7 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                         outposts[PlayerInfo[src].inOutpost].factionID = 0
                         PlayerInfo[src].isInstalling = false
                         PlayerInfo[src].installingStart = 0
+                        TriggerEvent('challenge.OutpostLiberated', PlayerInfo[src].inOutpost, 'test', src, {})
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
                         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
                         ClearPedTasks(ped)

@@ -23,6 +23,7 @@ end)
 AddEventHandler('onResourceStart', function(name)
     if name == GetCurrentResourceName() then
         TriggerEvent('core.RequestResourceUpdates')
+        TriggerEvent('challange.RequestAllChallenges')
         --load challanges here
     end
 end)
@@ -39,7 +40,7 @@ AddEventHandler('challange.RequestAllChallenges', function()
     exports.oxmysql:fetch("SELECT * FROM `challenges`",{},function (result)
         local rows = 0
         for i,k in pairs(result) do
-            sharedChallanges[k.uid] = k
+            sharedChallenges[k.uid] = k
             rows = rows + 1
         end
         print('Server loaded '..rows..' challenges.')
@@ -47,7 +48,13 @@ AddEventHandler('challange.RequestAllChallenges', function()
     end)
     exports.oxmysql:fetch("SELECT * FROM `challenge_users`",{},function (result)
         for i,k in pairs(result) do
-            sharedChallenges[k.challengeID][k.pID] = k
+            if sharedChallengeUsers[k.challengeID] ~= nil then
+                sharedChallengeUsers[k.challengeID][k.pID] = k
+            else
+                sharedChallengeUsers[k.challengeID] = {
+                    [k.pID] = k
+                }
+            end
         end
         print('Server loaded challenge users.')
         TriggerClientEvent('challange.SendChallengeUsersToClient', -1, sharedChallengeUsers)
@@ -55,17 +62,16 @@ AddEventHandler('challange.RequestAllChallenges', function()
 end)
 
 function syncDatabaseUsers(_data)
-    for i,k in pairs(_data) do
-        exports.oxmysql:execute("UPDATE `challenge_users` SET `dataPoint1` = ?, `dataPoint2` = ?, `dataPoint3` = ? WHERE `pID` = ? and `challengeID` = ?",{k.dataPoint1, k.dataPoint2, k.dataPoint3, uid, k.challengeID}, function(affectedRows)
-            if affectedRows == 0 then
-                exports.oxmysql:execute("INSERT INTO `challenge_users` (pID, name, challengeID, dataPoint1, dataPoint2, dataPoint3) VALUES (?,?,?,?,?,?)",{uid, k.name, k.challengeID, k.dataPoint1, k.dataPoint2, k.dataPoint3}, function(affectedRows)
-                    if affectedRows == 0 then
-                        print('for some reason, syncDatabaseUsers() in sv_challanges_main could not update, nor insert a new user.')
-                    end
-                end)
-            end
-        end)
-    end
+    local k = _data
+    exports.oxmysql:update("UPDATE `challenge_users` SET `dataPoint1` = ?, `dataPoint2` = ?, `dataPoint3` = ? WHERE `pID` = ? and `challengeID` = ?",{k.dataPoint1, k.dataPoint2, k.dataPoint3, k.pID, k.challengeID}, function(affectedRows)
+        if affectedRows == 0 then
+            exports.oxmysql:update("INSERT INTO `challenge_users` (pID, name, challengeID, dataPoint1, dataPoint2, dataPoint3) VALUES (?,?,?,?,?,?)",{k.pID, k.name, k.challengeID, k.dataPoint1, k.dataPoint2, k.dataPoint3}, function(affectedRows)
+                if affectedRows == 0 then
+                    print('for some reason, syncDatabaseUsers() in sv_challanges_main could not update, nor insert a new user.')
+                end
+            end)
+        end
+    end)
 end
 
 Citizen.CreateThread(function()
@@ -77,14 +83,21 @@ Citizen.CreateThread(function()
                 TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just expired.'})
             end
         end
+        TriggerClientEvent('challange.GetServerTime', -1, os.time())
         Citizen.Wait(10000)
     end
+end)
+
+RegisterCommand('getchal', function(source, args)
+    TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
+    Citizen.Wait(100)
+    TriggerClientEvent('challange.SendChallengeUsersToClient', -1, sharedChallengeUsers)
 end)
 
 AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCondition1, _mCondition2, _mCondition3, _xp, _cash, _bank, _coins, _start)
     local src = source
     local canUseThis = false
-    if src >= 1 then
+    if tonumber(src) ~= nil and tonumber(src) >=1 then
         if PlayerInfo[src] ~= nil and PlayerInfo[src].admin >= 3 then
             canUseThis = true
         end
@@ -136,4 +149,8 @@ AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCond
             end
         end)
     end
+end)
+
+RegisterCommand('newchal', function(source, args)
+    TriggerEvent('challenge.GenerateNewChallenge', 'daily', 'outpost', 'liberate', 'any', '45', 5000, 2500, 10, 0, os.time() - 5)
 end)

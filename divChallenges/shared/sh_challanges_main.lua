@@ -1,3 +1,5 @@
+sharedCurrentServerTime = 0
+
 sharedChallenges = {
     [0] = {
         uid = 0,
