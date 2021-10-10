@@ -48,17 +48,20 @@ AddEventHandler('challenges.menu.OpenChallengeMenu', function(_data)
                 colors = {116, 116}
                 foundMe = k
             end
-            TriggerEvent('lobbymenu:AddPlayer', 'ch_main_1', k.name, '', "Outposts Liberated: "..k.dataPoint1, 63, 0, true, colors[1], colors[2])
+            local _i = math.modf(k.dataPoint1)
+            TriggerEvent('lobbymenu:AddPlayer', 'ch_main_1', k.name, '', "Outposts Liberated: ".._i, 63, 0, true, colors[1], colors[2])
             players = players +1
         end
         if foundMe ~= nil then
             if (_c.missionCondition3 - foundMe.dataPoint1) >= 1 then
-                TriggerEvent('lobbymenu:AddDetailsRow', 'ch_main_1', "Liberations needed:", (_c.missionCondition3 - foundMe.dataPoint1))
+                local _i = math.modf(_c.missionCondition3 - foundMe.dataPoint1)
+                TriggerEvent('lobbymenu:AddDetailsRow', 'ch_main_1', "Liberations needed:", _i)
             else
                 TriggerEvent('lobbymenu:AddDetailsRow', 'ch_main_1', "Mission Complete!")
             end
         else
-            TriggerEvent('lobbymenu:AddDetailsRow', 'ch_main_1', "Liberations needed:", _c.missionCondition3)
+            local _i = math.modf(_c.missionCondition3)
+            TriggerEvent('lobbymenu:AddDetailsRow', 'ch_main_1', "Liberations needed:", _i)
         end
     end
 
