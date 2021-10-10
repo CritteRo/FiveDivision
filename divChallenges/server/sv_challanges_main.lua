@@ -85,10 +85,21 @@ end
 Citizen.CreateThread(function()
     while true do
         for i, k in pairs(sharedChallenges) do
-            if k.missionStartUnix >= k.missionEndUnix and k.status == 'active' then
+            if os.time() >= tonumber(k.missionEndUnix) and k.status == 'active' then
                 k.status = "inactive"
-                local _name = sharedChallangeTypeName[k.type]..string.format(sharedChallangeName[k.missionType][k.missionCondition1], "I")
+                local _name = sharedChallangeTypeName[k.type]..string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2)
                 TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just expired.'})
+                local _trans = {
+                    {query = "DELETE FROM `challenges` WHERE `uid` = ?", values = {k.uid}},
+                    {query = "DELETE FROM `challenge_users` WHERE `challengeID` = ?", values = {k.uid}}
+                }
+                exports.oxmysql:transaction(_trans, function(result) 
+                end)
+                sendChallengeRewardsToPlayers(k.uid)
+                sharedChallenges[k.uid] = nil
+                sharedChallengeUsers[k.uid] = nil
+                TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
+                TriggerClientEvent('challange.SendChallengeUsersToClient', -1, sharedChallengeUsers)
             end
         end
         TriggerClientEvent('challange.GetServerTime', -1, os.time())
@@ -162,3 +173,43 @@ end)
 RegisterCommand('newchal', function(source, args)
     TriggerEvent('challenge.GenerateNewChallenge', 'daily', 'outpost', 'liberate', 'any', '45', 5000, 2500, 10, 0, os.time() - 5)
 end)
+
+function sendChallengeRewardsToPlayers(_id)
+    local _uids = {}
+    print('rewarding players...')
+    local challenge = sharedChallenges[_id]
+    for i,k in pairs(sharedChallengeUsers[_id]) do --gathering all players that need to be rewarded in a single table
+        if challenge.missionType == 'outpost' then
+            if tonumber(k.dataPoint1) >= tonumber(challenge.missionCondition3) then
+                table.insert(_uids, k.pID)
+            end
+        end
+    end
+
+    for _,id in ipairs(GetPlayers()) do --checking for online players first, so we can reward them through the normal channels.
+        for i,k in pairs(_uids) do
+            if PlayerInfo[tonumber(id)].uid == k then
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_challanges_main.lua', tonumber(id), "xp", 0, PlayerInfo[tonumber(id)].stats['xp'] + challenge.missionRewardXP, false, false)
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_challanges_main.lua', tonumber(id), "coins", 0, PlayerInfo[tonumber(id)].stats['coins'] + challenge.missionRewardCoins, false, false)
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_challanges_main.lua', tonumber(id), "bank", 0, PlayerInfo[tonumber(id)].stats['bank'] + challenge.missionRewardBank, false, false)
+                TriggerEvent('core.ChangePlayerInfo', 'stats', 'Outposts/sv_challanges_main.lua', tonumber(id), "cash", 0, PlayerInfo[tonumber(id)].stats['cash'] + challenge.missionRewardCash, true, true)
+                _uids[i] = nil
+            end
+        end
+    end
+
+    local _trans = {}
+
+    for i,k in pairs(_uids) do --update the stats for everyone who is not online.
+        exports.oxmysql:fetch("SELECT `stats` FROM `users` WHERE `uid` = ?",{k},function (result)
+            local _stats = json.decode(result[1].stats)
+            _stats['xp'] =  _stats['xp'] + challenge.missionRewardXP
+            _stats['coins'] =  _stats['coins'] + challenge.missionRewardCoins
+            _stats['bank'] = _stats['bank'] + challenge.missionRewardBank
+            _stats['cash'] = _stats['cash'] + challenge.missionRewardCash
+            exports.oxmysql:fetch("UPDATE `users` SET `stats` = ? WHERE `uid` = ?",{json.encode(_stats), k},function (result)
+                print('updated '..k)
+            end)
+        end)
+    end
+end
