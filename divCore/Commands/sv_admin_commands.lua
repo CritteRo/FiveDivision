@@ -10,8 +10,23 @@ end)
 
 RegisterCommand("tpw", function(source, args)
     local src = source
-    if PlayerInfo[source].admin >=2 then
+    if PlayerInfo[src].admin >=2 then
         TriggerClientEvent("core.tpToWaypoint", source)
+    else
+        local _notif = {type = "simple", text = "You don't have the required permissions", colID = 8}
+        TriggerClientEvent('core.notify', src, _notif.type, _notif)
+    end
+end)
+
+RegisterCommand('tpc', function(source, args)
+    local src = source
+    if PlayerInfo[src].admin >=2 then
+        if tonumber(args[1]) ~= nil and tonumber(args[2]) ~= nil and tonumber(args[3]) ~= nil then
+            local coords = vector3(tonumber(args[1]) +0.00001, tonumber(args[2]) +0.00001, tonumber(args[3]) +0.00001)
+            SetEntityCoords(GetPlayerPed(src), coords.x, coords.y, coords.z, false, false, false, false)
+            local _notif = {type = "simple", text = "Teleported to location.", colID = 2}
+            TriggerClientEvent('core.notify', src, _notif.type, _notif)
+        end
     else
         local _notif = {type = "simple", text = "You don't have the required permissions", colID = 8}
         TriggerClientEvent('core.notify', src, _notif.type, _notif)
@@ -20,7 +35,7 @@ end)
 
 RegisterCommand('goto', function(source, args)
     local src = source
-    if PlayerInfo[source].admin >=2 then
+    if PlayerInfo[src].admin >=2 then
         if tonumber(args[1]) ~= nil then
             local pid = tonumber(args[1])
             if GetPlayerPing(pid) ~= 0 then
@@ -31,7 +46,7 @@ RegisterCommand('goto', function(source, args)
                     type = "simple",
                     text = "Teleporting to ~y~"..GetPlayerName(pid).."~s~."
                 }
-                TriggerClientEvent("core.notify", source, _notif.type, _notif)
+                TriggerClientEvent("core.notify", src, _notif.type, _notif)
             end
         end
     else
@@ -42,7 +57,7 @@ end)
 
 RegisterCommand('gethere', function(source, args)
     local src = source
-    if PlayerInfo[source].admin >=2 then
+    if PlayerInfo[src].admin >=2 then
         if tonumber(args[1]) ~= nil then
             local pid = tonumber(args[1])
             if GetPlayerPing(pid) ~= 0 then
@@ -53,7 +68,7 @@ RegisterCommand('gethere', function(source, args)
                     type = "simple",
                     text = "Getting ~y~"..GetPlayerName(pid).."~s~ here."
                 }
-                TriggerClientEvent("core.notify", source, _notif.type, _notif)
+                TriggerClientEvent("core.notify", src, _notif.type, _notif)
 
                 _notif = {
                     type = "simple",
