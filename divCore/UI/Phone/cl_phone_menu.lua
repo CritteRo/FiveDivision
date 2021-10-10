@@ -28,8 +28,9 @@ TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Fast Travel to Ou
 TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Player Stats", icon = 23, event = "scalePhone.OpenApp", eventParams = 'app_stats'}, false, -1)
 TriggerEvent('scalePhone.BuildAppButton', 'app_more', {text = "Group Manager", icon = 23, event = "phone.OpenGroupMenu", eventParams = ''}, false, -1)
 
-TriggerEvent('scalePhone.BuildSnapmatic', 'app_snapmatic') -- 7
-TriggerEvent('scalePhone.BuildThemeSettings', 'app_settings') -- 8
+TriggerEvent('scalePhone.BuildHomepageApp', 'app_challenges', "todoList", "Active Challenges", 12, 0, "", "scalePhone.GoToHomepage", {}) -- 7
+TriggerEvent('scalePhone.BuildSnapmatic', 'app_snapmatic') -- 8
+TriggerEvent('scalePhone.BuildThemeSettings', 'app_settings') -- 9
 TriggerEvent('scalePhone.BuildAppButton', 'app_settings', {text = "Phone Size", icon = 0, event = "scalePhone.OpenApp", eventParams = "settings_size"}, false, -1)
 
 TriggerEvent('scalePhone.BuildApp', 'settings_size', 'settings', "Phone Size", 0,0,"", "scalePhone.GoBackApp", {backApp = 'app_settings'})

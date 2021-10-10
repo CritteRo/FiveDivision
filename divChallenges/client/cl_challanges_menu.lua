@@ -32,8 +32,7 @@ AddEventHandler('challenges.menu.OpenChallengeMenu', function(_data)
     end
     local players = 0
     local foundMe = nil
-    local time = UnixToText(_c.missionEndUnix - sharedCurrentServerTime) --THIS IS STUPID!!! missionEndUnix IS BASED ON SERVER'S LOCAL TIME, AND os.time() clientside IS BASED ON CLIENT'S LOCAL TIME!!!!!!!!
-    --This will probably need to run on UTC time only, both server and client. It would be an issue because we only need relative time, not absolute time, so it doesn't matter as long as both clients use the same timezone.
+    local time = UnixToText(_c.missionEndUnix - sharedCurrentServerTime) --THIS IS STUPID!!!
 
     TriggerEvent('lobbymenu:CreateMenu', 'ch_main_1', sharedChallangeTypeName[_c.type]..string.format(sharedChallangeName[_c.missionType][_c.missionCondition1], _c.missionCondition2), string.format(sharedChallengeShortDesc[_c.missionType][_c.missionCondition1][_c.missionCondition2], _c.missionCondition3), "MENU~s~", "TOP PLAYERS", "INFO")
     TriggerEvent('lobbymenu:SetHeaderDetails', 'ch_main_1', true, true, 123, 0, 0)
@@ -73,6 +72,50 @@ AddEventHandler('challenges.menu.OpenChallengeMenu', function(_data)
     Citizen.Wait(200)
     TriggerEvent('lobbymenu:OpenMenu', 'ch_main_1', true)
 end)
+
+AddEventHandler('challange.UpdateChallengePhoneApp', function()
+    local pid = PlayerInfo.uid
+    TriggerEvent('scalePhone.ResetAppButtons', 'app_challenges')
+    print('checkcheck')
+    for i,k in pairs(sharedChallenges) do
+        if k.status == 'active' then
+            if sharedChallengeUsers[i] ~= nil and sharedChallengeUsers[i][pid] ~= nil then
+                local _pl = sharedChallengeUsers[i][pid]
+                print('print1')
+                print(tostring(100 * _pl.dataPoint1 / k.missionCondition3))
+                local logT = {title = string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2), text = string.format(sharedChallengeShortDesc[k.missionType][k.missionCondition1][k.missionCondition2], k.missionCondition3), procent = tostring(math.modf(100 * _pl.dataPoint1 / k.missionCondition3)), event = 'challange.OpenChallengePhoneMenu', eventParams = i}
+                TriggerEvent('scalePhone.BuildAppButton', 'app_challenges', logT, false, -1)
+            else
+                print('print2')
+                local logT = {title = string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2), text = string.format(sharedChallengeShortDesc[k.missionType][k.missionCondition1][k.missionCondition2], k.missionCondition3), procent = tostring((100 * 0 / k.missionCondition3)), event = 'challange.OpenChallengePhoneMenu', eventParams = i}
+                TriggerEvent('scalePhone.BuildAppButton', 'app_challenges', logT, false, -1)
+            end
+        else
+            print('bad chall')
+        end
+    end
+end)
+
+AddEventHandler('challange.OpenChallengePhoneMenu', function(_cID)
+    local cid = tonumber(_cID)
+    local k = sharedChallenges[cid]
+    local _pl = nil
+    TriggerEvent('scalePhone.BuildApp', 'app_challenge_view', "todoView", string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2), 0--[[todo list = 12]], 0, "", "scalePhone.GoBackApp", {backApp = 'app_challenges'})
+    if k.missionType == 'outpost' and k.missionCondition1 == 'liberate' then
+        if sharedChallengeUsers[cid] ~= nil and sharedChallengeUsers[cid][PlayerInfo.uid] ~= nil then
+            _pl = sharedChallengeUsers[cid][PlayerInfo.uid]
+            local _i = math.modf(_pl.dataPoint1)
+            local data = {title = string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2), line1 = "", line2 = "Outposts liberated: ".._i, footer = string.format(sharedChallengeShortDesc[k.missionType][k.missionCondition1][k.missionCondition2], k.missionCondition3)}
+            TriggerEvent('scalePhone.BuildToDoView', data, 'app_challenge_view')
+        else
+            local data = {title = string.format(sharedChallangeName[k.missionType][k.missionCondition1], k.missionCondition2), line1 = "", line2 = "Outposts liberated: 0", footer = string.format(sharedChallengeShortDesc[k.missionType][k.missionCondition1][k.missionCondition2], k.missionCondition3)}
+            TriggerEvent('scalePhone.BuildToDoView', data, 'app_challenge_view')
+        end
+    end
+
+    TriggerEvent('scalePhone.OpenApp', 'app_challenge_view', false)
+end)
+
 
 function UnixToText(unix)
     local d = math.floor(unix / 86400)

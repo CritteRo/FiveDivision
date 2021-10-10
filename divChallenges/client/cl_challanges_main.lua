@@ -11,10 +11,13 @@ AddEventHandler('challange.SendChallengesToClient', function(_data)
     for i,k in pairs(sharedChallenges) do
         print(k.status)
     end
+    Citizen.Wait(1000)
+    TriggerEvent('challange.UpdateChallengePhoneApp')
 end)
 
 AddEventHandler('challange.SendChallengeUsersToClient', function(_data)
     sharedChallengeUsers = _data
+    TriggerEvent('challange.UpdateChallengePhoneApp')
 end)
 
 AddEventHandler('challange.GetServerTime', function(_time)
@@ -28,4 +31,5 @@ end)
 
 AddEventHandler('core.UpdateClientResources', function(_info, _showNotification)
     PlayerInfo = _info
+    --TriggerServerEvent('challange.ProvideChallenges')
 end)
