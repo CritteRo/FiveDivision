@@ -23,6 +23,7 @@ end)
 
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
+    TriggerServerEvent('challange.ProvideChallenges')
 end)
 
 AddEventHandler('core.UpdateClientResources', function(_info, _showNotification)

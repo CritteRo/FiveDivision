@@ -20,6 +20,14 @@ AddEventHandler('core.UpdateServerResources', function(_src, _info)
     end
 end)
 
+RegisterNetEvent('challange.ProvideChallenges')
+AddEventHandler('challange.ProvideChallenges', function()
+    local src = source
+    TriggerClientEvent('challange.SendChallengesToClient', src, sharedChallenges)
+    Citizen.Wait(100)
+    TriggerClientEvent('challange.SendChallengeUsersToClient', src, sharedChallengeUsers)
+end)
+
 AddEventHandler('onResourceStart', function(name)
     if name == GetCurrentResourceName() then
         TriggerEvent('core.RequestResourceUpdates')
