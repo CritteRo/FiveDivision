@@ -125,17 +125,7 @@ AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCond
     end
     
     if canUseThis then
-        local _ids = {}
-        local row = 1
-        local maxId = 0
-        for i,k in pairs(sharedChallenges) do
-            _ids[row] = i
-            if i > maxId then
-                maxId = i
-            end
-            row = row + 1
-        end
-        sharedChallenges[maxId+1] = {
+        local _temp = {
             uid = 0,
             type = _type, --daily, weekly, monthly..
             status = "inactive", --inactive or active
@@ -150,22 +140,22 @@ AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCond
             missionStartUnix = tonumber(_start), --os.time(), unix 
             missionEndUnix = tonumber(_start) + 86400, --StartUnix + seconds, depending on "type"
         }
-        if sharedChallenges[maxId+1].type == "weekly" then
-            sharedChallenges[maxId+1].missionEndUnix = sharedChallenges[maxId+1].missionStartUnix + (86400 * 7)
-        elseif sharedChallenges[maxId+1].type == "monthly" then
-            sharedChallenges[maxId+1].missionEndUnix = sharedChallenges[maxId+1].missionStartUnix + (86400 * 30)
+        if _temp.type == "weekly" then
+            _temp.missionEndUnix = _temp.missionStartUnix + (86400 * 7)
+        elseif _temp.type == "monthly" then
+            _temp.missionEndUnix = _temp.missionStartUnix + (86400 * 30)
         end
 
-        if os.time() >= sharedChallenges[maxId+1].missionStartUnix then
-            sharedChallenges[maxId+1].status = "active"
+        if os.time() >= _temp.missionStartUnix then
+            _temp.status = "active"
         end
-        TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
-        local _k = sharedChallenges[maxId+1]
+        local _k = _temp
         exports.oxmysql:execute("INSERT INTO `challenges` (type, status, missionType, missionCondition1, missionCondition2, missionCondition3, missionRewardXP, missionRewardCash, missionRewardBank, missionRewardCoins, missionStartUnix, missionEndUnix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            {_k.type, _k.status, _k.missionType, _k.missionCondition1, _k.missionCondition2, _k.missionCondition3, _k.missionRewardXP, _k.missionRewardCash, _k.missionRewardBank, _k.missionRewardCoins, _k.missionStartUnix, _k.missionEndUnix}, function(affectedRows)
-            if affectedRows == 0 then
-                print('for some reason, "challenge.GenerateNewChallenge" in sv_challanges_main could not insert a new challenge.')
-            end
+            {_k.type, _k.status, _k.missionType, _k.missionCondition1, _k.missionCondition2, _k.missionCondition3, _k.missionRewardXP, _k.missionRewardCash, _k.missionRewardBank, _k.missionRewardCoins, _k.missionStartUnix, _k.missionEndUnix}, function(result)
+            sharedChallenges[result[1].uid] = result[1]
+            TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
+            local _name = sharedChallangeTypeName[_k.type]..string.format(sharedChallangeName[_k.missionType][_k.missionCondition1], _k.missionCondition2)
+            TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just started.'})
         end)
     end
 end)
