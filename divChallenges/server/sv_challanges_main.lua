@@ -161,7 +161,7 @@ AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCond
 end)
 
 RegisterCommand('newchal', function(source, args)
-    TriggerEvent('challenge.GenerateNewChallenge', 'daily', 'outpost', 'liberate', 'any', '45', 5000, 2500, 10, 0, os.time() - 5)
+    TriggerEvent('challenge.GenerateNewChallenge', 'weekly', 'outpost', 'liberate', 'any', '45', 5000, 2500, 10, 0, os.time() - 5)
 end)
 
 function sendChallengeRewardsToPlayers(_id)
