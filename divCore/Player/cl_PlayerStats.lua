@@ -23,10 +23,10 @@ PlayerData = { --this array is used for temporary data that I might need at *som
 
 Citizen.CreateThread( function()
     while true do
-       Citizen.Wait(0)
+       Citizen.Wait(500)
        RestorePlayerStamina(PlayerId(), 1.0)
        end
-   end)   
+end)
 
 AddEventHandler('core.GetInitialStats', function(_info)
     PlayerInfo = _info
