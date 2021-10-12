@@ -119,6 +119,8 @@ AddEventHandler('outpost.DestroyedBroadcaster', function(outpostID)
                     if outposts[PlayerInfo[src].inOutpost].status == 0 then
                         print(PlayerInfo[src].inOutpost)
                         outposts[PlayerInfo[src].inOutpost].status = 1
+                        TriggerEvent('challenge.OutpostDestroyed', PlayerInfo[src].inOutpost, outposts[PlayerInfo[src].inOutpost].factionID, src, {})
+                        outposts[PlayerInfo[src].inOutpost].prevFaction = outposts[PlayerInfo[src].inOutpost].factionID
                         outposts[PlayerInfo[src].inOutpost].factionID = -1
                         PlayerInfo[src].isDestroying = false
                         PlayerInfo[src].destroyingStart = 0
@@ -169,10 +171,11 @@ AddEventHandler('outpost.InstalledBroadcaster', function(outpostID)
                 if finishTimer - PlayerInfo[src].installingStart >= 2000 then
                     if outposts[PlayerInfo[src].inOutpost].status == 1 then
                         outposts[PlayerInfo[src].inOutpost].status = 2
-                        outposts[PlayerInfo[src].inOutpost].factionID = 0
                         PlayerInfo[src].isInstalling = false
                         PlayerInfo[src].installingStart = 0
-                        TriggerEvent('challenge.OutpostLiberated', PlayerInfo[src].inOutpost, 'test', src, {})
+                        TriggerEvent('challenge.OutpostLiberated', PlayerInfo[src].inOutpost, outposts[PlayerInfo[src].inOutpost].prevFaction, src, {})
+                        outposts[PlayerInfo[src].inOutpost].factionID = 0
+                        outposts[PlayerInfo[src].inOutpost].prevFaction = 0
                         TriggerClientEvent('outpost.ReloadOutpostBlips', -1, outposts)
                         TriggerClientEvent('outpost.ReloadOutpostPeds', -1, enemySpawns)
                         ClearPedTasks(ped)

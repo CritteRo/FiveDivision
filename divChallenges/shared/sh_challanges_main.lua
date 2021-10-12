@@ -24,6 +24,16 @@ sharedChallengeUsers = {
     },
 }
 
+factionIdToName = {
+    [-1] = "any",
+    [0] = "any",
+    [1] = "Monke",
+    [2] = "North Yankton Thugs",
+    [3] = "Thugs",
+    [4] = "The Lost",
+    [5] = "Docksmen",
+}
+
 sharedChallangeTypeName = {
     ['daily'] = "Daily Challenge: ",
     ['weekly'] = "Weekly Challenge: ",
@@ -34,6 +44,8 @@ sharedChallangeTypeName = {
 sharedChallangeName = {
     ['outpost'] = {
         ['liberate'] = "The Liberator: %s",
+        ['destroy'] = "The Destroyer: %s",
+        ['part'] = "The Backup: %s",
     }
 }
 
@@ -41,10 +53,27 @@ sharedChallengeShortDesc = {
     ['outpost'] = { --mType
         ['liberate'] = { --mCondition 1
             ['any'] = "Liberate %i outposts controlled by any faction.", --mCondition2
-            ['monke'] = "Liberate %i outposts controlled by the Monke faction.",
-            ['nythugs'] = "Liberate %i outposts controlled by the Nork Yankton Thugs.",
-            ['docksmen'] = "Liberate %i outposts controlled by the Docksmen.",
-            ['thelost'] = "Liberate %i outposts controlled by The Lost.",
-        }
+            ['Monke'] = "Liberate %i outposts controlled by the Monke faction.",
+            ['North Yankton Thugs'] = "Liberate %i outposts controlled by the Nork Yankton Thugs.",
+            ['Thugs'] = "Liberate %i outposts controlled by the Thugs.",
+            ['Docksmen'] = "Liberate %i outposts controlled by the Docksmen.",
+            ['The Lost'] = "Liberate %i outposts controlled by The Lost.",
+        },
+        ['destroy'] = { --mCondition 1
+            ['any'] = "Destroy %i enemy outpost broadcasters controlled by any faction.", --mCondition2
+            ['Monke'] = "Destroy %i enemy outpost broadcasters controlled by the Monke faction.",
+            ['North Yankton Thugs'] = "Destroy %i enemy outpost broadcasters controlled by the Nork Yankton Thugs.",
+            ['Thugs'] = "Destroy %i enemy outpost broadcasters controlled by the Thugs.",
+            ['Docksmen'] = "Destroy %i enemy outpost broadcasters controlled by the Docksmen.",
+            ['The Lost'] = "Destroy %i enemy outpost broadcasters controlled by The Lost.",
+        },
+        ['part'] = { --mCondition 1
+            ['any'] = "Take part in liberating %i outposts controlled by any faction.", --mCondition2
+            ['Monke'] = "Take part in liberating %i outposts controlled by the Monke faction.",
+            ['North Yankton Thugs'] = "Take part in liberating %i outposts controlled by the Nork Yankton Thugs.",
+            ['Thugs'] = "Take part in liberating %i outposts controlled by the Thugs.",
+            ['Docksmen'] = "Take part in liberating %i outposts controlled by the Docksmen.",
+            ['The Lost'] = "Take part in liberating %i outposts controlled by The Lost.",
+        },
     }
 }
