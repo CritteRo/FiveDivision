@@ -150,12 +150,17 @@ AddEventHandler('challenge.GenerateNewChallenge', function(_type, _mType, _mCond
             _temp.status = "active"
         end
         local _k = _temp
-        exports.oxmysql:execute("INSERT INTO `challenges` (type, status, missionType, missionCondition1, missionCondition2, missionCondition3, missionRewardXP, missionRewardCash, missionRewardBank, missionRewardCoins, missionStartUnix, missionEndUnix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        exports.oxmysql:fetch("INSERT INTO `challenges` (type, status, missionType, missionCondition1, missionCondition2, missionCondition3, missionRewardXP, missionRewardCash, missionRewardBank, missionRewardCoins, missionStartUnix, missionEndUnix) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             {_k.type, _k.status, _k.missionType, _k.missionCondition1, _k.missionCondition2, _k.missionCondition3, _k.missionRewardXP, _k.missionRewardCash, _k.missionRewardBank, _k.missionRewardCoins, _k.missionStartUnix, _k.missionEndUnix}, function(result)
-            sharedChallenges[result[1].uid] = result[1]
-            TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
-            local _name = sharedChallangeTypeName[_k.type]..string.format(sharedChallangeName[_k.missionType][_k.missionCondition1], _k.missionCondition2)
-            TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just started.'})
+                exports.oxmysql:fetch("SELECT * FROM `challenges` WHERE `missionStartUnix` = ? AND `missionEndUnix` = ?", {_k.missionStartUnix, _k.missionEndUnix}, function(_data)
+                    for i, k in pairs(_data) do
+                        sharedChallenges[k.uid] = k
+                        print(k)
+                    end
+                    TriggerClientEvent('challange.SendChallengesToClient', -1, sharedChallenges)
+                    local _name = sharedChallangeTypeName[_k.type]..string.format(sharedChallangeName[_k.missionType][_k.missionCondition1], _k.missionCondition2)
+                    TriggerClientEvent('core.alert', -1, {text = '"~y~'.._name..'~s~" just started.'})
+                end)
         end)
     end
 end)
